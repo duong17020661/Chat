@@ -77,6 +77,7 @@ background-color: rgba(0, 0, 0, 0.3);
 }
 .info {
     display: flex;
+    align-items: center;
 }
 .time {
     font-size: 11px;
@@ -114,11 +115,18 @@ background-color: rgba(0, 0, 0, 0.3);
 }
 
 .lastMessage {
-    font-size: 13px;
+    font-size: 12px;
     color: #8c95a3;
 }
 
 .name {
     font-size: 13px;
-    color: #ffffff; font-weight: 500;
+    color: #ffffff;
+}
+
+.bold {
+    font-weight: bold !important;
+    .lastMessage {
+        color: #ffffff;
+    }
 }

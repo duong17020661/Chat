@@ -4,7 +4,7 @@ import { LoginComponent } from './ui/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'chat/:id', component: UiComponent},
+  { path: 'home',loadChildren: () => import('./ui/ui.module').then(m => m.UiModule) },
   { path: '**' , component: LoginComponent },
 ];
 
@@ -13,7 +13,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [
-        UiComponent,
-        LoginComponent
-]

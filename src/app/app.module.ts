@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './ui/login/login.component';
 import { UiComponent } from './ui/ui.component';
 import { ChatComponent } from './ui/chat/chat.component';
@@ -13,12 +13,12 @@ import { InfoChatComponent } from './ui/chat/info-chat/info-chat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersListComponent } from './ui/share/users-list/users-list.component'
 import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular';
+import { UiModule } from './ui/ui.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents,
     ChatComponent,
     MainChatComponent,
     InfoChatComponent,
@@ -35,6 +35,7 @@ import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular'
     IgxIconModule,
     HttpClientModule,
     FormsModule,
+    UiModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

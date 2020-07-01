@@ -4,5 +4,6 @@ export interface IMessages {
     senderID: number,
     receiverID: number,
     time: string,
-    type: string
+    type: string,
+    url?: string
 }

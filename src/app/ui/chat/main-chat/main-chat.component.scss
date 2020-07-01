@@ -79,8 +79,8 @@
 .messages ul  li.sent .img-preview {
     border-radius: 5px;
     float: left;
-    width: 350px;
-    height: 350px;
+    width: auto;
+    max-height: 350px;;
 }
 
 .messages ul  li.replies .img-preview {
@@ -149,6 +149,17 @@
   cursor: pointer;
 }
 .inputImage {
+  display: none;
+}
+
+.label-file {
+  margin-top: 7.5px;
+  &:hover, &:focus, &:active {
+    color: lightcoral !important;
+    }
+  cursor: pointer;
+}
+.inputFile {
   display: none;
 }
 

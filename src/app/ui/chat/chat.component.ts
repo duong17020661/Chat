@@ -9,7 +9,13 @@ import { UsersService } from 'src/app/services/users/users.service';
 })
 export class ChatComponent implements OnInit {
   public usersID;
-  constructor(private route: ActivatedRoute, private _userservice: UsersService) { }
+  constructor(private route: ActivatedRoute, private _userservice: UsersService) {
+    route.params.subscribe(val => {
+      this._userservice.getUsers().subscribe(data => this.users = data);
+      let id = parseInt(this.route.snapshot.paramMap.get('id'));
+      this.usersID = id;
+    });
+  }
 
   ngOnInit(): void {
     this._userservice.getUsers().subscribe(data => this.users = data);

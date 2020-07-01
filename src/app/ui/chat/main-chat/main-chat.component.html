@@ -4,23 +4,26 @@
             <img class="avatar" src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
             <img class="img-preview" *ngIf="message.type == 'image'"
             [src]="message.message" />
-            <a href="#" *ngIf="message.type == 'file'">{{ message.message }}</a>
+            <a (click)="openFile(message.url)" *ngIf="message.type == 'file'">{{ message.message }}</a>
             <p *ngIf="message.type == 'text'">{{ message.message }}</p>
         </li>
         <li class="sent" *ngIf="message.receiverID == 0 && message.senderID == userID">
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
             <img class="img-preview" *ngIf="message.type == 'image'"
             [src]="message.message" />
-            <a href="#" *ngIf="message.type == 'file'">{{ message.message }}</a>
+            <a (click)="openFile(message.url)" *ngIf="message.type == 'file'">{{ message.message }}</a>
             <p *ngIf="message.type == 'text'">{{ message.message }}</p>
         </li>
     </ul>
 </div>
 <div class="sendMessage">
-    <img src="/assets/ICON/IconAppChat/10.svg" alt="File" id="info1" class="d-none d-lg-block">
+    <label class="label-file">
+        <img src="/assets/ICON/IconAppChat/10.svg" alt="File" id="info1" class="d-none d-lg-block">
+        <input class="inputFile" #fileInput type="file" (change)="processFile(fileInput)">
+    </label>
     <label class="label-image">
         <img src="/assets/ICON/IconAppChat/9.svg" alt="Image" id="info2" class="d-none d-lg-block">
-        <input class="inputImage" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+        <input class="inputImage" #imageInput type="file" accept="image/*" (change)="processImage(imageInput)">
     </label>
     <p id="info3" class="d-none d-lg-block">Buzz</p>
     <input type="text" id="message" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" #box (keyup.enter)="onEnter(box.value); box.value=''" />

@@ -19,26 +19,27 @@ public users = [];
   spinnerService: any;
   searchTerm: string;
   itemsCopy = [];
-  public usersID;
+  usersID: number;
 
   // List chứa tất cả dữ liệu về Inbox
   userResource = [];
 
-  constructor(private router: Router, private _userservice: UsersService,private route: ActivatedRoute) { }
+  constructor(private router: Router, private _userservice: UsersService,private route: ActivatedRoute) {
+    
+  }
 
   ngOnInit(): void {
       this._userservice.getUsers().subscribe(data => {
         this.users = data;
         this.userResource = data;
       });
-      let id = parseInt(this.route.snapshot.paramMap.get('id'));
+      let id = +this.route.snapshot.firstChild.paramMap.get('id');
       this.usersID = id;
   }
 
   onSelect(user: IUsers) { 
-    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['chat', user.id]);
-    }); 
+    this.usersID = user.id;
+    user.status = false;
   }
 
   search(): void {

@@ -3,7 +3,7 @@ import { MessagesService } from '../../../services/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
 import { IMessages } from '../../../../models/messages';
 
-class ImageSpinnet {
+class FileSpinnet {
   constructor(public src: string, public file: File) {}
 }
 
@@ -18,7 +18,13 @@ export class MainChatComponent implements OnInit {
   public userID;
   public messages = [];
 
-  constructor(private _chatservice: MessagesService, private route: ActivatedRoute) { }
+  constructor(private _chatservice: MessagesService, private route: ActivatedRoute) {
+    route.params.subscribe(val => {
+      this._chatservice.getMessages().subscribe(data => this.messages = data);
+      let id = parseInt(this.route.snapshot.paramMap.get('id'));
+      this.userID = id;
+    });
+  }
 
   ngOnInit(): void {
     this._chatservice.getMessages().subscribe(data => this.messages = data);
@@ -62,14 +68,13 @@ export class MainChatComponent implements OnInit {
     });
   }
 
-  selectedFile: ImageSpinnet
+  selectedFile: FileSpinnet
 
-  processFile(imageInput: any) {
+  processImage(imageInput: any) {
     const file: File = imageInput.files[0];
     const reader = new FileReader();
-    var url_image: string
     reader.addEventListener('load', (event: any) => {
-      this.selectedFile = new ImageSpinnet(event.target.result, file);
+      this.selectedFile = new FileSpinnet(event.target.result, file);
       let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.src , senderID: 0, receiverID: this.userID, time: Date(), type: "image" };
       this.messages.push(message)
     });
@@ -77,5 +82,22 @@ export class MainChatComponent implements OnInit {
     
     
   }
+
+  processFile(fileInput: any) {
+    const file: File = fileInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new FileSpinnet(event.target.result, file);
+      let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.file.name , senderID: 0, receiverID: this.userID, time: Date(), type: "file", url: this.selectedFile.src };
+      this.messages.push(message)
+      console.log(this.selectedFile.src)
+    });
+    reader.readAsDataURL(file);
+  }
+
+  openFile(url: string){
+    window.open(url, "");
+  }
+
 
 }
