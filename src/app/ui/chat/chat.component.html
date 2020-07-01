@@ -1,0 +1,25 @@
+
+<div class="toolbar">
+    <div *ngFor="let user of users">
+        <div id="info" *ngIf="usersID == user.id">
+            <img [src]="user.photo" alt="Avatar" id="avatar">
+            <div>
+            <p style="font-size: 14px;
+                color: #212121;; font-weight: 500;">{{ user.name }}</p>
+            <p class="phone" style="font-size: 12px;
+                color: #757575;;">{{ user.status }}</p>
+                </div>
+        </div>
+    </div>
+    <div id="icon_info" ng-controller="myCtrl">
+        <img src="/assets/ICON/IconAppChat/4.svg" alt="Search" id="info1">
+        <img src="/assets/ICON/IconAppChat/5.svg" (click)=toggleDisplayDivIf() alt="Info" id="info2">
+        <img src="/assets/ICON/IconAppChat/2.svg" alt="Open" id="info3">
+    </div>
+</div>
+<div id="c3" *ngIf="!isShowDivIf">
+    <app-info-chat></app-info-chat>
+</div>
+<div id="c4">
+    <app-main-chat></app-main-chat>
+</div>

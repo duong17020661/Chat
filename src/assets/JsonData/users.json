@@ -1,0 +1,46 @@
+[{
+    "id": 1,
+    "name": "Terrance Orta",
+    "lastMessage": "DDDDĐ",
+    "photo": "https://randomuser.me/api/portraits/men/27.jpg",
+    "status": true,
+    "phone": "770-504-2217",
+    "email": "OrtaT@gmail.com"
+}, 
+{
+    "id": 2,
+    "name": "Richard Mahoney",
+    "lastMessage": "ƯƯƯƯƯ",
+    "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+    "status": false,
+    "phone": "770-504-2217",
+    "email": "MahoneyR@gmail.com"
+},
+{
+    "id": 3,
+    "name": "Donna Price",
+    "lastMessage": "ƠƠƠƠƠ",
+    "photo": "https://randomuser.me/api/portraits/men/27.jpg",
+    "status": true,
+    "phone": "859-496-2817",
+    "email": "PriceD@gmail.com"
+}, 
+{
+    "id": 4,
+    "name": "Lisa Landers",
+    "lastMessage": "NNNNN",
+    "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+    "status": false,
+    "phone": "859-496-4651",
+    "email": "LandersL@gmail.com"
+},
+{
+    "id": 5,
+    "name": "Dorothy H. Spencer",
+    "lastMessage": "GGGGG",
+    "photo": "https://randomuser.me/api/portraits/women/67.jpg",
+    "status": true,
+    "phone": "573-394-9254",
+    "email": "SpencerDH@gmail.com"
+}
+]

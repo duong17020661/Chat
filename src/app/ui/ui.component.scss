@@ -1,0 +1,17 @@
+.content{
+    display: flex;
+}
+#c1 {
+    background-color: #0a1d3b;
+    position: relative;
+    float: left;
+    width: auto;
+    height: calc(100vh - 60px);
+}
+#c2 {
+    background-color:  red;
+    position: relative;
+    float: left;
+    flex-grow: 1;
+    height: 10vh;
+}

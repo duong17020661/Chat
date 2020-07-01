@@ -1,0 +1,30 @@
+<div class="messages" #scrollframe>
+    <ul *ngFor="let message of messages" #item>
+        <li class="replies" *ngIf="message.senderID == 0 && message.receiverID == userID">
+            <img class="avatar" src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+            <div class="img-preview" *ngIf="message.type == 'image'"
+            [ngStyle]="{'background-image': 'url('+ message.message + ')'}">
+            </div>
+            <a href="#" *ngIf="message.type == 'file'">{{ message.message }}</a>
+            <p *ngIf="message.type == 'text'">{{ message.message }}</p>
+        </li>
+        <li class="sent" *ngIf="message.receiverID == 0 && message.senderID == userID">
+            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+            <div class="img-preview" *ngIf="message.type == 'image'"
+            [ngStyle]="{'background-image': 'url('+ message.message + ')'}">
+            </div>
+            <a href="#" *ngIf="message.type == 'file'">{{ message.message }}</a>
+            <p *ngIf="message.type == 'text'">{{ message.message }}</p>
+        </li>
+    </ul>
+</div>
+<div class="sendMessage">
+    <img src="/assets/ICON/IconAppChat/10.svg" alt="File" id="info1" class="d-none d-lg-block">
+    <label class="label-image">
+        <img src="/assets/ICON/IconAppChat/9.svg" alt="Image" id="info2" class="d-none d-lg-block">
+        <input class="inputImage" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+    </label>
+    <p id="info3" class="d-none d-lg-block">Buzz</p>
+    <input type="text" id="message" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" #box (keyup.enter)="onEnter(box.value); box.value=''" />
+    <img src="/assets/ICON/IconAppChat/7.svg" alt="Smile" id="smile"  class="d-none d-lg-block">  
+</div> 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="Group_30955" data-name="Group 30955" transform="translate(-16 -16)">
+    <rect id="Rectangle_13" data-name="Rectangle 13" width="16" height="16" transform="translate(16 16)" fill="none" opacity="0"/>
+    <g id="Group_14208" data-name="Group 14208" transform="translate(92.833 36)">
+      <path id="Path_22934" data-name="Path 22934" d="M-64.333-13.5V-6a.5.5,0,0,1-.5.5h-8a.5.5,0,0,1-.5-.5v-7.5" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Line_1254" data-name="Line 1254" x2="13" transform="translate(-75.333 -16.5)" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Line_1255" data-name="Line 1255" y2="4" transform="translate(-69.333 -12.5)" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Line_1256" data-name="Line 1256" d="M-71.833-9" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Line_1256-2" data-name="Line 1256" d="M-71.833-13" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Line_1257" data-name="Line 1257" d="M-67.833-9" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Line_1257-2" data-name="Line 1257" d="M-67.833-13" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_22935" data-name="Path 22935" d="M-71.333-16.5v-2h5v2" fill="none" stroke="#ff5252" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

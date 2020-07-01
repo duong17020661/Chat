@@ -1,0 +1,38 @@
+
+<div class="chat-info" style=" height: calc(100vh - 120px);overflow: scroll;overflow-x: hidden;">
+    <div *ngFor="let user of users">
+        <div class="info" *ngIf="usersID == user.id">
+            <img [src]="user.photo" alt="Avatar" id="avatar">
+            <br>
+            <p><strong>{{ user.name }}</strong></p>
+            <p>{{ user.phone }}</p>
+            <p>{{ user.email }}</p>
+        </div>
+    </div>
+    <div class="file">
+        <button type="button" class="drop-file" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" (click)=toggleDisplayFile()>
+            <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
+            <p class="header">TỆP ĐÃ CHIA SẺ</p>
+        </button>
+        <div *ngIf="!isShowFile" id="dropdown-file">
+            <ul type="square" *ngFor="let img of images">
+                <li *ngIf="img.type === 'file'" class="list-file">
+                    <img src="https://img.icons8.com/officel/16/000000/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;"/>
+                    <a href="#" class="item">{{ img.message }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="image">
+        <button type="button" class="drop-img" data-toggle="dropdown" data-display="static" (click)=toggleDisplayImg()>
+            <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
+            <p class="header">ẢNH ĐÃ CHIA SẺ</p>
+        </button>
+        <div *ngIf="!isShowImg" id="dropdown-img">
+            <div *ngFor="let img of images" style="display: inline-block;">
+                <div class="img-preview" *ngIf="img.type == 'image'"
+                 [ngStyle]="{'background-image': 'url('+ img.message + ')'}">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<svg id="ic_apps_24px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="17" height="17" fill="none"/>
+    </clipPath>
+  </defs>
+  <path id="Path_80" data-name="Path 80" d="M0,0H24V24H0Z" fill="none"/>
+  <g id="Repeat_Grid_12" data-name="Repeat Grid 12" transform="translate(4 4)" clip-path="url(#clip-path)">
+    <g transform="translate(-4 -4)">
+      <rect id="Rectangle_8066" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(2 -4)">
+      <rect id="Rectangle_8066-2" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(8 -4)">
+      <rect id="Rectangle_8066-3" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(-4 2)">
+      <rect id="Rectangle_8066-4" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(2 2)">
+      <rect id="Rectangle_8066-5" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(8 2)">
+      <rect id="Rectangle_8066-6" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(-4 8)">
+      <rect id="Rectangle_8066-7" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(2 8)">
+      <rect id="Rectangle_8066-8" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+    <g transform="translate(8 8)">
+      <rect id="Rectangle_8066-9" data-name="Rectangle 8066" width="4" height="4" rx="1" transform="translate(4 4)" fill="#666"/>
+    </g>
+  </g>
+</svg>

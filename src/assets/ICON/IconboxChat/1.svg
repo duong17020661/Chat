@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="Group_8" data-name="Group 8" transform="translate(82)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="16" height="16" transform="translate(-82)" fill="none"/>
+    <g id="_32px_settings-gear" data-name=" 32px settings-gear">
+      <g id="Group_14000" data-name="Group 14000">
+        <circle id="Ellipse_1919" data-name="Ellipse 1919" cx="2" cy="2" r="2" transform="translate(-76 6)" stroke-width="1" stroke="#111" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path id="Path_22916" data-name="Path 22916" d="M-69.067,8a4.668,4.668,0,0,0-.1-.943l1.663-1.18L-68.85,3.623l-1.9.8a4.969,4.969,0,0,0-1.684-.941L-72.663,1.5h-2.691l-.228,1.986a4.943,4.943,0,0,0-1.684.941l-1.9-.8-1.345,2.254,1.663,1.181a4.6,4.6,0,0,0,0,1.885l-1.663,1.18,1.345,2.254,1.9-.8a4.942,4.942,0,0,0,1.684.941l.228,1.985h2.691l.229-1.986a4.969,4.969,0,0,0,1.684-.941l1.9.8,1.346-2.254-1.663-1.18A4.658,4.658,0,0,0-69.067,8Z" fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

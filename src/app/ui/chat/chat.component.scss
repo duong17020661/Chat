@@ -1,0 +1,48 @@
+.toolbar {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    background-color: white;
+    color: black;
+  }
+  #icon_info {
+    margin-left: auto;
+    order: 2;
+  }
+  #info1 {
+    margin-right: 16px;
+  }
+  #info2 {
+    margin-right: 16px;
+  }
+  #info3 {
+    margin-right: 16px;
+  }
+  #info {
+    display: flex;
+    margin-left: 8px;
+  }
+  #name_status {
+    margin-left: 8px;
+  }
+  #avatar {
+    margin-left: 16px;
+    margin-right: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+  
+  #c3 {
+    background-color: #f8f8f8;
+    position: relative;
+    float: right;
+    width: 308px;
+    height: calc(100vh - 120px);
+  }
+  #c4 {
+    background-color: white ;
+    position: relative;
+    width: calc(100% - 308px);
+    height: calc(100vh - 120px);
+  }

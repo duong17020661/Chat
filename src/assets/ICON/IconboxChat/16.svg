@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="Group_29662" data-name="Group 29662" transform="translate(42 22)">
+    <rect id="Rectangle_5" data-name="Rectangle 5" width="16" height="16" transform="translate(-42 -22)" fill="none"/>
+    <g id="_16px_users-mm" data-name=" 16px users-mm">
+      <g id="Group_14158" data-name="Group 14158">
+        <path id="Path_22920" data-name="Path 22920" d="M-32.463-11.211l-2.132-.606a.433.433,0,0,1-.311-.356l-.179-1.263c.924-.422,1.585-2.364,1.585-2.364v-1.242a2.571,2.571,0,0,0-2.424-2.6A2.5,2.5,0,0,0-38.5-17.22h0v1.42s.327,1.94,1.252,2.362l-.179,1.26a.434.434,0,0,1-.31.355l-2.135.607a.863.863,0,0,0-.628.831V-8.5h9v-1.878A2.347,2.347,0,0,0-32.463-11.211Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <path id="Path_22921" data-name="Path 22921" d="M-29.5-8.5h2v-2.8a.869.869,0,0,0-.64-.836l-2.283-.618a.428.428,0,0,1-.315-.362l-.162-1.251a2.621,2.621,0,0,0,1.4-2.362V-17.92a2.594,2.594,0,0,0-2.327-2.709,2.253,2.253,0,0,0-1.273.346" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

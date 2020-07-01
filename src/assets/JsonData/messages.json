@@ -1,0 +1,98 @@
+[{
+    "id": 1,
+    "message": "3 gui 0",
+    "senderID": 3,
+    "receiverID": 0,
+    "time": "28/06/2020",
+    "type": "text"
+}, 
+{
+    "id": 2,
+    "message": "4 gui 0",
+    "senderID": 4,
+    "receiverID": 0,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 3,
+    "message": "0 gui 5",
+    "senderID": 0,
+    "receiverID": 5,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 4,
+    "message": "0 gui 4",
+    "senderID": 0,
+    "receiverID": 2,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 5,
+    "message": "5 gui 0",
+    "senderID": 5,
+    "receiverID": 0,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 6,
+    "message": "1 gui 0",
+    "senderID": 1,
+    "receiverID": 0,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 7,
+    "message": "0 gui 2",
+    "senderID": 0,
+    "receiverID": 2,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 8,
+    "message": "0 gui 1",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "text"
+},
+{
+    "id": 9,
+    "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
+    "senderID": 1,
+    "receiverID": 0,
+    "time": "28/06/2020",
+    "type": "image"
+},
+{
+    "id": 10,
+    "message": "https://th.bing.com/th/id/OIP.A9bl9ir5Zz06YbYffYuJCwHaFj?w=214&h=180&c=7&o=5&pid=1.7",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "image"
+},
+{
+    "id": 11,
+    "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "image"
+},
+{
+    "id": 12,
+    "message": "PDF.dpf",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "file"
+}
+]
+

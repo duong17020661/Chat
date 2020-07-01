@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "WebChatv2"
+    }
+  },
+  "defaultProject": "WebChatv2",
+  "cli": {
+    "analytics": "b8c08072-9d00-4e6d-8f9b-f36e74ec3fd6"
+  }
 }
