@@ -54,8 +54,8 @@
     word-wrap: break-word;
     float: right;
   }
-  .messages ul li > img {
-    width: 22px;
+  .messages ul li img {
+    width: 32px;
     border-radius: 50%;
     float: left;
   }
@@ -77,19 +77,17 @@
 
   
 .messages ul  li.sent .img-preview {
-  float: left;
-  background: center center no-repeat;
-  background-size: contain;
-  width: 350px;
-  height: 350px;
+    border-radius: 5px;
+    float: left;
+    width: 350px;
+    height: 350px;
 }
 
 .messages ul  li.replies .img-preview {
-  float: right;
-  background: center center no-repeat;
-  background-size: contain;
-  width: 350px;
-  height: 350px;
+    border-radius: 5px;
+    float: right;
+    width: auto;
+    max-height: 350px;;
 }
 
   @media screen and (min-width: 735px) {

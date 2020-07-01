@@ -1,5 +1,5 @@
 
-<div class="chat-info" style=" height: calc(100vh - 120px);overflow: scroll;overflow-x: hidden;">
+<div class="chat-info" style=" ">
     <div *ngFor="let user of users">
         <div class="info" *ngIf="usersID == user.id">
             <img [src]="user.photo" alt="Avatar" id="avatar">
@@ -29,9 +29,9 @@
             <p class="header">ẢNH ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
-            <div *ngFor="let img of images" style="display: inline-block;">
-                <div class="img-preview" *ngIf="img.type == 'image'"
-                 [ngStyle]="{'background-image': 'url('+ img.message + ')'}">
+            <div *ngFor="let img of images" class="img-list">
+                <img class="img-preview" *ngIf="img.type == 'image'"
+                 [src]="img.message">
             </div>
         </div>
     </div>

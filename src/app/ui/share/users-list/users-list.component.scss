@@ -39,7 +39,7 @@
 }
 .list-user {
     height: calc(100vh - 140px);
-    overflow: scroll;
+    overflow: auto;
     overflow-x: hidden;
 }
 .list-user::-webkit-scrollbar {

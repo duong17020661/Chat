@@ -2,17 +2,15 @@
     <ul *ngFor="let message of messages" #item>
         <li class="replies" *ngIf="message.senderID == 0 && message.receiverID == userID">
             <img class="avatar" src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-            <div class="img-preview" *ngIf="message.type == 'image'"
-            [ngStyle]="{'background-image': 'url('+ message.message + ')'}">
-            </div>
+            <img class="img-preview" *ngIf="message.type == 'image'"
+            [src]="message.message" />
             <a href="#" *ngIf="message.type == 'file'">{{ message.message }}</a>
             <p *ngIf="message.type == 'text'">{{ message.message }}</p>
         </li>
         <li class="sent" *ngIf="message.receiverID == 0 && message.senderID == userID">
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <div class="img-preview" *ngIf="message.type == 'image'"
-            [ngStyle]="{'background-image': 'url('+ message.message + ')'}">
-            </div>
+            <img class="img-preview" *ngIf="message.type == 'image'"
+            [src]="message.message" />
             <a href="#" *ngIf="message.type == 'file'">{{ message.message }}</a>
             <p *ngIf="message.type == 'text'">{{ message.message }}</p>
         </li>

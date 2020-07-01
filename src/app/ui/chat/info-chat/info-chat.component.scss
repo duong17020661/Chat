@@ -1,3 +1,9 @@
+.chat-info {
+    height: calc(100vh - 120px);
+    overflow: auto;
+    overflow-x: hidden;
+}
+
 .chat-info::-webkit-scrollbar {
     width: 8px;
     background: transparent;
@@ -73,11 +79,13 @@
     align-items: center;
     margin-left: 16px;
 }
-
+.img-list {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 .img-preview {
-    margin: 20px;
-  background: center center no-repeat;
-  background-size: contain;
-  width: 60px;
-  height: 60px;
+    margin: 15px;
+    width: 64px;
+    height: 64px;
 }
