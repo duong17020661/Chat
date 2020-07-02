@@ -93,6 +93,22 @@
     "receiverID": 1,
     "time": "28/06/2020",
     "type": "file"
+},
+{
+    "id": 13,
+    "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
+    "senderID": 1,
+    "receiverID": 0,
+    "time": "28/06/2020",
+    "type": "image"
+},
+{
+    "id": 14,
+    "message": "https://th.bing.com/th/id/OIP.A9bl9ir5Zz06YbYffYuJCwHaFj?w=214&h=180&c=7&o=5&pid=1.7",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "image"
 }
 ]
 

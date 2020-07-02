@@ -5,7 +5,8 @@
     "photo": "https://randomuser.me/api/portraits/men/27.jpg",
     "status": true,
     "phone": "770-504-2217",
-    "email": "OrtaT@gmail.com"
+    "email": "OrtaT@gmail.com",
+    "newMessage": 2
 }, 
 {
     "id": 2,
@@ -14,7 +15,8 @@
     "photo": "https://randomuser.me/api/portraits/men/1.jpg",
     "status": false,
     "phone": "770-504-2217",
-    "email": "MahoneyR@gmail.com"
+    "email": "MahoneyR@gmail.com",
+    "newMessage": 0
 },
 {
     "id": 3,
@@ -23,7 +25,8 @@
     "photo": "https://randomuser.me/api/portraits/men/27.jpg",
     "status": true,
     "phone": "859-496-2817",
-    "email": "PriceD@gmail.com"
+    "email": "PriceD@gmail.com",
+    "newMessage": 1
 }, 
 {
     "id": 4,
@@ -32,7 +35,8 @@
     "photo": "https://randomuser.me/api/portraits/men/1.jpg",
     "status": false,
     "phone": "859-496-4651",
-    "email": "LandersL@gmail.com"
+    "email": "LandersL@gmail.com",
+    "newMessage": 10
 },
 {
     "id": 5,
@@ -41,6 +45,7 @@
     "photo": "https://randomuser.me/api/portraits/women/67.jpg",
     "status": true,
     "phone": "573-394-9254",
-    "email": "SpencerDH@gmail.com"
+    "email": "SpencerDH@gmail.com",
+    "newMessage": 5
 }
 ]

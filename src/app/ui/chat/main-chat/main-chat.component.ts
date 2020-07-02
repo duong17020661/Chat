@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewChildren, ElementRef, QueryList } fro
 import { MessagesService } from '../../../services/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
 import { IMessages } from '../../../../models/messages';
+import { DatatransferService } from 'src/app/services/datatransfer.service';
 
 class FileSpinnet {
   constructor(public src: string, public file: File) { }
@@ -17,11 +18,10 @@ export class MainChatComponent implements OnInit {
 
   public userID;
   public messages = [];
-  modal: any;
   modalImg: any;
-  span: any;
 
-  constructor(private _chatservice: MessagesService, private route: ActivatedRoute) {
+
+  constructor(private _chatservice: MessagesService, private route: ActivatedRoute, private _datatransfer: DatatransferService) {
     route.params.subscribe(val => {
       this._chatservice.getMessages().subscribe(data => this.messages = data);
       let id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -40,6 +40,7 @@ export class MainChatComponent implements OnInit {
     if (value) {
       let message: IMessages = { id: this.messages.length + 1, message: value, senderID: 0, receiverID: this.userID, time: Date(), type: "text" };
       this.messages.push(message);
+      this._datatransfer.setMessages(message);
       console.log(this.messages)
     }
   }
@@ -81,6 +82,7 @@ export class MainChatComponent implements OnInit {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.src, senderID: 0, receiverID: this.userID, time: Date(), type: "image" };
       this.messages.push(message)
+      this._datatransfer.setMessages(message);
     });
     reader.readAsDataURL(file);
 
@@ -94,6 +96,7 @@ export class MainChatComponent implements OnInit {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.file.name, senderID: 0, receiverID: this.userID, time: Date(), type: "file", url: this.selectedFile.src };
       this.messages.push(message)
+      this._datatransfer.setMessages(message);
       console.log(this.selectedFile.src)
     });
     reader.readAsDataURL(file);

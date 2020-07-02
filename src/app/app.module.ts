@@ -15,6 +15,8 @@ import { UsersListComponent } from './ui/share/users-list/users-list.component'
 import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular';
 import { UiModule } from './ui/ui.module';
 
+import { DatatransferService } from './services/datatransfer.service'
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { UiModule } from './ui/ui.module';
     FormsModule,
     UiModule,
   ],
-  providers: [],
+  providers: [DatatransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

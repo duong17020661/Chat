@@ -74,7 +74,10 @@ background-color: rgba(0, 0, 0, 0.3);
     background-color: rgba(255, 255, 255, .15);;
 }
 .abc {
-    background-color: rgba(255, 255, 255, .15);;
+    background-color: rgba(255, 255, 255, .15);
+    .info .day .have-seen{
+        display: none;
+    }
 }
 .zxc {
     position: absolute;

@@ -85,11 +85,24 @@
     align-items: center;
     margin-left: 16px;
 }
-.img-preview {
-    margin-left: 35px;
-    margin-right: 35px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 64px;
-    height: 64px;
+
+#dropdown-img{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    justify-items: center;
 }
+.img-preview {
+    align-items: center;
+    width: 64px !important;
+    height: 64px !important;
+    cursor: pointer;
+}
+
+// Modal Image
+.modal-content {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }

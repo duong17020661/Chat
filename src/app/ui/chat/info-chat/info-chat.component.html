@@ -29,10 +29,23 @@
             <p class="header">ẢNH ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
-                <div class="row justify-content-center">
-                    <div class="col-6 col-sm-3" *ngFor="let img of images"><img class="img-preview" *ngIf="img.type == 'image'"
-                        [src]="img.message"></div>
+            <div *ngFor="let img of images">
+            <div class="list-img" *ngIf="img.type == 'image'">
+                <img class="img-preview" 
+                        [src]="img.message" data-toggle="modal" data-target="#exampleModalCenter" (click)="ModalImage(img.message)">
                 </div>
+            </div>
         </div>
     </div>
 </div>
+
+<<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content center">
+        <div class="modal-body">
+            <img id="img"/>
+        </div>
+      </div>
+    </div>
+  </div>

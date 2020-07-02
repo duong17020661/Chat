@@ -5,5 +5,6 @@ export interface IUsers {
     photo: string,
     email: string,
     phone: string,
-    status: boolean
+    status: boolean,
+    newMessage: number
 }

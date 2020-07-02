@@ -39,7 +39,12 @@ public users = [];
 
   onSelect(user: IUsers) { 
     this.usersID = user.id;
-    user.status = false;
+    user.newMessage = 0;
+  }
+  onFocus(user: IUsers) {
+    this.usersID = user.id;
+    user.newMessage = 0;
+    console.log(user.newMessage)
   }
 
   search(): void {
