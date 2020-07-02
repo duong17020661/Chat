@@ -80,14 +80,22 @@
     border-radius: 5px;
     float: left;
     width: auto;
-    max-height: 350px;;
+    max-height: 350px;
+    cursor: pointer;
+}
+.file {
+  cursor: pointer;
+}
+.messages ul  li.replies .file {
+  cursor: pointer;
 }
 
 .messages ul  li.replies .img-preview {
     border-radius: 5px;
     float: right;
     width: auto;
-    max-height: 350px;;
+    max-height: 350px;
+    cursor: pointer;
 }
 
   @media screen and (min-width: 735px) {
@@ -121,6 +129,7 @@
     font-weight: 500;
     color: #ffffff;
     text-align: center;
+    cursor: pointer;
 }
 #message {
     position: relative;
@@ -138,6 +147,7 @@
     width: 32px;
     height: 6vh;
     margin-right: 32px;
+    cursor: pointer;
 }
 
 
@@ -163,3 +173,9 @@
   display: none;
 }
 
+// Modal Image
+.modal-content {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -7,8 +7,7 @@
     </div>
   </div>
   <div class="list-user">
-    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='chat/{{user.id}}'
-      style="color: white">
+    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='chat/{{user.id}}'>
       <div class="space" [class.zxc]="user.id == usersID"></div>
       <div id="user" class="users"  [class.abc]="user.id == usersID">
         <img [src]="user.photo" roundShape="true"/>

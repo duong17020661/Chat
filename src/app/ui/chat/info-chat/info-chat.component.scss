@@ -53,10 +53,16 @@
 .drop-file{
     background-color: unset;
     color: #666666;
+    &:focus {
+        outline: 0;
+    }
 }
 .drop-img{
     background-color: unset;
     color: #666666;
+    &:focus {
+        outline: 0;
+    }
 }
 .header {
     float: left;
@@ -79,13 +85,11 @@
     align-items: center;
     margin-left: 16px;
 }
-.img-list {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
 .img-preview {
-    margin: 15px;
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     width: 64px;
     height: 64px;
 }

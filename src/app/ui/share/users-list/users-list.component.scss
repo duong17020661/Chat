@@ -26,6 +26,7 @@
     height: 32px;
     overflow: hidden;
     margin-right: 24px;
+    cursor: pointer;
 }
 #user{
     display: flex;
@@ -34,8 +35,14 @@
     height: 60px;
     align-items: center;
 }
+.list {
+    &:focus{
+        outline: 0;
+    }
+    cursor: pointer;
+}
 .list_users{
-    background-color: white;
+    background-color: #0a1d3b;
 }
 .list-user {
     height: calc(100vh - 140px);
