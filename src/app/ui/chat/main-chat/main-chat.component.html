@@ -8,7 +8,7 @@
             <p *ngIf="message.type == 'text'">{{ message.message }}</p>
         </li>
         <li class="sent" *ngIf="message.receiverID == 0 && message.senderID == userID">
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+            <img [src]="getAvatar()" alt="" />
             <img class="img-preview " *ngIf="message.type == 'image'"
             [src]="message.message" data-toggle="modal" data-target="#exampleModalCenter" (click)="ModalImage(message.message)" />
             <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
@@ -30,9 +30,9 @@
     <img src="/assets/ICON/IconAppChat/7.svg" alt="Smile" id="smile"  class="d-none d-lg-block">  
 </div>
 [...]//Below my modal that should pop
-<<!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
       <div class="modal-content center">
         <div class="modal-body">
             <img id="img"/>

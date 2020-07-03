@@ -15,7 +15,7 @@ import { UsersListComponent } from './ui/share/users-list/users-list.component'
 import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular';
 import { UiModule } from './ui/ui.module';
 
-import { DatatransferService } from './services/datatransfer.service'
+import { DatatransferService } from './services/datatransfer.service';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { DatatransferService } from './services/datatransfer.service'
     InfoChatComponent,
     LoginComponent,
     UiComponent,
-    UsersListComponent
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,

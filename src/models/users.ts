@@ -6,5 +6,6 @@ export interface IUsers {
     email: string,
     phone: string,
     status: boolean,
-    newMessage: number
+    newMessage: number,
+    lastSeen: Date
 }

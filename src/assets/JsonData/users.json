@@ -6,7 +6,8 @@
     "status": true,
     "phone": "770-504-2217",
     "email": "OrtaT@gmail.com",
-    "newMessage": 2
+    "newMessage": 2,
+    "lastSeen": "2019-11-18 10:00:00"
 }, 
 {
     "id": 2,
@@ -16,7 +17,8 @@
     "status": false,
     "phone": "770-504-2217",
     "email": "MahoneyR@gmail.com",
-    "newMessage": 0
+    "newMessage": 0,
+    "lastSeen": "2019-11-18 10:00:00"
 },
 {
     "id": 3,
@@ -26,7 +28,8 @@
     "status": true,
     "phone": "859-496-2817",
     "email": "PriceD@gmail.com",
-    "newMessage": 1
+    "newMessage": 1,
+    "lastSeen": "2020-07-01 10:00:00"
 }, 
 {
     "id": 4,
@@ -36,7 +39,8 @@
     "status": false,
     "phone": "859-496-4651",
     "email": "LandersL@gmail.com",
-    "newMessage": 10
+    "newMessage": 10,
+    "lastSeen": "2020-06-30 10:00:00"
 },
 {
     "id": 5,
@@ -46,6 +50,7 @@
     "status": true,
     "phone": "573-394-9254",
     "email": "SpencerDH@gmail.com",
-    "newMessage": 5
+    "newMessage": 5,
+    "lastSeen": "2020-07-02 10:00:00"
 }
 ]

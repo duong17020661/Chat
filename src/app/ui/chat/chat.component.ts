@@ -27,7 +27,7 @@ export class ChatComponent implements OnInit {
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
     if(!this.isShowDivIf) {
-      document.getElementById("c4").style.width = "calc(100% - 308px)";
+      document.getElementById("c4").style.width = "calc(100% - 300px)";
     }
     else {
       document.getElementById("c4").style.width = "100%";

@@ -13,13 +13,15 @@
         <img [src]="user.photo" roundShape="true" />
         <span class="status" *ngIf="user.status"></span>
         <div class="info d-none d-lg-block" style="display: none;">
-          <div style="float: left;width: 212px;" [class.bold]="user.newMessage > 0 && user.id != usersID">
+          <div style="float: left;width: 242px;" [class.bold]="user.newMessage > 0 && user.id != usersID">
             <p class="name">{{ user.name }}</p>
             <p class="lastMessage">{{ user.lastMessage }}</p>
           </div>
           <div class="day">
             <div style="display:block;">
-              <p class="time">CN</p>
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 2">{{ convertDate(user.lastSeen) | date: 'H:mm' }}</p>
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 8 && calculateDiff(user.lastSeen) >= 2">{{ convertDate(user.lastSeen) | date: 'EEEE' }}</p>
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) > 8">{{ convertDate(user.lastSeen)| date: 'M/d/yy' }}</p>
             </div>
             <div class="have-seen" *ngIf="user.newMessage > 0 && user.id != usersID;">
               <p>{{ user.newMessage }}</p>

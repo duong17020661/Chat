@@ -3,6 +3,7 @@ import { MessagesService } from '../../../services/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
 import { IMessages } from '../../../../models/messages';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
+import { UsersService } from 'src/app/services/users/users.service';
 
 class FileSpinnet {
   constructor(public src: string, public file: File) { }
@@ -18,12 +19,14 @@ export class MainChatComponent implements OnInit {
 
   public userID;
   public messages = [];
+  public users = [];
   modalImg: any;
 
 
-  constructor(private _chatservice: MessagesService, private route: ActivatedRoute, private _datatransfer: DatatransferService) {
+  constructor(private _chatservice: MessagesService, private route: ActivatedRoute, private _users: UsersService,  private _datatransfer: DatatransferService) {
     route.params.subscribe(val => {
       this._chatservice.getMessages().subscribe(data => this.messages = data);
+      this._users.getUsers().subscribe(data => this.users = data);
       let id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.userID = id;
     });
@@ -110,6 +113,14 @@ export class MainChatComponent implements OnInit {
     this.modalImg.src = src;
     this.modalImg.style.width = "auto";
     this.modalImg.style.height = "auto";
+  }
+
+  getAvatar(){
+    for(var i = 0 ; i < this.users.length; i++){
+      if(this.users[i].id == this.userID ){
+        return this.users[i].photo
+      }
+    }
   }
 
 }

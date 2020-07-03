@@ -13,6 +13,8 @@ import { DatatransferService } from 'src/app/services/datatransfer.service';
 })
 export class InfoChatComponent implements OnInit {
   public images = []
+  public messages = []
+  public file = []
   public users = [];
   public usersID;
   modalImg: any;
@@ -20,6 +22,7 @@ export class InfoChatComponent implements OnInit {
     route.params.subscribe(val => {
     this._userservice.getUsers().subscribe(data => this.users = data);
     this._chatservice.getMessages().subscribe(data => this.images = data);
+      
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.usersID = id;
     });
@@ -28,16 +31,23 @@ export class InfoChatComponent implements OnInit {
   ngOnInit(): void {
     this.modalImg = document.getElementById("img");
     this._userservice.getUsers().subscribe(data => this.users = data);
-    this._chatservice.getMessages().subscribe(data => this.images = data);
+    this._chatservice.getMessages().subscribe(data => this.messages = data);
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.usersID = id;
     this._datatransfer.messages$.subscribe(value =>
       {
         if(value){
-          this.images.push(value)
+          this.messages.push(value)
         }
           // do something
       });
+  }
+
+  getImages(){
+    return this.messages.filter(mess => (mess.type === 'image'))
+  }
+  getFiles(){
+    return this.messages.filter(mess => (mess.type === 'file'))
   }
 
   isShowFile = false;

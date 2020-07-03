@@ -15,7 +15,7 @@
             <p class="header">TỆP ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
-            <ul type="square" *ngFor="let img of images">
+            <ul type="square" *ngFor="let img of getFiles()">
                 <li *ngIf="img.type === 'file'" class="list-file">
                     <img src="https://img.icons8.com/officel/16/000000/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;"/>
                     <a href="#" class="item">{{ img.message }}</a>
@@ -29,7 +29,7 @@
             <p class="header">ẢNH ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
-            <div *ngFor="let img of images">
+            <div *ngFor="let img of getImages()">
             <div class="list-img" *ngIf="img.type == 'image'">
                 <img class="img-preview" 
                         [src]="img.message" data-toggle="modal" data-target="#exampleModalCenter" (click)="ModalImage(img.message)">
@@ -39,13 +39,3 @@
     </div>
 </div>
 
-<<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content center">
-        <div class="modal-body">
-            <img id="img"/>
-        </div>
-      </div>
-    </div>
-  </div>
