@@ -3,7 +3,6 @@
     <div *ngFor="let user of users">
         <div class="info" *ngIf="usersID == user.id">
             <img [src]="user.photo" alt="Avatar" id="avatar">
-            <br>
             <p><strong>{{ user.name }}</strong></p>
             <p>{{ user.phone }}</p>
             <p>{{ user.email }}</p>
@@ -16,8 +15,11 @@
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
             <ul type="square" *ngFor="let img of getFiles()">
-                <li *ngIf="img.type === 'file'" class="list-file">
-                    <img src="https://img.icons8.com/officel/16/000000/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;"/>
+                <li class="list-file">
+                    <img *ngIf="img.typeof === 'pdf'" src="../../../../assets/ICON/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;"/>
+                    <img *ngIf="img.typeof === 'docx' || img.type === 'doc'" src="../../../../assets/ICON/docx.png" alt="IconDOC" style="width: 16px; height: 16px;"/>
+                    <img *ngIf="img.typeof === 'pptx'" src="../../../../assets/ICON/pptx.png" alt="IconPPTX" style="width: 16px; height: 16px;"/>
+                    <img *ngIf="img.typeof === 'txt'" src="../../../../assets/ICON/other.png" alt="IconOther" style="width: 16px; height: 16px;"/>
                     <a href="#" class="item">{{ img.message }}</a>
                 </li>
             </ul>

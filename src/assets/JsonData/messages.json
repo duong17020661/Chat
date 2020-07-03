@@ -88,11 +88,12 @@
 },
 {
     "id": 12,
-    "message": "PDF.dpf",
+    "message": "PDF.pdf",
     "senderID": 0,
     "receiverID": 1,
     "time": "28/06/2020",
-    "type": "file"
+    "type": "file",
+    "typeof": "pdf"
 },
 {
     "id": 13,
@@ -109,6 +110,32 @@
     "receiverID": 1,
     "time": "28/06/2020",
     "type": "image"
+},
+{
+    "id": 13,
+    "message": "DOC.docx",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "file",
+    "typeof": "docx"
+},
+{
+    "id": 14,
+    "message": "PPTX.pptx",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "file",
+    "typeof": "pptx"
+},{
+    "id": 15,
+    "message": "Other.txt",
+    "senderID": 0,
+    "receiverID": 1,
+    "time": "28/06/2020",
+    "type": "file",
+    "typeof": "txt"
 }
 ]
 

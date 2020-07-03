@@ -5,5 +5,6 @@ export interface IMessages {
     receiverID: number,
     time: string,
     type: string,
-    url?: string
+    url?: string,
+    typeof?: string
 }

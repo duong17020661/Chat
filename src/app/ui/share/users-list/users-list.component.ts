@@ -5,6 +5,7 @@ import { filter } from 'jszip';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users/users.service';
 import { IUsers } from 'src/models/users';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-list',
@@ -25,16 +26,19 @@ public users = [];
   userResource = [];
 
   constructor(private router: Router, private _userservice: UsersService,private route: ActivatedRoute) {
-    
   }
 
   ngOnInit(): void {
-      this._userservice.getUsers().subscribe(data => {
-        this.users = data;
-        this.userResource = data;
-      });
-      let id = +this.route.snapshot.firstChild.paramMap.get('id');
-      this.usersID = id;
+      this._userservice.getUsers().pipe(
+      map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
+    ).subscribe(data => {
+      this.users = data;
+      this.userResource = data;
+    });
+      this.route.queryParams.subscribe(params => {
+        this.usersID = params['id'];
+    });
+    console.log(this.router.url.split('/')
   }
 
   onSelect(user: IUsers) { 

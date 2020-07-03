@@ -94,10 +94,13 @@ export class MainChatComponent implements OnInit {
 
   processFile(fileInput: any) {
     const file: File = fileInput.files[0];
+    let fileType: string;
+    fileType = fileInput.files[0].name.split(".").pop()
+ 
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
-      let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.file.name, senderID: 0, receiverID: this.userID, time: Date(), type: "file", url: this.selectedFile.src };
+      let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.file.name, senderID: 0, receiverID: this.userID, time: Date(), type: 'file', typeof: fileType , url: this.selectedFile.src };
       this.messages.push(message)
       this._datatransfer.setMessages(message);
       console.log(this.selectedFile.src)
