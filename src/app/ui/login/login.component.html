@@ -15,7 +15,7 @@
       <div class="login">
         <form action="/chat/1">
           <div class="imgcontainer">
-            <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" width="auto" height="100px">
+            <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" width="auto" height="64px">
           </div>
   
           <div class="container">
@@ -26,13 +26,12 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
   
             <button type="button" [routerLink]="['/home/chat/1']">Login</button>
-            <label>
-              <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
           </div>
   
           <div class="container">
-            <button type="button" class="cancelbtn">Cancel</button>
+            <label class="checkbox">
+              <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
             <span class="psw">Create a new account <a href="#" onclick="document.getElementById('id01').style.display='block'">Resgister</a></span>
             <script>
             // Get the modal
@@ -52,26 +51,33 @@
     <!-- Resgister Form -->
     <div id="id01" class="modal">
       
-      <form class="modal-content animate" action="/action_page.php" method="post">
-        <div class="imgcontainer">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <img src=" " alt="Avatar" class="avatar">
+      <form class="modal-content animate" action="/action_page.php" method="post">  
+        <div class="container">
+          <label for="uname"><b>Full name</b></label>
+          <input type="text" placeholder="Enter your full name" name="uname" required>
+
+          <label for="email"><b>Email</b></label>
+          <input type="email" placeholder="Enter your Email" name="email" required>
+
+          <label for="phone"><b>Phone Number</b></label>
+          <input type="tel" placeholder="Enter your phone number" name="phone" pattern="[0-9]{10}" required>
+
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter your Username" name="uname" required>
+  
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter your Password" name="psw" required>
+           
+          <label for="psw"><b>Re-Password</b></label>
+          <input type="password" placeholder="Re type your Password" name="psw" required>
+
+          <label for="avatar"><b>Avatar   </b></label>
+          <input type="file" accept="image/*" name="avatar" required>
+
+          <button  type="submit">Register</button>
         </div>
   
         <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
-  
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-            
-          <button type="submit">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-  
-        <div class="container" style="background-color:#f1f1f1">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
         </div>
       </form>

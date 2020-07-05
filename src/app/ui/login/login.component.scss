@@ -20,13 +20,14 @@ form {
   
   /* Add padding to containers */
   .container {
-    padding: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   
   /* The "Forgot password" text */
   span.psw {
     float: right;
-    padding-top: 16px;
+    padding-top: 8px;
   }
   
   /* Change styles for span and cancel button on extra small screens */
@@ -52,7 +53,6 @@ form {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
   }
   
   /* Modal Content/Box */
@@ -112,4 +112,9 @@ form {
     left: -230px;
     z-index: -10;
     width: 1920px;
+  }
+
+  .checkbox{
+    padding-top: 8px;
+    padding-bottom: 8px;
   }

@@ -43,10 +43,12 @@
     
   /* Set a style for all buttons */
   button {
-    background-color: #4CAF50;
+    background-color: #125699;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    height: 39px;
+    border-radius: 7.5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -66,12 +68,17 @@
 
     
   /* Full-width inputs */
-  input[type=text], input[type=password] {
+  input[type=text], input[type=password], input[type=email], input[type=tel] {
     width: 100%;
     padding: 12px 20px;
     margin: 10px 0;
     display: inline-block;
     box-sizing: border-box;
+    border-radius: 7.5px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    height: 39px;
+    overflow: hidden;
     &:focus {
       outline: 0;
   }
