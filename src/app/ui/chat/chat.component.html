@@ -6,8 +6,10 @@
             <div>
             <p style="font-size: 14px;
                 color: #212121; font-weight: 500;">{{ user.name }}</p>
-            <p class="status" style="font-size: 12px;
-                color: #757575;">{{ user.status }}</p>
+            <p *ngIf="user.status" class="status" style="font-size: 12px;
+                color: #757575;">Đang hoạt động</p>
+            <p *ngIf="!user.status" class="status" style="font-size: 12px;
+            color: #757575;">Hoạt động {{ timeDiff(user.lastSeen) }} giờ trước</p>
                 </div>
         </div>
     </div>

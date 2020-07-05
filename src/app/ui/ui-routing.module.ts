@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UiComponent } from './ui.component';
 import { ChatComponent } from './chat/chat.component';
+import { UsersListComponent } from './share/users-list/users-list.component';
 
 
 const routes: Routes = [
@@ -10,11 +11,15 @@ const routes: Routes = [
     component: UiComponent,
     children: [
       {
-        path: 'chat/:id',
+        path: ':id',
         component: ChatComponent
       },
       {
-        path: 'chat', redirectTo: 'chat/1', pathMatch: 'full'
+        path: ':id',
+        component: UsersListComponent
+      },
+      {
+        path: '', redirectTo: '1', pathMatch: 'full'
       },
     ]
   }

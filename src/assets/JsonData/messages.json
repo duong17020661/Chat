@@ -3,15 +3,16 @@
     "message": "3 gui 0",
     "senderID": 3,
     "receiverID": 0,
-    "time": "28/06/2020",
-    "type": "text"
+    "time": "2019-11-18 10:00:00",
+    "type": "text",
+    "timeDiff": 0
 }, 
 {
     "id": 2,
     "message": "4 gui 0",
     "senderID": 4,
     "receiverID": 0,
-    "time": "28/06/2020",
+    "time": "2019-11-18 10:10:00",
     "type": "text"
 },
 {
@@ -19,7 +20,7 @@
     "message": "0 gui 5",
     "senderID": 0,
     "receiverID": 5,
-    "time": "28/06/2020",
+    "time": "2019-11-18 10:50:00",
     "type": "text"
 },
 {
@@ -27,7 +28,7 @@
     "message": "0 gui 4",
     "senderID": 0,
     "receiverID": 2,
-    "time": "28/06/2020",
+    "time": "2019-11-18 11:00:00",
     "type": "text"
 },
 {
@@ -35,7 +36,7 @@
     "message": "5 gui 0",
     "senderID": 5,
     "receiverID": 0,
-    "time": "28/06/2020",
+    "time": "2019-11-18 11:50:00",
     "type": "text"
 },
 {
@@ -43,7 +44,7 @@
     "message": "1 gui 0",
     "senderID": 1,
     "receiverID": 0,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:10:00",
     "type": "text"
 },
 {
@@ -51,7 +52,7 @@
     "message": "0 gui 2",
     "senderID": 0,
     "receiverID": 2,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:15:00",
     "type": "text"
 },
 {
@@ -59,7 +60,7 @@
     "message": "0 gui 1",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:15:00",
     "type": "text"
 },
 {
@@ -67,7 +68,7 @@
     "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
     "senderID": 1,
     "receiverID": 0,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:16:00",
     "type": "image"
 },
 {
@@ -75,7 +76,7 @@
     "message": "https://th.bing.com/th/id/OIP.A9bl9ir5Zz06YbYffYuJCwHaFj?w=214&h=180&c=7&o=5&pid=1.7",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:17:00",
     "type": "image"
 },
 {
@@ -83,7 +84,7 @@
     "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:18:00",
     "type": "image"
 },
 {
@@ -91,7 +92,7 @@
     "message": "PDF.pdf",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:19:00",
     "type": "file",
     "typeof": "pdf"
 },
@@ -100,7 +101,7 @@
     "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
     "senderID": 1,
     "receiverID": 0,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:50:00",
     "type": "image"
 },
 {
@@ -108,32 +109,32 @@
     "message": "https://th.bing.com/th/id/OIP.A9bl9ir5Zz06YbYffYuJCwHaFj?w=214&h=180&c=7&o=5&pid=1.7",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 12:55:00",
     "type": "image"
 },
 {
-    "id": 13,
+    "id": 15,
     "message": "DOC.docx",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 13:01:00",
     "type": "file",
     "typeof": "docx"
 },
 {
-    "id": 14,
+    "id": 16,
     "message": "PPTX.pptx",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 13:02:00",
     "type": "file",
     "typeof": "pptx"
 },{
-    "id": 15,
+    "id": 17,
     "message": "Other.txt",
     "senderID": 0,
     "receiverID": 1,
-    "time": "28/06/2020",
+    "time": "2019-11-18 14:03:00",
     "type": "file",
     "typeof": "txt"
 }

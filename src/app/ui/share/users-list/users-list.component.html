@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="list-user">
-    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" (focus)="onFocus(user)" routerLink='chat/{{user.id}}'>
+    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" (focus)="onFocus(user)" routerLink='{{user.id}}'>
       <div class="space" [class.zxc]="user.id == usersID"></div>
       <div id="user" class="users" [class.abc]="user.id == usersID">
         <img [src]="user.photo" roundShape="true" />
@@ -16,7 +16,7 @@
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
           <div style="float: left;" [class.bold]="user.newMessage > 0 && user.id != usersID">
             <p class="name">{{ user.name }}</p>
-            <p class="lastMessage">{{ user.lastMessage }}</p>
+            <p class="lastMessage">{{ getLastMessage(user) }}</p>
           </div>
           <div class="day">
             <div style="display:block;">

@@ -17,7 +17,6 @@ import { UiModule } from './ui/ui.module';
 
 import { DatatransferService } from './services/datatransfer.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +36,7 @@ import { DatatransferService } from './services/datatransfer.service';
     IgxIconModule,
     HttpClientModule,
     FormsModule,
-    UiModule,
+    UiModule
   ],
   providers: [DatatransferService],
   bootstrap: [AppComponent]

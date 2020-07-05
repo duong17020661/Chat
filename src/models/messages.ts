@@ -7,4 +7,5 @@ export interface IMessages {
     type: string,
     url?: string,
     typeof?: string
+    timeDiff?: number
 }

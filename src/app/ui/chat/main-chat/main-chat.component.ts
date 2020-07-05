@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IMessages } from '../../../../models/messages';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { UsersService } from 'src/app/services/users/users.service';
+import { map } from 'rxjs/internal/operators/map';
 
 class FileSpinnet {
   constructor(public src: string, public file: File) { }
@@ -21,20 +22,33 @@ export class MainChatComponent implements OnInit {
   public messages = [];
   public users = [];
   modalImg: any;
+  popup: any;
 
 
   constructor(private _chatservice: MessagesService, private route: ActivatedRoute, private _users: UsersService,  private _datatransfer: DatatransferService) {
     route.params.subscribe(val => {
-      this._chatservice.getMessages().subscribe(data => this.messages = data);
+      this._chatservice.getMessages().pipe(
+        map(users => users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
+      ).subscribe(data => {
+        this.messages = data;
+      });
       this._users.getUsers().subscribe(data => this.users = data);
       let id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.userID = id;
+      this.addTimeDiff(this.messages);
     });
   }
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img");
-    this._chatservice.getMessages().subscribe(data => this.messages = data);
+    this._chatservice.getMessages().pipe(
+      map(users =>
+        users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
+    ).subscribe(data => {
+      this.messages = data;
+      this.addTimeDiff(this.messages)
+    });
+    this.addTimeDiff(this.messages);
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.userID = id;
   }
@@ -48,6 +62,13 @@ export class MainChatComponent implements OnInit {
     }
   }
 
+  addTimeDiff(messages){
+    for(let i = 1 ; i < messages.length ; i++){
+      console.log(messages[i].time, messages[i-1].time)
+      messages[i].timeDiff = this.timeBetween(this.messages[i-1].time, this.messages[i].time)
+    }
+  }
+ 
   @ViewChild('scrollframe', { static: false }) scrollFrame: ElementRef;
   @ViewChildren('item') itemElements: QueryList<any>;
 
@@ -125,5 +146,48 @@ export class MainChatComponent implements OnInit {
       }
     }
   }
+
+  calculateDiff(dateSent){
+    let currentDate = new Date();
+    dateSent = new Date(dateSent);
+ 
+     return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) ) /(1000 * 60 * 60 * 24));
+   }
+  convertDate(date){
+    return new Date(date);
+  }
+  showPopupLeft: boolean = false;
+  showPopupRight: boolean = false;
+  popupRight() {
+    if(this.showPopupRight){
+      this.showPopupRight = false;
+    }
+    else{
+      this.showPopupRight = true;
+    }
+  }
+  popupLeft() {
+    if(this.showPopupLeft){
+      this.showPopupLeft = false;
+    }
+    else{
+      this.showPopupLeft = true;
+    }
+  }
+  PopupIcon: boolean = false
+  showPopupIcon() {
+      if(this.PopupIcon){
+        this.PopupIcon = false;
+      }
+      else{
+        this.PopupIcon = true;
+      }
+    }
+
+    timeBetween(dateSent1, dateSent2){
+      dateSent1 = new Date(dateSent1);
+      dateSent2 = new Date(dateSent2);
+      return (dateSent2.getTime() - dateSent1.getTime())/(1000 * 60);
+     }
 
 }

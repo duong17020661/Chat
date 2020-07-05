@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users/users.service';
 import { IUsers } from 'src/models/users';
 import { map } from 'rxjs/operators';
+import { MessagePort } from 'worker_threads';
+import { MessagesService } from 'src/app/services/messages/messages.service';
 
 @Component({
   selector: 'app-users-list',
@@ -16,29 +18,42 @@ export class UsersListComponent implements OnInit {
 
 
 public users = [];
+public messages = [];
 
   spinnerService: any;
   searchTerm: string;
   itemsCopy = [];
-  usersID: number;
+  usersID: any;
 
   // List chứa tất cả dữ liệu về Inbox
   userResource = [];
 
-  constructor(private router: Router, private _userservice: UsersService,private route: ActivatedRoute) {
+  constructor(private router: Router,private _chatservice: MessagesService, private _userservice: UsersService,private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-      this._userservice.getUsers().pipe(
+    this.usersID = 1;
+    this._userservice.getUsers().pipe(
       map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
     ).subscribe(data => {
       this.users = data;
       this.userResource = data;
     });
-      this.route.queryParams.subscribe(params => {
-        this.usersID = params['id'];
+
+    this._chatservice.getMessages().pipe(
+      map(users => users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
+    ).subscribe(data => {
+      this.messages = data;
     });
-    console.log(this.router.url.split('/')
+  }
+
+  getLastMessage(user: IUsers){
+    for(var i = 0 ; i < this.messages.length; i++){
+      if(this.messages[i].receiverID == user.id || this.messages[i].senderID == user.id){
+        user.lastMessage = this.messages[i].message;
+      }
+    }
+    return user.lastMessage
   }
 
   onSelect(user: IUsers) { 
