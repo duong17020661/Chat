@@ -172,8 +172,8 @@
 
 // Modal Image
 .modal-content {
-  width: max-content;
-  height: max-content;
+  max-width: 100%;
+  height: auto;
 }
 
 @media (min-width: 576px){
