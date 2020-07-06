@@ -8,6 +8,7 @@ import { IUsers } from 'src/models/users';
 import { map } from 'rxjs/operators';
 import { MessagePort } from 'worker_threads';
 import { MessagesService } from 'src/app/services/messages/messages.service';
+import { DatatransferService } from 'src/app/services/datatransfer.service';
 
 @Component({
   selector: 'app-users-list',
@@ -28,18 +29,18 @@ public messages = [];
   // List chứa tất cả dữ liệu về Inbox
   userResource = [];
 
-  constructor(private router: Router,private _chatservice: MessagesService, private _userservice: UsersService,private route: ActivatedRoute) {
+  constructor(private router: Router,private _chatservice: MessagesService, private _userservice: UsersService,private route: ActivatedRoute, private _datatransfer: DatatransferService) {
+    this.getUserID()
   }
 
   ngOnInit(): void {
-    this.usersID = 1;
+    this.getUserID()
     this._userservice.getUsers().pipe(
       map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
     ).subscribe(data => {
       this.users = data;
       this.userResource = data;
     });
-
     this._chatservice.getMessages().pipe(
       map(users => users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
     ).subscribe(data => {
@@ -56,11 +57,22 @@ public messages = [];
     return user.lastMessage
   }
 
-  onSelect(user: IUsers) { 
-    this.usersID = user.id;
-    user.newMessage = 0;
+  disableNewMessage(userid){
+    for(var i = 0 ; i < this.users.length; i++){
+      if(this.users[i].id == userid){
+        this.users[i].newMessage = 0;
+      }
+    }
   }
-  onFocus(user: IUsers) {
+
+  getUserID(){
+    this._datatransfer.userId.subscribe(data => {
+      this.usersID = data;
+      this.disableNewMessage(data)
+    })
+  }
+
+  onSelect(user: IUsers) { 
     this.usersID = user.id;
     user.newMessage = 0;
   }

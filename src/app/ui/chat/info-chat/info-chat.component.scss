@@ -13,16 +13,16 @@
 }
 
 .info {
-    padding-top: 40px;
+    padding-top: 30px;
     height: 40%;
     border-bottom: 1px solid white;
     text-align: center;
-    line-height: 1.5;
 }
 .info p {
     font-size: 13px;
     letter-spacing: -.13px;
     color: #666666;
+    margin-top: 5px;
 }
 .info p strong {
     font-size: 16px;
@@ -51,6 +51,7 @@
     color: #2688e6;;
 }
 .drop-file{
+    margin-left: 16px;
     background-color: unset;
     color: #666666;
     &:focus {
@@ -58,6 +59,7 @@
     }
 }
 .drop-img{
+    margin-left: 16px;
     background-color: unset;
     color: #666666;
     &:focus {
@@ -71,6 +73,7 @@
     color: #666666;
 }
 #drop {
+    margin-right: 16px;
     float: right;
     width: 16px;
     height: 16px;

@@ -5,9 +5,8 @@
             <img class="img-preview" *ngIf="message.type == 'image'"
             [src]="message.message"  data-toggle="modal" data-target="#exampleModalCenter" (click)="ModalImage(message.message)"  />
             <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
-            <div *ngIf="message.type == 'text'" class="popup" style="float: right;" (mouseover)="popupRight()">
+            <div *ngIf="message.type == 'text'" style="float: right;" data-toggle="tooltip" data-placement="right" [title]="message.time">
                 <p>{{ message.message }}</p>
-                <span *ngIf="showPopupRight" class="popuptext" id="timePopup">{{ message.time }}</span>
             </div>
         </li>
         <li class="sent" *ngIf="message.receiverID == 0 && message.senderID == userID">
@@ -15,12 +14,11 @@
             <img class="img-preview " *ngIf="message.type == 'image'"
             [src]="message.message" data-toggle="modal" data-target="#exampleModalCenter" (click)="ModalImage(message.message)" />
             <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
-            <div *ngIf="message.type == 'text'" class="popup" (mouseover)="popupLeft()">
+            <div *ngIf="message.type == 'text'" data-toggle="tooltip" data-placement="left" [title]="message.time">
                 <p>{{ message.message }}</p>
-                <span *ngIf="showPopupLeft" class="popuptext" id="timePopup">{{ message.time }}</span>
             </div>
         </li>
-        <p class="timeDiff" *ngIf="message.timeDiff >15">{{ convertDate(message.time) | date: 'MMM d, H:mm' }}</p>
+        <p class="timeDiff" *ngIf="message.timeDiff > 15 && message.receiverID == userID || message.senderID == userID">{{ convertDate(message.time) | date: 'MMM d, H:mm' }}</p>
     </ul>
 </div>
 <div class="sendMessage">

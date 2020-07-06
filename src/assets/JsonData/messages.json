@@ -4,8 +4,7 @@
     "senderID": 3,
     "receiverID": 0,
     "time": "2019-11-18 10:00:00",
-    "type": "text",
-    "timeDiff": 0
+    "type": "text"
 }, 
 {
     "id": 2,
@@ -136,7 +135,8 @@
     "receiverID": 1,
     "time": "2019-11-18 14:03:00",
     "type": "file",
-    "typeof": "txt"
+    "typeof": "txt",
+    "timeDiff": 0
 }
 ]
 

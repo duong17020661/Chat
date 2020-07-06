@@ -18,5 +18,10 @@ export class DatatransferService {
     this.messages$.next(message)
   }
 
+  @Output() userId = new EventEmitter<number>();
+  changeUser(id: number) {
+    this.userId.emit(id);
+  }
+
   constructor() { }
 }

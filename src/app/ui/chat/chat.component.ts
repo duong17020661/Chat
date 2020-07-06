@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/services/users/users.service';
+import { DatatransferService } from 'src/app/services/datatransfer.service';
 
 @Component({
   selector: 'app-chat',
@@ -9,11 +10,12 @@ import { UsersService } from 'src/app/services/users/users.service';
 })
 export class ChatComponent implements OnInit {
   public usersID;
-  constructor(private route: ActivatedRoute, private _userservice: UsersService) {
+  constructor(private route: ActivatedRoute, private _userservice: UsersService, private datatransfer: DatatransferService) {
     route.params.subscribe(val => {
       this._userservice.getUsers().subscribe(data => this.users = data);
       let id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.usersID = id;
+      this.datatransfer.changeUser(this.usersID)
     });
   }
 
@@ -38,7 +40,7 @@ export class ChatComponent implements OnInit {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
  
-     return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) ) /(1000 * 60 * 60));
+     return Math.floor((currentDate.getTime() - dateSent.getTime())/(1000 * 60));
    }
 
   public users = []

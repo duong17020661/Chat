@@ -31,11 +31,12 @@ export class MainChatComponent implements OnInit {
         map(users => users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
       ).subscribe(data => {
         this.messages = data;
+        this.addTimeDiff(this.messages);
       });
       this._users.getUsers().subscribe(data => this.users = data);
       let id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.userID = id;
-      this.addTimeDiff(this.messages);
+      
     });
   }
 
@@ -48,7 +49,6 @@ export class MainChatComponent implements OnInit {
       this.messages = data;
       this.addTimeDiff(this.messages)
     });
-    this.addTimeDiff(this.messages);
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.userID = id;
   }
@@ -63,9 +63,8 @@ export class MainChatComponent implements OnInit {
   }
 
   addTimeDiff(messages){
-    for(let i = 1 ; i < messages.length ; i++){
-      console.log(messages[i].time, messages[i-1].time)
-      messages[i].timeDiff = this.timeBetween(this.messages[i-1].time, this.messages[i].time)
+    for(let i = 0 ; i < messages.length - 1 ; i++){
+      messages[i].timeDiff = this.timeBetween(this.messages[i].time, this.messages[i+1].time)
     }
   }
  
@@ -155,24 +154,6 @@ export class MainChatComponent implements OnInit {
    }
   convertDate(date){
     return new Date(date);
-  }
-  showPopupLeft: boolean = false;
-  showPopupRight: boolean = false;
-  popupRight() {
-    if(this.showPopupRight){
-      this.showPopupRight = false;
-    }
-    else{
-      this.showPopupRight = true;
-    }
-  }
-  popupLeft() {
-    if(this.showPopupLeft){
-      this.showPopupLeft = false;
-    }
-    else{
-      this.showPopupLeft = true;
-    }
   }
   PopupIcon: boolean = false
   showPopupIcon() {

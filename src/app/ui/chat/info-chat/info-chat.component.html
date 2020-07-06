@@ -1,4 +1,3 @@
-
 <div class="chat-info">
     <div *ngFor="let user of users">
         <div class="info" *ngIf="usersID == user.id">
@@ -9,17 +8,22 @@
         </div>
     </div>
     <div class="file">
-        <button type="button" class="drop-file" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" (click)=toggleDisplayFile()>
+        <button type="button" class="drop-file" data-toggle="dropdown" data-display="static" aria-haspopup="true"
+            aria-expanded="false" (click)=toggleDisplayFile()>
             <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
             <p class="header">TỆP ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
             <ul type="square" *ngFor="let img of getFiles()">
-                <li class="list-file">
-                    <img *ngIf="img.typeof === 'pdf'" src="../../../../assets/ICON/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;"/>
-                    <img *ngIf="img.typeof === 'docx' || img.type === 'doc'" src="../../../../assets/ICON/docx.png" alt="IconDOC" style="width: 16px; height: 16px;"/>
-                    <img *ngIf="img.typeof === 'pptx'" src="../../../../assets/ICON/pptx.png" alt="IconPPTX" style="width: 16px; height: 16px;"/>
-                    <img *ngIf="img.typeof === 'txt'" src="../../../../assets/ICON/other.png" alt="IconOther" style="width: 16px; height: 16px;"/>
+                <li class="list-file" *ngIf="img.senderID == usersID || img.receiverID == usersID">
+                    <img *ngIf="img.typeof === 'pdf'" src="../../../../assets/ICON/pdf.png" alt="IconPDF"
+                        style="width: 16px; height: 16px;" />
+                    <img *ngIf="img.typeof === 'docx' || img.typeof === 'doc'" src="../../../../assets/ICON/docx.png"
+                        alt="IconDOC" style="width: 16px; height: 16px;" />
+                    <img *ngIf="img.typeof === 'pptx'" src="../../../../assets/ICON/pptx.png" alt="IconPPTX"
+                        style="width: 16px; height: 16px;" />
+                    <img *ngIf="img.typeof === 'txt' || img.typeof === 'md'" src="../../../../assets/ICON/other.png"
+                        alt="IconOther" style="width: 16px; height: 16px;" />
                     <a href="#" class="item">{{ img.message }}</a>
                 </li>
             </ul>
@@ -31,13 +35,10 @@
             <p class="header">ẢNH ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
-            <div *ngFor="let img of getImages()">
-            <div class="list-img" *ngIf="img.type == 'image'">
-                <img class="img-preview" 
-                        [src]="img.message" data-toggle="modal" data-target="#exampleModalCenter" (click)="ModalImage(img.message)">
-                </div>
+            <div class="list-img" *ngFor="let img of getImages()">
+                <img class="img-preview" [src]="img.message" data-toggle="modal" data-target="#exampleModalCenter"
+                    (click)="ModalImage(img.message)">
             </div>
         </div>
     </div>
 </div>
-

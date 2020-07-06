@@ -33,7 +33,8 @@ export class InfoChatComponent implements OnInit {
     this._userservice.getUsers().subscribe(data => this.users = data);
     this._chatservice.getMessages().subscribe(data => this.messages = data);
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.usersID = id;
+    this.getUserID()
+    console.log(this.usersID)
     this._datatransfer.messages$.subscribe(value =>
       {
         if(value){
@@ -44,10 +45,16 @@ export class InfoChatComponent implements OnInit {
   }
 
   getImages(){
-    return this.messages.filter(mess => (mess.type === 'image'))
+    return this.messages.filter(mess => (mess.type === 'image') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
   }
   getFiles(){
-    return this.messages.filter(mess => (mess.type === 'file'))
+    return this.messages.filter(mess => (mess.type === 'file') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
+  }
+
+  getUserID(){
+    this._datatransfer.userId.subscribe(data => {
+      this.usersID = data;
+    })
   }
 
   isShowFile = false;
