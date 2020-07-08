@@ -16,83 +16,84 @@ import { DatatransferService } from 'src/app/services/datatransfer.service';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-
-
-public users = [];
-public messages = [];
+  // List chứa tất cả dữ liệu về Inbox
+  public messages = [];
 
   spinnerService: any;
   searchTerm: string;
-  itemsCopy = [];
   usersID: any;
 
-  // List chứa tất cả dữ liệu về Inbox
-  userResource = [];
+  // List chứa tất cả dữ liệu về User
+  public userResource = []; // Dữ liệu lưu để so sánh
+  public users = [];
 
-  constructor(private router: Router,private _chatservice: MessagesService, private _userservice: UsersService,private route: ActivatedRoute, private _datatransfer: DatatransferService) {
+  constructor(private router: Router, private _chatservice: MessagesService, private _userservice: UsersService, private route: ActivatedRoute, private _datatransfer: DatatransferService) {
     this.getUserID()
   }
 
   ngOnInit(): void {
+    // Lấy ID hiện tại đang trỏ đến
     this.getUserID()
+    // Lấy danh sách người dùng sắp xếp theo ngày
     this._userservice.getUsers().pipe(
       map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
     ).subscribe(data => {
       this.users = data;
       this.userResource = data;
     });
+    // Lấy danh sách tin nhắn sắp xếp theo ngày
     this._chatservice.getMessages().pipe(
       map(users => users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
     ).subscribe(data => {
       this.messages = data;
     });
   }
-
-  getLastMessage(user: IUsers){
-    for(var i = 0 ; i < this.messages.length; i++){
-      if(this.messages[i].receiverID == user.id || this.messages[i].senderID == user.id){
+  // Hàm lấy dữ liệu lastMessage
+  getLastMessage(user: IUsers) {
+    for (var i = 0; i < this.messages.length; i++) {
+      if (this.messages[i].receiverID == user.id || this.messages[i].senderID == user.id) {
         user.lastMessage = this.messages[i].message;
       }
     }
     return user.lastMessage
   }
-
-  disableNewMessage(userid){
-    for(var i = 0 ; i < this.users.length; i++){
-      if(this.users[i].id == userid){
+  // Hàm ẩn thông báo tin nhắn chưa đọc
+  disableNewMessage(userid) {
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.users[i].id == userid) {
         this.users[i].newMessage = 0;
       }
     }
   }
-
-  getUserID(){
+  // Hàm lấy ID đang trỏ đến
+  getUserID() {
     this._datatransfer.userId.subscribe(data => {
       this.usersID = data;
       this.disableNewMessage(data)
     })
   }
-
-  onSelect(user: IUsers) { 
+  // Hàm xử lý sự kiện click vào user
+  onSelect(user: IUsers) {
     this.usersID = user.id;
     user.newMessage = 0;
   }
-
+  // Hàm tìm kiếm cuộc trò chuyện
   search(): void {
     let term = this.searchTerm;
-    this.users = this.userResource.filter(function(tag) {
-        return tag.name.indexOf(term) >= 0;
-    }); 
+    this.users = this.userResource.filter(function (tag) {
+      return tag.name.indexOf(term) >= 0;
+    });
   }
-
-  calculateDiff(dateSent){
+  // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian
+  calculateDiff(dateSent) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
- 
-     return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) ) /(1000 * 60 * 60 * 24));
-   }
-  convertDate(date){
+    return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
+  }
+  // Hàm chuyển dữ liệu thành Date()
+  convertDate(date) {
     return new Date(date);
   }
-  
+
 }
 

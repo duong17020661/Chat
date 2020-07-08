@@ -11,7 +11,7 @@ import { IUsers } from '../../../models/users';
 export class UsersService {
 
   constructor(private http: HttpClient) { }
-
+  // Lấy dữ liệu về người dùng
   dataUrl = "/assets/JsonData/users.json"
   getUsers(): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));

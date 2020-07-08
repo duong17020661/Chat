@@ -1,6 +1,7 @@
 .content{
     display: flex;
 }
+// List users component
 #c1 {
     background-color: #0a1d3b;
     position: relative;
@@ -8,6 +9,7 @@
     width: auto;
     height: calc(100vh - 60px);
 }
+// Chat component
 #c2 {
     background-color:  red;
     position: relative;

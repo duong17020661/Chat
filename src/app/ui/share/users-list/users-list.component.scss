@@ -1,7 +1,9 @@
+// Danh sách cuộc trò chuyện
 .main_user_list {
     left: 0;
     max-width: 100%;
 }
+// Box tìm kiếm
 .search {
     display: flex;
     margin-top: 24px;
@@ -20,6 +22,11 @@
     border-style: none none solid none;
     border-radius: 0;
 }
+.search_icon{
+    position: absolute;
+    left: 24px;
+}
+// Nút cộng cạnh ô tìm kiếm
 .add_button {
     background-color: #2196f3;
     border-radius: 4px;
@@ -29,17 +36,7 @@
     margin-right: 24px;
     cursor: pointer;
 }
-.search_icon{
-    position: absolute;
-    left: 24px;
-}
-#user{
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 60px;
-    align-items: center;
-}
+// Danh sách cuộc trò chuyện
 .list {
     &:focus{
         outline: 0;
@@ -61,82 +58,88 @@
 .list-user::-webkit-scrollbar-thumb {
 background-color: rgba(0, 0, 0, 0.3);
 }
-
-.status {
-    position: absolute;
-    background-color: #48bb56;
-    border-radius: 50%;
-    border: 1px solid #0a1d3b;
-    width: 9px;
-    height: 9px;
-    overflow: hidden;
-    top: 36px;
-    left: 36px;
-    z-index: 2;
-}
-
-#user:hover {
-    background-color: rgba(255, 255, 255, .15);;
-}
-.abc {
-    background-color: rgba(255, 255, 255, .15);
-    .info .day .have-seen{
-        display: none;
-    }
-}
-.zxc {
-    position: absolute;
-    background-color: #2196f3;
-    width: 4px;
+// Cuộc trò chuyện
+#user{
+    display: flex;
+    position: relative;
+    width: 100%;
     height: 60px;
-}
-.info {
-    display: flex;
     align-items: center;
 }
-.day {
-    width: auto;
-    font-size: 11px;
-}
-.time, .have-seen {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 24px;
-}
-.time {
-    color: #8e97a5;
-    margin-bottom: 2px;
-}
+    // Bên trái
 
-.have-seen p {
-    padding: 2px 4px 1px 4px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, .3);
-}
-
-#user img {
-    width: 28px; 
-    height: 28px; 
-    border-radius: 50%; 
-    margin-left: 16px; 
-    margin-right: 16px;
-
-}
-
-.lastMessage {
-    font-size: 12px;
-    color: #8c95a3;
-}
-
-.name {
-    font-size: 13px;
-    color: #ffffff;
-}
-
+    .status {
+        position: absolute;
+        background-color: #48bb56;
+        border-radius: 50%;
+        border: 1px solid #0a1d3b;
+        width: 9px;
+        height: 9px;
+        overflow: hidden;
+        top: 36px;
+        left: 36px;
+        z-index: 2;
+    }
+    #user:hover {
+        background-color: rgba(255, 255, 255, .15);;
+    }
+    #user img {
+        width: 28px; 
+        height: 28px; 
+        border-radius: 50%; 
+        margin-left: 16px; 
+        margin-right: 16px;
+    
+    }
+    .lastMessage {
+        font-size: 12px;
+        color: #8c95a3;
+    }
+    .name {
+        font-size: 13px;
+        color: #ffffff;
+    }
+    // Bên phải
+    .info {
+        display: flex;
+        align-items: center;
+    }
+    .day {
+        width: auto;
+        font-size: 11px;
+    }
+    .time, .have-seen {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-right: 24px;
+    }
+    .time {
+        color: #8e97a5;
+        margin-bottom: 2px;
+    }
+    .have-seen p {
+        padding: 2px 4px 1px 4px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, .3);
+    }
+    // Xử lý sự kiện click vào user
+    .abc {
+        background-color: rgba(255, 255, 255, .15);
+        .info .day .have-seen{
+            display: none;
+        }
+    }
+    .zxc {
+        position: absolute;
+        background-color: #2196f3;
+        width: 4px;
+        height: 60px;
+    }
+// Tin nhắn chưa đọc
 .bold {
     font-weight: bold !important;
     .lastMessage {

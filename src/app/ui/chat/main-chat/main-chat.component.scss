@@ -1,3 +1,14 @@
+//Box chat
+#message {
+  position: relative;
+  width: 100%;
+  margin-right: 16px;
+}
+.timeDiff {
+  text-align: center;
+  font-size: 12px;
+  color: #757575;
+}
 .messages {
     height: calc(100vh - 180px);
     overflow-y: scroll;
@@ -8,6 +19,12 @@
       max-height: calc(100vh - 180px);
     }
   }
+  @media screen and (min-width: 735px) {
+    .messages ul li p {
+      max-width: 300px;
+    }
+  }
+  //Scrollbar
   .messages::-webkit-scrollbar {
     width: 8px;
     background: transparent;
@@ -15,6 +32,7 @@
   .messages::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
   }
+  // List message
   .messages ul li {
     display: inline-block;
     clear: both;
@@ -25,34 +43,13 @@
   .messages ul li:nth-last-child(1) {
     margin-bottom: 20px;
   }
+  // Avatar
   .messages ul li.sent img {
     margin: 6px 8px 0 0;
-  }
-  .messages ul li.sent p {
-    background: #eeeeee;
-    word-wrap: break-word;
-    color: #212121;;
-  }
-  .messages ul li.sent a {
-    background: #eeeeee;
-    word-wrap: break-word;
-    color: #212121;;
   }
   .messages ul li.replies img {
     float: right;
     margin: 6px 0 0 8px;
-  }
-  .messages ul li.replies p {
-    background: #2688e6;
-    color: #ffffff;
-    word-wrap: break-word;
-    float: right;
-  }
-  .messages ul li.replies a {
-    background: #2688e6;
-    color: #ffffff;
-    word-wrap: break-word;
-    float: right;
   }
   .messages ul li img {
     vertical-align: bottom;
@@ -60,12 +57,36 @@
     border-radius: 50%;
     float: left;
   }
+  // Messages P
+  .messages ul li.sent p {
+    background: #eeeeee;
+    word-wrap: break-word;
+    color: #212121;;
+  }
+  .messages ul li.replies p {
+    background: #2688e6;
+    color: #ffffff;
+    word-wrap: break-word;
+    float: right;
+  }
   .messages ul li p {
     display: inline-block;
     padding: 10px 15px;
     border-radius: 20px;
     max-width: 205px;
     line-height: 130%;
+  }
+  // Messages A
+  .messages ul li.sent a {
+    background: #eeeeee;
+    word-wrap: break-word;
+    color: #212121;;
+  }
+  .messages ul li.replies a {
+    background: #2688e6;
+    color: #ffffff;
+    word-wrap: break-word;
+    float: right;
   }
   .messages ul li a {
     display: inline-block;
@@ -75,35 +96,35 @@
     max-width: 205px;
     line-height: 130%;
   }
-
-  
-.messages ul  li.sent .img-preview {
+  // Image messages
+  .messages ul  li.sent .img-preview {
     border-radius: 5px;
     float: left;
     width: auto;
     max-height: 350px;
     cursor: pointer;
 }
-.file {
-  cursor: pointer;
-}
-.messages ul  li.replies .file {
-  cursor: pointer;
-}
-
-.messages ul  li.replies .img-preview {
+  .messages ul  li.replies .img-preview {
     border-radius: 5px;
     float: right;
     width: auto;
     max-height: 350px;
     cursor: pointer;
 }
-
-  @media screen and (min-width: 735px) {
-    .messages ul li p {
-      max-width: 300px;
-    }
+  // File messages
+  .messages ul  li.replies .file {
+    cursor: pointer;
   }
+
+  .messages ul  li.sent .file {
+    cursor: pointer;
+  }
+
+  // Send file
+  .file {
+    cursor: pointer;
+  }
+// Input messages
 .sendMessage {
     position: relative;
     background-color: #f8f8f8;
@@ -112,13 +133,36 @@
     height: 60px;
     width: 100%;
 }
+  // Upload file
 #info1 {
     margin-left: 24px;
     margin-right: 16px;
 }
+.label-file {
+  margin-top: 7.5px;
+  &:hover, &:focus, &:active {
+    color: lightcoral !important;
+    }
+  cursor: pointer;
+}
+.inputFile {
+  display: none;
+}
+  // Upload image
 #info2 {
     margin-right: 20px;
 }
+.label-image {
+  margin-top: 7.5px;
+  &:hover, &:focus, &:active {
+    color: lightcoral !important;
+    }
+  cursor: pointer;
+}
+.inputImage {
+  display: none;
+}
+  // Buzz
 #info3 {
     margin-right: 24px;
     background-color: #f86060;
@@ -132,11 +176,7 @@
     text-align: center;
     cursor: pointer;
 }
-#message {
-    position: relative;
-    width: 100%;
-    margin-right: 16px;
-}
+// Smile Icon
 #smile {
     position: absolute;
     right: 0;
@@ -146,30 +186,6 @@
     margin-right: 32px;
     cursor: pointer;
 }
-
-
-.label-image {
-  margin-top: 7.5px;
-  &:hover, &:focus, &:active {
-    color: lightcoral !important;
-    }
-  cursor: pointer;
-}
-.inputImage {
-  display: none;
-}
-
-.label-file {
-  margin-top: 7.5px;
-  &:hover, &:focus, &:active {
-    color: lightcoral !important;
-    }
-  cursor: pointer;
-}
-.inputFile {
-  display: none;
-}
-
 // Modal Image
 .modal-content {
   max-width: 100%;
@@ -182,13 +198,6 @@
     margin: 1.75rem auto;
 }
 }
-
-.timeDiff {
-  text-align: center;
-  font-size: 12px;
-  color: #757575;
-}
-
 // Pop-up
 /* Popup container - can be anything you want */
 .popup {

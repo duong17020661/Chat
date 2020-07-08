@@ -10,7 +10,7 @@ import { IMessages } from '../../../models/messages';
 export class MessagesService {
 
   constructor(private http: HttpClient) { }
-
+  // Lấy dữ liệu nội dung tin nhắn
   dataUrl = "/assets/JsonData/messages.json"
   getMessages(): Observable<IMessages[]> {
     return this.http.get<IMessages[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));

@@ -1,34 +1,51 @@
+<!--Content -->
 <div class="main_user_list" ng-controller="filterctrl">
+  <!--Search -->
   <div class="search_user d-none d-lg-block">
     <div class="search">
       <img src="../../assets/ICON/IconAppChat/11.svg" alt="Search" class="search_icon">
       <input id="myInput" class="search_button" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
         style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()" />
       <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button">
+      <!--Add button -->
     </div>
   </div>
+  <!--Search -->
+  <!--List conversation -->
   <div class="list-user">
-    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='{{user.id}}'>
+    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='/chat/{{user.id}}'>
       <div class="space" [class.zxc]="user.id == usersID"></div>
-      <div id="user" class="users" [class.abc]="user.id == usersID">
+      <!--Conversation -->
+      <div id="user" class="users" [class.abc]="user.id == usersID"> <!--Thanh màu xanh -->
         <img [src]="user.photo" roundShape="true" />
         <span class="status" *ngIf="user.status"></span>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
+          <!--Right -->
           <div style="float: left;" [class.bold]="user.newMessage > 0 && user.id != usersID">
             <p class="name">{{ user.name }}</p>
             <p class="lastMessage">{{ getLastMessage(user) }}</p>
           </div>
+          <!--Right -->
+          <!--Left -->
           <div class="day">
             <div style="display:block;">
-              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 2">{{ convertDate(user.lastSeen) | date: 'H:mm' }}</p>
-              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 8 && calculateDiff(user.lastSeen) >= 2">{{ convertDate(user.lastSeen) | date: 'EEE' }}</p>
-              <p class="time" *ngIf="calculateDiff(user.lastSeen) > 8">{{ convertDate(user.lastSeen)| date: 'MMM d' }}</p>
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 2">{{ convertDate(user.lastSeen) | date: 'H:mm' }}
+              </p>
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 8 && calculateDiff(user.lastSeen) >= 2">
+                {{ convertDate(user.lastSeen) | date: 'EEE' }}</p>
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) > 8">{{ convertDate(user.lastSeen)| date: 'MMM d' }}
+              </p>
             </div>
             <div class="have-seen" *ngIf="user.newMessage > 0 && user.id != usersID;">
               <p>{{ user.newMessage }}</p>
             </div>
           </div>
+          <!--Left -->
         </div>
       </div>
+      <!--Conversation -->
     </div>
   </div>
+  <!--List conversation -->
+</div>
+<!--Content -->

@@ -13,7 +13,6 @@ import { InfoChatComponent } from './ui/chat/info-chat/info-chat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersListComponent } from './ui/share/users-list/users-list.component'
 import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular';
-import { UiModule } from './ui/ui.module';
 
 import { DatatransferService } from './services/datatransfer.service';
 
@@ -36,7 +35,6 @@ import { DatatransferService } from './services/datatransfer.service';
     IgxIconModule,
     HttpClientModule,
     FormsModule,
-    UiModule
   ],
   providers: [DatatransferService],
   bootstrap: [AppComponent]

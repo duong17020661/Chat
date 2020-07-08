@@ -1,5 +1,6 @@
-
+<!-- Toolbar -->
 <div class="toolbar">
+    <!-- Bên trái -->
     <div *ngFor="let user of users">
         <div id="info" *ngIf="usersID == user.id">
             <img [src]="user.photo" alt="Avatar" id="avatar">
@@ -13,15 +14,21 @@
                 </div>
         </div>
     </div>
+    <!-- Bên trái -->
+    <!-- Bên phải -->
     <div id="icon_info" ng-controller="myCtrl">
         <img src="/assets/ICON/IconAppChat/4.svg" alt="Search" id="info1">
         <img [src]="!isShowDivIf ? '/assets/ICON/IconAppChat/5.svg' : '/assets/ICON/IconAppChat/6.svg'" (click)=toggleDisplayDivIf() alt="Info" id="info2">
         <img src="/assets/ICON/IconAppChat/2.svg" alt="Open" id="info3">
     </div>
+    <!-- Bên phải -->
 </div>
+<!-- Toolbar -->
+<!-- Content -->
 <div id="c3" *ngIf="!isShowDivIf">
     <app-info-chat></app-info-chat>
 </div>
 <div id="c4">
     <app-main-chat></app-main-chat>
 </div>
+<!-- Content -->
