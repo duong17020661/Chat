@@ -1,9 +1,9 @@
+//Containet
 .chat-info {
     height: calc(100vh - 120px);
     overflow: auto;
     overflow-x: hidden;
 }
-
 .chat-info::-webkit-scrollbar {
     width: 8px;
     background: transparent;
@@ -11,7 +11,7 @@
 .chat-info::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
 }
-
+// Thông tin người dùng
 .info {
     padding-top: 30px;
     height: 40%;
@@ -38,6 +38,40 @@
     border-radius: 50%;
     border: 3px solid lightblue;
 }
+// Dropdown
+.drop-file{
+    margin-left: 16px;
+    background-color: unset;
+    color: #666666;
+    &:focus {
+        outline: 0;
+    }
+}
+#dropdown-file {
+    align-items: center;
+    margin-left: 16px;
+}
+.drop-img{
+    margin-left: 16px;
+    background-color: unset;
+    color: #666666;
+    &:focus {
+        outline: 0;
+    }
+}
+#dropdown-img{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-items: center;
+}
+.header {
+    float: left;
+    font-size: 13px;
+    letter-spacing: -.13px;
+    color: #666666;
+}
+// Danh sách file
 .file {
     border-bottom: 1px solid white;
     line-height: 1.5;
@@ -50,28 +84,7 @@
     text-decoration: underline;
     color: #2688e6;;
 }
-.drop-file{
-    margin-left: 16px;
-    background-color: unset;
-    color: #666666;
-    &:focus {
-        outline: 0;
-    }
-}
-.drop-img{
-    margin-left: 16px;
-    background-color: unset;
-    color: #666666;
-    &:focus {
-        outline: 0;
-    }
-}
-.header {
-    float: left;
-    font-size: 13px;
-    letter-spacing: -.13px;
-    color: #666666;
-}
+// Danh sách ảnh
 #drop {
     margin-right: 16px;
     float: right;
@@ -83,18 +96,6 @@
     font-size: 13px;
     color: #666666;
 }
-
-#dropdown-file {
-    align-items: center;
-    margin-left: 16px;
-}
-
-#dropdown-img{
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    justify-items: center;
-}
 .img-preview {
     margin-bottom: 10px;
     align-items: center;
@@ -103,7 +104,6 @@
     object-fit: cover;
     cursor: pointer;
 }
-
 // Modal Image
 .modal-content {
     margin-left: auto;
