@@ -1,5 +1,11 @@
 <!-- Content -->
 <div class="messages" #scrollframe>
+    <!-- Loading -->
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <ul *ngFor="let message of messages" #item>
         <!-- Người gửi -->
         <li class="replies" *ngIf="message.senderID == 0 && message.receiverID == userID">
