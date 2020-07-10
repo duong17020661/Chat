@@ -4,10 +4,8 @@
   <img src="/assets/ICON/IconAppChat/20.svg" alt="Open" id="open">
   <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" id="icon">
   <span id="name">Web Chat Online</span>
-  <img src="/assets/IMG/Avatar/1.jpg" alt="Avatar" id="avatar">
-  <p><a [routerLink]="['/login']">Logout</a></p>
+  <img [routerLink]="['/login']" src="/assets/IMG/Avatar/1.jpg" alt="Avatar" id="avatar">
 </div>
-
 <!-- Chat -->
 <router-outlet></router-outlet>
 <!-- Footer -->

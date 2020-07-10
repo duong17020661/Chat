@@ -23,14 +23,13 @@ export class LoginComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private authenticationService: AuthService,
-      private _mess : MessagesService 
-        
+      private _mess : MessagesService
       ) {}
 
   ngOnInit() {
         this._mess.getAll().pipe(first()).subscribe(users => { 
           this.users = users;
-          console.log(this.users)
+          console.log(users) 
       });
       this.loginForm = this.formBuilder.group({
           username: ['', Validators.required],
