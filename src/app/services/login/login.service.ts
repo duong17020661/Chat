@@ -1,25 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { IMessages } from '../../../models/messages';
-import { User } from 'src/models/user';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MessagesService {
-
+export class LoginService {
+  
   constructor(private http: HttpClient) { }
   // Lấy dữ liệu nội dung tin nhắn
-  dataUrl = "/assets/JsonData/messages.json"
-  getMessages(): Observable<IMessages[]> {
-    return this.http.get<IMessages[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));
-  }
+  dataUrl = "https://localhost:44337/api/users/authenticate/login"
 
-  getAll() {
-    return this.http.get<User[]>('https://localhost:44337/weatherforecast');
-  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -36,5 +28,4 @@ export class MessagesService {
     return throwError(
       'Something bad happened; please try again later.');
   };
-
 }
