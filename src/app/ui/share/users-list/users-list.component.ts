@@ -85,6 +85,7 @@ export class UsersListComponent implements OnInit {
     });
   }
   // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian
+  timeBetween: number // 1 : giờ | 2 : thứ | 3 : ngày
   calculateDiff(dateSent) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
@@ -94,6 +95,5 @@ export class UsersListComponent implements OnInit {
   convertDate(date) {
     return new Date(date);
   }
-
 }
 

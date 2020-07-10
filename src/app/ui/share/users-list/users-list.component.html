@@ -16,7 +16,8 @@
     <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='/chat/{{user.id}}'>
       <div class="space" [class.zxc]="user.id == usersID"></div>
       <!--Conversation -->
-      <div id="user" class="users" [class.abc]="user.id == usersID"> <!--Thanh màu xanh -->
+      <div id="user" class="users" [class.abc]="user.id == usersID">
+        <!--Thanh màu xanh -->
         <img [src]="user.photo" roundShape="true" />
         <span class="status" *ngIf="user.status"></span>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
@@ -29,11 +30,11 @@
           <!--Left -->
           <div class="day">
             <div style="display:block;">
-              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 2">{{ convertDate(user.lastSeen) | date: 'H:mm' }}
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) <= 1">{{ convertDate(user.lastSeen) | date: 'H:mm' }}
               </p>
-              <p class="time" *ngIf="calculateDiff(user.lastSeen) < 8 && calculateDiff(user.lastSeen) >= 2">
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) <=7 && calculateDiff(user.lastSeen) > 1">
                 {{ convertDate(user.lastSeen) | date: 'EEE' }}</p>
-              <p class="time" *ngIf="calculateDiff(user.lastSeen) > 8">{{ convertDate(user.lastSeen)| date: 'MMM d' }}
+              <p class="time" *ngIf="calculateDiff(user.lastSeen) > 7">{{ convertDate(user.lastSeen)| date: 'MMM d' }}
               </p>
             </div>
             <div class="have-seen" *ngIf="user.newMessage > 0 && user.id != usersID;">

@@ -5,20 +5,21 @@
         <div id="info" *ngIf="usersID == user.id">
             <img [src]="user.photo" alt="Avatar" id="avatar">
             <div>
-            <p style="font-size: 14px;
+                <p style="font-size: 14px;
                 color: #212121; font-weight: 500;">{{ user.name }}</p>
-            <p *ngIf="user.status" class="status" style="font-size: 12px;
+                <p *ngIf="user.status" class="status" style="font-size: 12px;
                 color: #757575;">Đang hoạt động</p>
-            <p *ngIf="!user.status" class="status" style="font-size: 12px;
+                <p *ngIf="!user.status" class="status" style="font-size: 12px;
             color: #757575;">Hoạt động {{ timeDiff(user.lastSeen) }} phút trước</p>
-                </div>
+            </div>
         </div>
     </div>
     <!-- Bên trái -->
     <!-- Bên phải -->
     <div id="icon_info" ng-controller="myCtrl">
         <img src="/assets/ICON/IconAppChat/4.svg" alt="Search" id="info1">
-        <img [src]="!isShowDivIf ? '/assets/ICON/IconAppChat/5.svg' : '/assets/ICON/IconAppChat/6.svg'" (click)=toggleDisplayDivIf() alt="Info" id="info2">
+        <img [src]="!isShowDivIf ? '/assets/ICON/IconAppChat/5.svg' : '/assets/ICON/IconAppChat/6.svg'"
+            (click)=toggleDisplayDivIf() alt="Info" id="info2">
         <img src="/assets/ICON/IconAppChat/2.svg" alt="Open" id="info3">
     </div>
     <!-- Bên phải -->

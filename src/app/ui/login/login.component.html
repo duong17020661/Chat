@@ -24,11 +24,11 @@
           <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
         <span class="psw">Create a new account <a href="#"
-            onclick="document.getElementById('id01').style.display='block'">Resgister</a></span>
+            onclick="document.getElementById('register').style.display='block'">Resgister</a></span>
 
         <script>
           // Get the modal
-          var modal = document.getElementById('id01');
+          var modal = document.getElementById('register');
           // When the user clicks anywhere outside of the modal, close it
           window.onclick = function (event) {
             if (event.target == modal) {
@@ -37,13 +37,12 @@
           }
         </script>
       </div>
-
       <!-- Remember password & Register modal -->
     </form>
   </div>
   <!-- LoginForm -->
   <!-- Resgister Form -->
-  <div id="id01" class="modal">
+  <div id="register" class="modal">
     <form class="modal-content animate" action="/action_page.php" method="post">
       <div class="container">
         <h1>Register Form</h1>
