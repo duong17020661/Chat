@@ -18,12 +18,13 @@
       <!--Conversation -->
       <div id="user" class="users" [class.abc]="user.id == usersID">
         <!--Thanh màu xanh -->
-        <img [src]="user.photo" roundShape="true" />
+        <ngx-avatar size="28" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
+         <!--<img [src]="user.photo" roundShape="true" /> -->
         <span class="status" *ngIf="user.status"></span>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
           <!--Right -->
           <div style="float: left;" [class.bold]="user.newMessage > 0 && user.id != usersID">
-            <p class="name">{{ user.name }}</p>
+            <p class="name">{{ user.firstName + " " + user.lastName }}</p>
             <p class="lastMessage">{{ getLastMessage(user) }}</p>
           </div>
           <!--Right -->

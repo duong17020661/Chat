@@ -3,10 +3,11 @@
     <!-- Bên trái -->
     <div *ngFor="let user of users">
         <div id="info" *ngIf="usersID == user.id">
-            <img [src]="user.photo" alt="Avatar" id="avatar">
+            <ngx-avatar id="avatar" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
+           <!-- <img [src]="user.photo" alt="Avatar" id="avatar"> -->
             <div>
                 <p style="font-size: 14px;
-                color: #212121; font-weight: 500;">{{ user.name }}</p>
+                color: #212121; font-weight: 500;">{{ user.firstName + ' ' + user.lastName }}</p>
                 <p *ngIf="user.status" class="status" style="font-size: 12px;
                 color: #757575;">Đang hoạt động</p>
                 <p *ngIf="!user.status" class="status" style="font-size: 12px;

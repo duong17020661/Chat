@@ -1,8 +1,8 @@
 export interface IMessages {
     id: number,
     message: string,
-    senderID: number,
-    receiverID: number,
+    senderID: string,
+    receiverID: string,
     time: string,
     type: string,
     url?: string,

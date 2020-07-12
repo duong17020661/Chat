@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MessagesService } from 'src/app/services/messages/messages.service';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { MessagesService } from 'src/app/services/messages/messages.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  registerForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -31,11 +33,19 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+    });
+
     // reset login status
     this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/chat/1';
   }
 
   // convenience getter for easy access to form fields
@@ -54,11 +64,27 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + data.id]);
         },
         error => {
           this.error = error;
           this.loading = false;
         });
   }
+  get rf() { return this.registerForm.controls; }
+  register() {
+    this.submitted = true;
+      this.loading = true;
+      this.authenticationService.register(this.rf.firstName.value, this.rf.lastName.value, this.rf.username.value, this.rf.password.value, this.rf.email.value, this.rf.phone.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.router.navigate([this.returnUrl]);
+          },
+          error => {
+            this.error = error;
+            this.loading = false;
+          });
+  }
 }
+

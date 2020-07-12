@@ -21,7 +21,7 @@ export class UsersListComponent implements OnInit {
 
   spinnerService: any;
   searchTerm: string;
-  usersID: any;
+  usersID: string;
 
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
@@ -81,7 +81,8 @@ export class UsersListComponent implements OnInit {
   search(): void {
     let term = this.searchTerm;
     this.users = this.userResource.filter(function (tag) {
-      return tag.name.indexOf(term) >= 0;
+      let fullName = tag.firstName + " " + tag.lastName;
+      return fullName.indexOf(term) >= 0;
     });
   }
   // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian

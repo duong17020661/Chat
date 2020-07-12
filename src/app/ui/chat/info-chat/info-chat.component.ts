@@ -24,7 +24,7 @@ export class InfoChatComponent implements OnInit {
     this._userservice.getUsers().subscribe(data => this.users = data);
     this._chatservice.getMessages().subscribe(data => this.images = data);
       
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    let id = this.route.snapshot.paramMap.get('id');
     this.usersID = id;
     });
   }
@@ -34,7 +34,7 @@ export class InfoChatComponent implements OnInit {
     this._userservice.getUsers().subscribe(data => this.users = data); // Lấy dữ liệu người dùng
     this._chatservice.getMessages().subscribe(data => this.messages = data); // Lấy dữ liệu tin nhắn
     // Lấy ID theo url
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    let id = this.route.snapshot.paramMap.get('id');
     this.getUserID()
     // Theo dõi sự thay đổi tin nhắn
     this._datatransfer.messages$.subscribe(value =>

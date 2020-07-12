@@ -7,11 +7,11 @@
       </div>
       <div class="container">
         <label for="uname"><b>Username</b></label>
-        <input type="text" formControlName="username" class="form-control"
+        <input type="text" formControlName="username" 
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter Username" name="uname"
           required>
         <label for="psw"><b>Password</b></label>
-        <input type="password" formControlName="password" class="form-control"
+        <input type="password" formControlName="password"
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter Password" name="psw" required>
         <button type="submit" [disabled]="loading">Login</button>
         <img *ngIf="loading"
@@ -23,7 +23,7 @@
         <label class="checkbox">
           <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
-        <span class="psw">Create a new account <a href="#"
+        <span class="psw">Create a new account <a
             onclick="document.getElementById('register').style.display='block'">Resgister</a></span>
 
         <script>
@@ -43,32 +43,37 @@
   <!-- LoginForm -->
   <!-- Resgister Form -->
   <div id="register" class="modal">
-    <form class="modal-content animate" action="/action_page.php" method="post">
+    <form class="modal-content animate" [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="container">
         <h1>Register Form</h1>
         <br>
-        <label for="uname"><b>Full name</b></label>
-        <input type="text" placeholder="Enter your full name" name="uname" required>
+        <label for="fname"><b>First name</b></label>
+        <input type="text" formControlName="firstName" placeholder="Enter your first name" name="fname" required>
+        <label for="lname"><b>Last name</b></label>
+        <input type="text" formControlName="lastName" placeholder="Enter your last name" name="lname" required>
 
         <label for="email"><b>Email</b></label>
-        <input type="email" placeholder="Enter your Email" name="email" required>
+        <input type="email" formControlName="email" placeholder="Enter your Email" name="email" required>
 
         <label for="phone"><b>Phone Number</b></label>
-        <input type="tel" placeholder="Enter your phone number" name="phone" pattern="[0-9]{10}" required>
+        <input type="tel" formControlName="phone" placeholder="Enter your phone number" name="phone" pattern="[0-9]{10}" required>
 
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter your Username" name="uname" required>
+        <input type="text" formControlName="username" placeholder="Enter your Username" name="uname" required>
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter your Password" name="psw" required>
+        <input type="password" formControlName="password" placeholder="Enter your Password" name="psw" required>
 
         <label for="psw"><b>Re-Password</b></label>
         <input type="password" placeholder="Re type your Password" name="psw" required>
 
-        <label for="avatar"><b>Avatar </b></label>
-        <input type="file" accept="image/*" name="avatar" required>
+        <!--<label for="avatar"><b>Avatar </b></label>
+        <input type="file" accept="image/*" name="avatar" required>-->
 
         <button type="submit">Register</button>
+        <img *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
       </div>
       <!-- Cancel Button -->
       <div class="container">

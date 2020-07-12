@@ -15,7 +15,7 @@ export class ChatComponent implements OnInit {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
       this._userservice.getUsers().subscribe(data => this.users = data);
-      let id = parseInt(this.route.snapshot.paramMap.get('id'));
+      let id = this.route.snapshot.paramMap.get('id');
       this.usersID = id;
       this.datatransfer.changeUser(this.usersID)
     });
@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
     // Lấy dữ liệu người dùng
     this._userservice.getUsers().subscribe(data => this.users = data);
     // Lấy ID từ url
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    let id = this.route.snapshot.paramMap.get('id');
     this.usersID = id;
   }
   isShowDivIf = false; // Hiện/đóng thông tin cuộc trò chuyện

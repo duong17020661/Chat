@@ -15,6 +15,7 @@ import { InfoChatComponent } from './ui/chat/info-chat/info-chat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersListComponent } from './ui/share/users-list/users-list.component'
 import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular';
+import { AvatarModule } from 'ngx-avatar';
 
 import { DatatransferService } from './services/datatransfer.service';
 
@@ -38,6 +39,7 @@ import { DatatransferService } from './services/datatransfer.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AvatarModule,
   ],
   providers: [DatatransferService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

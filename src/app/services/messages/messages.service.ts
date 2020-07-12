@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { IMessages } from '../../../models/messages';
-import { User } from 'src/models/user';
+import { IUser } from 'src/models/user';
 
 @Injectable({
   providedIn: 'root'

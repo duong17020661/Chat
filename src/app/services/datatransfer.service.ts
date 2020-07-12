@@ -18,8 +18,8 @@ export class DatatransferService {
     this.messages$.next(message)
   }
   // Nhận ID khi có sự kiện thay đổi user
-  @Output() userId = new EventEmitter<number>();
-  changeUser(id: number) {
+  @Output() userId = new EventEmitter<string>();
+  changeUser(id: string) {
     this.userId.emit(id);
   }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { IUsers } from '../../../models/users';
+import { IUser } from '../../../models/user';
 
 
 @Injectable({
@@ -12,9 +12,13 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
   // Lấy dữ liệu về người dùng
-  dataUrl = "/assets/JsonData/users.json"
-  getUsers(): Observable<IUsers[]> {
-    return this.http.get<IUsers[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));
+  dataUrl = "https://localhost:44337/api/users"
+  getUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));
+  }
+  getUserUrl = "https://localhost:44337/api/users"
+  getUser(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

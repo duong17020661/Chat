@@ -45,13 +45,26 @@
   }
   // Avatar
   .messages ul li.sent img {
-    margin: 6px 8px 0 0;
+    margin: 4px 8px 0 0;
   }
   .messages ul li.replies img {
     float: right;
-    margin: 6px 0 0 8px;
+    margin: 4px 0 0 8px;
   }
   .messages ul li img {
+    vertical-align: bottom;
+    width: 32px;
+    border-radius: 50%;
+    float: left;
+  }
+  .messages ul li.sent ngx-avatar {
+    margin: 4px 8px 0 0;
+  }
+  .messages ul li.replies ngx-avatar {
+    float: right;
+    margin: 4px 0 0 8px;
+  }
+  .messages ul li ngx-avatar {
     vertical-align: bottom;
     width: 32px;
     border-radius: 50%;

@@ -1,96 +1,96 @@
 [{
     "id": 1,
     "message": "3 gui 0",
-    "senderID": 3,
-    "receiverID": 0,
+    "senderID": "08d825b7-9556-4b14-895c-c84588a9cb36",
+    "receiverID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
     "time": "2019-11-18 10:00:00",
     "type": "text"
 }, 
 {
     "id": 2,
     "message": "4 gui 0",
-    "senderID": 4,
-    "receiverID": 0,
+    "senderID": "08d825b7-9f47-49b2-8178-d9d33be60a1c",
+    "receiverID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
     "time": "2019-11-18 10:10:00",
     "type": "text"
 },
 {
     "id": 3,
     "message": "0 gui 5",
-    "senderID": 0,
-    "receiverID": 5,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825b8-6f02-41d7-8f8f-ad68cce9affb",
     "time": "2019-11-18 10:50:00",
     "type": "text"
 },
 {
     "id": 4,
     "message": "0 gui 4",
-    "senderID": 0,
-    "receiverID": 2,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825b1-e437-4b86-88ad-1ef990082238",
     "time": "2019-11-18 11:00:00",
     "type": "text"
 },
 {
     "id": 5,
     "message": "5 gui 0",
-    "senderID": 5,
-    "receiverID": 0,
+    "senderID": "08d825b8-6f02-41d7-8f8f-ad68cce9affb",
+    "receiverID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
     "time": "2019-11-18 11:50:00",
     "type": "text"
 },
 {
     "id": 6,
     "message": "1 gui 0",
-    "senderID": 1,
-    "receiverID": 0,
+    "senderID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
+    "receiverID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
     "time": "2019-11-18 12:10:00",
     "type": "text"
 },
 {
     "id": 7,
     "message": "0 gui 2",
-    "senderID": 0,
-    "receiverID": 2,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825b1-e437-4b86-88ad-1ef990082238",
     "time": "2019-11-18 12:15:00",
     "type": "text"
 },
 {
     "id": 8,
     "message": "0 gui 1",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 12:15:00",
     "type": "text"
 },
 {
     "id": 9,
     "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
-    "senderID": 1,
-    "receiverID": 0,
+    "senderID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
+    "receiverID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
     "time": "2019-11-18 12:16:00",
     "type": "image"
 },
 {
     "id": 10,
     "message": "https://th.bing.com/th/id/OIP.A9bl9ir5Zz06YbYffYuJCwHaFj?w=214&h=180&c=7&o=5&pid=1.7",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 12:17:00",
     "type": "image"
 },
 {
     "id": 11,
     "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 12:18:00",
     "type": "image"
 },
 {
     "id": 12,
     "message": "PDF.pdf",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 12:19:00",
     "type": "file",
     "typeof": "pdf"
@@ -98,24 +98,24 @@
 {
     "id": 13,
     "message": "https://th.bing.com/th/id/OIP.BPVWGkJbbDnVFSJT3w7OIAHaFj?w=214&h=180&c=7&o=5&pid=1.7",
-    "senderID": 1,
-    "receiverID": 0,
+    "senderID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
+    "receiverID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
     "time": "2019-11-18 12:50:00",
     "type": "image"
 },
 {
     "id": 14,
     "message": "https://th.bing.com/th/id/OIP.A9bl9ir5Zz06YbYffYuJCwHaFj?w=214&h=180&c=7&o=5&pid=1.7",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 12:55:00",
     "type": "image"
 },
 {
     "id": 15,
     "message": "DOC.docx",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 13:01:00",
     "type": "file",
     "typeof": "docx"
@@ -123,16 +123,16 @@
 {
     "id": 16,
     "message": "PPTX.pptx",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 13:02:00",
     "type": "file",
     "typeof": "pptx"
 },{
     "id": 17,
     "message": "Other.txt",
-    "senderID": 0,
-    "receiverID": 1,
+    "senderID": "08d825b9-3599-46a2-89cd-ced2df8bfa9e",
+    "receiverID": "08d825a9-35de-4bbe-8f5b-19b28cf69531",
     "time": "2019-11-18 14:03:00",
     "type": "file",
     "typeof": "txt",
