@@ -83,7 +83,7 @@ export class StringeeService  {
     var isAscending = Ascending;
     this.stringeeChat.getLastMessages(convId, count, isAscending, function (status, code, message, msgs) {
       // console.log("LAST MESSAGES: " + 'status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(msgs));
-      console.log(Array.of(msgs))
+      console.log(JSON.parse(JSON.stringify(msgs)))
     });
   }
 
