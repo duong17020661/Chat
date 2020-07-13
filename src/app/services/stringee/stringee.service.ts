@@ -5,7 +5,7 @@ import { IUser } from 'src/models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class StringeeService {
+export class StringeeService  {
 
 
   // Init
@@ -77,13 +77,13 @@ export class StringeeService {
     });
   }
   // Get last messages
-  getLastMessages(getMessages: [],numberMessages: number, Ascending: boolean, conversationId: string){
+  getLastMessages(getMessages: any[],numberMessages: number, Ascending: boolean, conversationId: string){
     var convId = conversationId;
     var count = numberMessages;
     var isAscending = Ascending;
     this.stringeeChat.getLastMessages(convId, count, isAscending, function (status, code, message, msgs) {
       // console.log("LAST MESSAGES: " + 'status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(msgs));
-      console.log(JSON.stringify(msgs))
+      console.log(Array.of(msgs))
     });
   }
 
