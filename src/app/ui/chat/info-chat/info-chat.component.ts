@@ -46,11 +46,13 @@ export class InfoChatComponent implements OnInit {
   }
   // Lọc dữ liệu tin nhắn ảnh
   getImages(){
-    return this.messages.filter(mess => (mess.type === 'image') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
+    return null
+    //return this.messages.filter(mess => (mess.type === 'image') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
   }
   // Lọc dữ liệu tin nhắn file
   getFiles(){
-    return this.messages.filter(mess => (mess.type === 'file') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
+    return null
+    // return this.messages.filter(mess => (mess.type === 'file') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
   }
   // Theo dõi sự thay đổi và lấy ID
   getUserID(){

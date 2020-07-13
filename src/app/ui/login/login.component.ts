@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { MessagesService } from 'src/app/services/messages/messages.service';
-import { registerLocaleData } from '@angular/common';
+import { StringeeService } from '../../services/stringee/stringee.service'
 
 @Component({
   selector: 'app-login',
@@ -25,6 +24,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthService,
+    private stringeeService: StringeeService
   ) { }
 
   ngOnInit() {
@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          // Connect to stringee
+          this.stringeeService.stringeeConnect(data.token);
           this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + data.id]);
         },
         error => {
@@ -79,7 +81,8 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            this.router.navigate([this.returnUrl]);
+              this.stringeeService.stringeeConnect(data.token);
+              this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + data.id]);
           },
           error => {
             this.error = error;

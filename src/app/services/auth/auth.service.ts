@@ -29,7 +29,7 @@ export class AuthService {
         localStorage.removeItem('currentUser');
     }
 
-    register(firstName: string, lastName: string, username: string, password: string, email: string, phone: number){
+    register(firstName: string, lastName: string, username: string, password: string, email: string, phone: string){
         console.log(firstName +  " " + lastName +  " " + username +  " " + password +  " " + email +  " " + phone)
         return this.http.post<any>(`https://localhost:44337/api/users/authenticate/register`, { 
             username: username,

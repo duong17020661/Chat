@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
-import { filter } from 'jszip';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users/users.service';
 import { IUsers } from 'src/models/users';
 import { map } from 'rxjs/operators';
-import { MessagePort } from 'worker_threads';
 import { MessagesService } from 'src/app/services/messages/messages.service';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
+import { StringeeService } from '../../../services/stringee/stringee.service'
+import { IUser } from 'src/models/user';
+
 
 @Component({
   selector: 'app-users-list',
@@ -27,7 +28,14 @@ export class UsersListComponent implements OnInit {
   public userResource = []; // Dữ liệu lưu để so sánh
   public users = [];
 
-  constructor(private router: Router, private _chatservice: MessagesService, private _userservice: UsersService, private route: ActivatedRoute, private _datatransfer: DatatransferService) {
+  constructor(
+    private router: Router, 
+    private _chatservice: MessagesService, 
+    private _userservice: UsersService, 
+    private route: ActivatedRoute, 
+    private _datatransfer: DatatransferService,
+    private _stringeeservice: StringeeService
+    ) {
     this.getUserID()
   }
 
@@ -73,9 +81,11 @@ export class UsersListComponent implements OnInit {
     })
   }
   // Hàm xử lý sự kiện click vào user
-  onSelect(user: IUsers) {
+  onSelect(user: IUser) {
+    
     this.usersID = user.id;
     user.newMessage = 0;
+    this._stringeeservice.createConversation(user);
   }
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {
