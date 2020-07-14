@@ -49,5 +49,24 @@
     </div>
   </div>
   <!--List conversation -->
+  <!-- List User -->
+  <div class="list-conversation">
+    <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='/chat/{{user.id}}'>
+      <!--Conversation -->
+      <div id="user" class="users" [class.abc]="user.id == usersID">
+        <!--Thanh màu xanh -->
+        <ngx-avatar size="28" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
+         <!--<img [src]="user.photo" roundShape="true" /> -->
+        <div class="info d-none d-lg-block" style="display: none;width: 262px;">
+          <!--Right -->
+          <div style="float: left;" [class.bold]="user.newMessage > 0 && user.id != usersID">
+            <p class="name">{{ user.firstName + " " + user.lastName }}</p>
+          </div>
+          <!--Right -->
+        </div>
+      </div>
+  </div>
+  <!-- List User -->
+
 </div>
 <!--Content -->

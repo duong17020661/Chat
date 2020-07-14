@@ -6,27 +6,29 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+    <img *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
     <ul *ngFor="let message of messages" #item>
         <!-- Người gửi -->
-        <li class="replies" *ngIf="message.senderID == id && message.receiverID == userID">
+        <li class="replies" *ngIf="message.sender == currentUserId">
             <img class="img-preview" *ngIf="message.type == 'image'" [src]="message.message" data-toggle="modal"
                 data-target="#exampleModalCenter" (click)="ModalImage(message.message)" />
             <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
-            <div *ngIf="message.type == 'text'" style="float: right;" data-toggle="tooltip" data-placement="right"
+            <div *ngIf="message.type == 1" style="float: right;" data-toggle="tooltip" data-placement="right"
                 [title]="message.time">
-                <p>{{ message }}</p>
+                <p>{{ message.content.content }}</p>
             </div>
         </li>
         <!-- Người gửi -->
         <!-- Người nhận -->
-        <li class="sent" *ngIf="message.receiverID == id && message.senderID == userID">
+        <li class="sent" *ngIf="message.sender != currentUserId">
             <ngx-avatar size="32" [name]="getAvatar()"></ngx-avatar>
             <!--<img [src]="getAvatar()" alt="" />-->
             <img class="img-preview " *ngIf="message.type == 'image'" [src]="message.message" data-toggle="modal"
                 data-target="#exampleModalCenter" (click)="ModalImage(message.message)" />
             <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
-            <div *ngIf="message.type == 'text'" data-toggle="tooltip" data-placement="left" [title]="message.time">
-                <p>{{ message.message }}</p>
+            <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left" [title]="message.time">
+                <p>{{ message.content.content }}</p>
             </div>
         </li>
         <!-- Người nhận -->

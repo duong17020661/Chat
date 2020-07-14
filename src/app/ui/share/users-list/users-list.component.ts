@@ -27,6 +27,7 @@ export class UsersListComponent implements OnInit {
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
   public users = [];
+  public conversation = [] // List dữ liệu về cuộc trò chuyện
 
   constructor(
     private router: Router, 
@@ -55,7 +56,14 @@ export class UsersListComponent implements OnInit {
     ).subscribe(data => {
       this.messages = data;
     });
+    this.getConvesationList();
   }
+
+  async getConvesationList() {
+    this.conversation =  await this._stringeeservice.getLastConv(25);
+    console.log("Mess:" + this.conversation[1].id)
+  }
+
   // Hàm lấy dữ liệu lastMessage
   getLastMessage(user: IUsers) {
     for (var i = 0; i < this.messages.length; i++) {
@@ -94,6 +102,8 @@ export class UsersListComponent implements OnInit {
       let fullName = tag.firstName + " " + tag.lastName;
       return fullName.indexOf(term) >= 0;
     });
+    this.getConvesationList();
+    this._stringeeservice.getUserInfo(this.usersID)
   }
   // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian
   timeBetween: number // 1 : giờ | 2 : thứ | 3 : ngày

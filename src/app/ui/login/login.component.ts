@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         data => {
           // Connect to stringee
           this.stringeeService.stringeeConnect(data.token);
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + data.id]);
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
         },
         error => {
           this.error = error;
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
               this.stringeeService.stringeeConnect(data.token);
-              this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + data.id]);
+              this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
           },
           error => {
             this.error = error;

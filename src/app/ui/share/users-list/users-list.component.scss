@@ -51,6 +51,12 @@
     overflow: auto;
     overflow-x: hidden;
 }
+.list-conversation {
+    height: calc(100vh - 140px);
+    overflow: auto;
+    overflow-x: hidden;
+    display: hidden;
+}
 .list-user::-webkit-scrollbar {
     width: 8px;
     background: transparent;
