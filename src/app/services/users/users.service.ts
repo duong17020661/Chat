@@ -14,11 +14,11 @@ export class UsersService {
   // Lấy dữ liệu về người dùng
   dataUrl = "https://localhost:44337/api/users"
   getUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));
+    return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3), catchError(this.handleError));
   }
   getUserUrl = "https://localhost:44337/api/users"
   getUser(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3),catchError(this.handleError));
+    return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3), catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

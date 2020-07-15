@@ -9,6 +9,7 @@ import { MessagesService } from 'src/app/services/messages/messages.service';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { StringeeService } from '../../../services/stringee/stringee.service'
 import { IUser } from 'src/models/user';
+import * as jwt_decode from "jwt-decode";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class UsersListComponent implements OnInit {
   spinnerService: any;
   searchTerm: string;
   usersID: string;
+  userID: string = JSON.parse(localStorage.getItem('currentUser')).id
 
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
@@ -30,13 +32,13 @@ export class UsersListComponent implements OnInit {
   public conversation = [] // List dữ liệu về cuộc trò chuyện
 
   constructor(
-    private router: Router, 
-    private _chatservice: MessagesService, 
-    private _userservice: UsersService, 
-    private route: ActivatedRoute, 
+    private router: Router,
+    private _chatservice: MessagesService,
+    private _userservice: UsersService,
+    private route: ActivatedRoute,
     private _datatransfer: DatatransferService,
     private _stringeeservice: StringeeService
-    ) {
+  ) {
     this.getUserID()
   }
 
@@ -56,12 +58,16 @@ export class UsersListComponent implements OnInit {
     ).subscribe(data => {
       this.messages = data;
     });
-    this.getConvesationList();
-  }
 
+  }
+  // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
+  Add() {
+    this.getConvesationList();
+    this._stringeeservice.getUserInfo(this.userID)
+  }
+  // Lấy dữ liệu 25 tin nhắn gần nhất
   async getConvesationList() {
-    this.conversation =  await this._stringeeservice.getLastConv(25);
-    console.log("Mess:" + this.conversation[1].id)
+    this.conversation = await this._stringeeservice.getLastConv(25);
   }
 
   // Hàm lấy dữ liệu lastMessage
@@ -90,10 +96,22 @@ export class UsersListComponent implements OnInit {
   }
   // Hàm xử lý sự kiện click vào user
   onSelect(user: IUser) {
-    
     this.usersID = user.id;
     user.newMessage = 0;
-    this._stringeeservice.createConversation(user);
+    this._stringeeservice.createConversation([this.usersID]);
+  }
+  // Hàm xử lý sự kiện click vào cuộc trò chuyện
+  onSelectConv(conv) {
+    let userIDs = [];
+    var j = 0;
+    for (let user of conv.participants) {
+      if (user.userId != this.userID) {
+        userIDs[j] = user.userId;
+        j++;
+      }
+      console.log(user.name)
+    }
+    this._stringeeservice.createConversation(userIDs)
   }
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {
@@ -102,7 +120,6 @@ export class UsersListComponent implements OnInit {
       let fullName = tag.firstName + " " + tag.lastName;
       return fullName.indexOf(term) >= 0;
     });
-    this.getConvesationList();
     this._stringeeservice.getUserInfo(this.usersID)
   }
   // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian
@@ -116,5 +133,6 @@ export class UsersListComponent implements OnInit {
   convertDate(date) {
     return new Date(date);
   }
+
 }
 

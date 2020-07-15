@@ -42,19 +42,16 @@ export class LoginComponent implements OnInit {
       phone: ['', Validators.required],
     });
 
-    // reset login status
+    // Reset trạng thái đăng nhập
     this.authenticationService.logout();
-
-    // get return url from route parameters or default to '/'
   }
 
-  // convenience getter for easy access to form fields
+  // Get dữ liệu từ input text trong form đăng nhập
   get f() { return this.loginForm.controls; }
-
+  // Xử lý sự kiện Đăng nhập
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
+    // Dừng lại khi form bị lỗi
     if (this.loginForm.invalid) {
       return;
     }
@@ -64,7 +61,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // Connect to stringee
+          // Connect đến Stringee
           this.stringeeService.stringeeConnect(data.token);
           this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
         },
@@ -73,21 +70,25 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
+
+  // Get dữ liệu từ input text trong form đăng ký
   get rf() { return this.registerForm.controls; }
+  // Xử lý sự kiện Đăng ký
   register() {
     this.submitted = true;
-      this.loading = true;
-      this.authenticationService.register(this.rf.firstName.value, this.rf.lastName.value, this.rf.username.value, this.rf.password.value, this.rf.email.value, this.rf.phone.value)
-        .pipe(first())
-        .subscribe(
-          data => {
-              this.stringeeService.stringeeConnect(data.token);
-              this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
-          },
-          error => {
-            this.error = error;
-            this.loading = false;
-          });
+    this.loading = true;
+    this.authenticationService.register(this.rf.firstName.value, this.rf.lastName.value, this.rf.username.value, this.rf.password.value, this.rf.email.value, this.rf.phone.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // Connect đến Stringee
+          this.stringeeService.stringeeConnect(data.token);
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
 }
 

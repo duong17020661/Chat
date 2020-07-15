@@ -22,7 +22,7 @@
         <!-- Người gửi -->
         <!-- Người nhận -->
         <li class="sent" *ngIf="message.sender != currentUserId">
-            <ngx-avatar size="32" [name]="getAvatar()"></ngx-avatar>
+            <ngx-avatar size="32" name="A"></ngx-avatar>
             <!--<img [src]="getAvatar()" alt="" />-->
             <img class="img-preview " *ngIf="message.type == 'image'" [src]="message.message" data-toggle="modal"
                 data-target="#exampleModalCenter" (click)="ModalImage(message.message)" />
@@ -33,8 +33,8 @@
         </li>
         <!-- Người nhận -->
         <!-- Thời gian gửi tin nhắn -->
-        <p class="timeDiff" *ngIf="message.timeDiff > 15 && message.receiverID == userID || message.senderID == userID">
-            {{ convertDate(message.time) | date: 'MMM d, H:mm' }}</p>
+        <!-- <p class="timeDiff" *ngIf="message.timeDiff > 15 && message.receiverID == userID || message.senderID == userID">
+            {{ convertDate(message.time) | date: 'MMM d, H:mm' }}</p> -->
     </ul>
 </div>
 <!-- Content -->

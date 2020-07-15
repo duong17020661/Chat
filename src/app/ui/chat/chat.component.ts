@@ -28,7 +28,9 @@ export class ChatComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.usersID = id;
   }
+
   isShowDivIf = false; // Hiện/đóng thông tin cuộc trò chuyện
+
   // Xử lý hiện và đóng thông tin cuộc trò chuyện
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
@@ -39,6 +41,7 @@ export class ChatComponent implements OnInit {
       document.getElementById("c4").style.width = "100%";
     }
   }
+  
   // Tính chênh lệch giữa 2 khoảng thời gian theo phút
   timeDiff(dateSent) {
     let currentDate = new Date();

@@ -16,7 +16,7 @@ export class InfoChatComponent implements OnInit {
   public messages = [] // List dữ liệu về tin nhắn
   public file = [] // List dữ liệu về dile
   public users = []; // List dữ liệu về người dùng
-  public usersID; // ID người dùng đang trỏ đến
+  public convId; // ID người dùng đang trỏ đến
   modalImg: any; // Image modal
   constructor(private route: ActivatedRoute, private _datatransfer: DatatransferService, private _chatservice: MessagesService, private _userservice: UsersService) {
     // Tạo lại các đối tượng khi có thay đổi
@@ -25,7 +25,7 @@ export class InfoChatComponent implements OnInit {
     this._chatservice.getMessages().subscribe(data => this.images = data);
       
     let id = this.route.snapshot.paramMap.get('id');
-    this.usersID = id;
+    this.convId = id;
     });
   }
 
@@ -47,17 +47,15 @@ export class InfoChatComponent implements OnInit {
   // Lọc dữ liệu tin nhắn ảnh
   getImages(){
     return null
-    //return this.messages.filter(mess => (mess.type === 'image') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
   }
   // Lọc dữ liệu tin nhắn file
   getFiles(){
     return null
-    // return this.messages.filter(mess => (mess.type === 'file') && ((mess.senderID === this.usersID) || (mess.receiverID === this.usersID)))
   }
   // Theo dõi sự thay đổi và lấy ID
   getUserID(){
     this._datatransfer.userId.subscribe(data => {
-      this.usersID = data;
+      this.convId = data;
     })
   }
   // Hiển thị ảnh và file theo dropdown

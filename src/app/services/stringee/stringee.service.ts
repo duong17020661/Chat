@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
-import { IUser } from 'src/models/user';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StringeeService  {
+export class StringeeService {
 
 
   // Init
@@ -13,24 +13,25 @@ export class StringeeService  {
   stringeeChat = new StringeeChat(this.stringeeClient);
 
   constructor() { }
+
   // Connect stringee
-  stringeeConnect(token: string){
+  stringeeConnect(token: string) {
     this.stringeeClient.connect(token);
   }
-  onConnect(){
+  onConnect() {
     this.stringeeClient.on('connect', function () {
-      console.log('++++++++++++++ connected to StringeeServer');
     });
   }
-  
+
   // Authen Stringee
-  onAuthen(){
+  onAuthen() {
     this.stringeeClient.on('authen', function (res) {
       console.log('authen', res);
     });
   }
+
   // Disconnect stringee
-  stringeeDisconnect(){
+  stringeeDisconnect() {
     this.stringeeClient.disconnect();
   }
   onDisconnect() {
@@ -40,8 +41,8 @@ export class StringeeService  {
   }
 
   // Create Conversation 1-1
-  createConversation(user: IUser){
-    var userIds = [user.id];
+  createConversation(userId) {
+    var userIds = userId;
     var options = {
       isDistinct: true,
       isGroup: false
@@ -60,7 +61,7 @@ export class StringeeService  {
     console.log("ms" + convsRender);
     return convsRender;
   }
-  getLastConversations(count: number, isAscending: boolean){
+  getLastConversations(count: number, isAscending: boolean) {
     return new Promise((resolve, reject) => {
       this.stringeeChat.getLastConversations(count, isAscending, function (status, code, message, convs) {
         console.log("msgs " + convs);
@@ -70,7 +71,7 @@ export class StringeeService  {
   }
 
   // Send message
-  sendMessage(message: string, conversationId: string){
+  sendMessage(message: string, conversationId: string) {
     var txtMsg = {
       type: 1,
       convId: conversationId,
@@ -78,11 +79,11 @@ export class StringeeService  {
         content: message
       }
     };
-
     this.stringeeChat.sendMessage(txtMsg, function (status, code, message, msg) {
       //console.log(status + code + message + "msg result " + JSON.stringify(msg));
     });
   }
+
   // Get last messages
   async getLastMessage(YOUR_CONVERSATION_ID: string, count: number) {
     var convId = YOUR_CONVERSATION_ID;
@@ -91,7 +92,7 @@ export class StringeeService  {
     msgsRender = await this.getLastMessages(count, isAscending, convId);
     return msgsRender;
   }
-  getLastMessages(count: number, isAscending: boolean, convId: string){
+  getLastMessages(count: number, isAscending: boolean, convId: string) {
     return new Promise((resolve, reject) => {
       this.stringeeChat.getLastMessages(convId, count, isAscending, function (status, code, message, msgs) {
         resolve(msgs);
@@ -100,11 +101,38 @@ export class StringeeService  {
   }
 
   // Get user info
-  getUserInfo(userId: string){
-    var userIds = ['08d826ec-bf3a-4cff-84a5-2142b0eac1d7', '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b'];
-    this.stringeeChat.getUsersInfo(userIds, function (status, code, message, users) {
-        console.log('status:' + status + ' code:' + code + ' message:' + message + ' users:' + JSON.stringify(users));
+  getUserInfo(userId: string) {
+    var userIds = [userId];
+    this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
+      let user = users[0];
+      if (!user) {
+        let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
+        let username = tokenInfo.name;
+        let avatar = tokenInfo.avatar;
+        console.log(tokenInfo.name)
+        let updateUserData = {
+          display_name: username,
+          avatar_url: avatar
+        }
+        this.updateUserInfo(updateUserData)
+      }
     });
   }
 
+  // Update user info
+  updateUserInfo(data) {
+    this.stringeeChat.updateUserInfo(data, function (res) {
+      console.log(res)
+    });
+  }
+
+  // Decode token
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
+  }
 }

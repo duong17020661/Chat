@@ -1,7 +1,7 @@
 <div class="chat-info">
     <!-- Thông tin người dùng phía đối diện -->
     <div *ngFor="let user of users">
-        <div class="info" *ngIf="usersID == user.id">
+        <div class="info" *ngIf="convId == user.id">
             <ngx-avatar size="120" id="avatar" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
             <!--<img [src]="user.photo" alt="Avatar" id="avatar">-->
             <p><strong>{{ user.firstName + " " + user.lastName }}</strong></p>
@@ -18,7 +18,7 @@
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
             <ul type="square" *ngFor="let img of getFiles()">
-                <li class="list-file" *ngIf="img.senderID == usersID || img.receiverID == usersID">
+                <li class="list-file" *ngIf="img.senderID == convId || img.receiverID == convId">
                     <img *ngIf="img.typeof === 'pdf'" src="../../../../assets/ICON/pdf.png" alt="IconPDF"
                         style="width: 16px; height: 16px;" />
                     <img *ngIf="img.typeof === 'docx' || img.typeof === 'doc'" src="../../../../assets/ICON/docx.png"
