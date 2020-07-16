@@ -26,7 +26,7 @@ export class StringeeService {
       console.log('++++++++++++++ connected to StringeeServer');
       let userId = JSON.parse(localStorage.getItem("currentUser")).id;
       let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
-      console.log(userId, tokenInfo)
+      console.log("name: " + tokenInfo.name)
         // Get user info
         var userIds = [userId];
         this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {

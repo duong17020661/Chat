@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'chat/:id',
   component: UiComponent, canActivate: [AuthGuard]},
   { path: 'login' , component: LoginComponent},
-  { path: '**', redirectTo: 'chat/:id' }
+  { path: '**', redirectTo: 'login' }
 ];
 
 

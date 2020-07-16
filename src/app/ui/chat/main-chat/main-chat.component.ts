@@ -38,20 +38,17 @@ export class MainChatComponent implements OnInit {
   ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
-      this.convId = val.id;
-      this.stringeeservices.stringeeClient.on('connect', () => {
-        console.log('++++++++++++++ connected to StringeeServer');
-         // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-         this.getConvesationLast()
-       // this.onSelectConv(this.convId)
+      this.stringeeservices.stringeeChat.on('onObjectChange', (info) => {
+        this.getConvesationLast()
       });
-      
+      this.convId = val.id;
       this.loading = true;
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getConvId()
       this.loading = false;
       this._users.getUsers().subscribe(data => this.users = data);
     });
+
   }
 
   ngOnInit(): void {
@@ -68,6 +65,7 @@ export class MainChatComponent implements OnInit {
     this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
     });
+    console.log("aaaaaaaaaaaaaaaaaaaa")
   }
 
   // Hàm xử lý sự kiện Enter khi nhập dữ liệu

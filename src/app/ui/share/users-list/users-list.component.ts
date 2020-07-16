@@ -41,10 +41,9 @@ export class UsersListComponent implements OnInit {
   ) {
     route.params.subscribe(val => {
       this.convId = val.id;
-      this._stringeeservice.stringeeClient.on('conversation', () => {
-        console.log('++++++++++++++ connected to StringeeServer');
+      this._stringeeservice.stringeeClient.on('connect', () => {
          // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-        this.getConvesationList();
+         this.getConvesationList();
        // this.onSelectConv(this.convId)
       });
     });

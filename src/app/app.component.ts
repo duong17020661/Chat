@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StringeeService } from '../app/services/stringee/stringee.service'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { DatatransferService } from './services/datatransfer.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class AppComponent {
   title = 'WebChatv2';
+  convId: string;
   editForm: FormGroup; // Form thay đổi thông tin người dùng
   currentUser: any; // Lưu thông tin user hiện tại
   haveAvatar: boolean = true; // Kiểm tra có avatar hay không
@@ -18,7 +20,8 @@ export class AppComponent {
   constructor(
     private route: ActivatedRoute,
     private stringeeService: StringeeService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    ) {
   }
 
   ngOnInit(): void {
@@ -41,9 +44,17 @@ export class AppComponent {
     }
     else this.loginSuccess = false;
     // Lắng nghe trạng thái kết nối với Stringee
-    // this.stringeeService.onConnect();
     this.stringeeService.onAuthen();
     this.stringeeService.onDisconnect();
+    this.stringeeService.stringeeClient.on('chatmessage', (msg) => {
+      console.log("Chatmess");
+      
+  });
+    this.stringeeService.stringeeClient.on('chatmessagestate', (msg) => {
+      console.log("Cháttate");
+  });
+    
+    
   }
   // Xử lý sự kiện Log out
   onLogout() {
@@ -60,7 +71,5 @@ export class AppComponent {
     }
     this.stringeeService.updateUserInfo(updateUserData)
   }
-
-
 }
 
