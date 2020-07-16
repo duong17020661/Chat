@@ -10,7 +10,7 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`https://localhost:44337/api/users/authenticate/login`, { username, password })
+        return this.http.post<any>(`https://localhost:44337/api/authenticate/login`, { username, password })
             .pipe(map(user => {
                 // User trả về sau khi đăng nhập thành công
                 if (user) {
@@ -27,11 +27,12 @@ export class AuthService {
     logout() {
         // Xóa dữ liệu người dùng khỏi localStorage
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('convId')
     }
 
     register(firstName: string, lastName: string, username: string, password: string, email: string, phone: string) {
         console.log(firstName + " " + lastName + " " + username + " " + password + " " + email + " " + phone)
-        return this.http.post<any>(`https://localhost:44337/api/users/authenticate/register`, {
+        return this.http.post<any>(`https://localhost:44337/api/authenticate/register`, {
             username: username,
             password: password,
             firstName: firstName,

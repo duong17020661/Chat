@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 import * as jwt_decode from 'jwt-decode';
+import Conversation from 'src/models/conversation';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,35 @@ export class StringeeService {
   // Init
   stringeeClient = new StringeeClient();
   stringeeChat = new StringeeChat(this.stringeeClient);
+  returnConversations = [];
 
   constructor() { }
-
   // Connect stringee
   stringeeConnect(token: string) {
+    console.log("Connecting.......")
     this.stringeeClient.connect(token);
+    console.log("Success")
   }
   onConnect() {
-    this.stringeeClient.on('connect', function () {
+    this.stringeeClient.on('connect', () => {
+      console.log('++++++++++++++ connected to StringeeServer');
+      let userId = JSON.parse(localStorage.getItem("currentUser")).id;
+      let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
+      console.log(userId, tokenInfo)
+        // Get user info
+        var userIds = [userId];
+        this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
+          let user = users[0];
+          if (!user) {
+            let username = tokenInfo.name;
+            let avatar = tokenInfo.avatar;
+            let updateUserData = {
+              display_name: username,
+              avatar_url: avatar
+            }
+            this.updateUserInfo(updateUserData)
+          }
+        });
     });
   }
 
@@ -54,20 +75,8 @@ export class StringeeService {
   }
 
   // Get last conversation
-  async getLastConv(count: number) {
-    var isAscending = true;
-    var convsRender: any;
-    convsRender = await this.getLastConversations(count, isAscending);
-    console.log("ms" + convsRender);
-    return convsRender;
-  }
-  getLastConversations(count: number, isAscending: boolean) {
-    return new Promise((resolve, reject) => {
-      this.stringeeChat.getLastConversations(count, isAscending, function (status, code, message, convs) {
-        console.log("msgs " + convs);
-        resolve(convs);
-      });
-    })
+  getConversation(callback: any) {
+    this.stringeeChat.getLastConversations(10, true, callback);
   }
 
   // Send message
@@ -85,42 +94,15 @@ export class StringeeService {
   }
 
   // Get last messages
-  async getLastMessage(YOUR_CONVERSATION_ID: string, count: number) {
-    var convId = YOUR_CONVERSATION_ID;
-    var isAscending = true;
-    var msgsRender: any;
-    msgsRender = await this.getLastMessages(count, isAscending, convId);
-    return msgsRender;
+  getLastMessages(convId: string, callback: any) {
+      this.stringeeChat.getLastMessages(convId, 20, true, callback);
   }
-  getLastMessages(count: number, isAscending: boolean, convId: string) {
-    return new Promise((resolve, reject) => {
-      this.stringeeChat.getLastMessages(convId, count, isAscending, function (status, code, message, msgs) {
-        resolve(msgs);
-      });
-    })
-  }
-
   // Get user info
-  getUserInfo(userId: string) {
-    var userIds = [userId];
-    this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
-      let user = users[0];
-      if (!user) {
-        let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
-        let username = tokenInfo.name;
-        let avatar = tokenInfo.avatar;
-        console.log(tokenInfo.name)
-        let updateUserData = {
-          display_name: username,
-          avatar_url: avatar
-        }
-        this.updateUserInfo(updateUserData)
-      }
-    });
+  getUser(userId: string, callback: any){
+    this.stringeeChat.getUsersInfo([userId], callback)
   }
-
   // Update user info
-  updateUserInfo(data) {
+  updateUserInfo(data) {  
     this.stringeeChat.updateUserInfo(data, function (res) {
       console.log(res)
     });

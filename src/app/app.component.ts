@@ -33,7 +33,6 @@ export class AppComponent {
     // Kiểm tra trạng thái đăng nhập và đường dẫn avatar
     if (this.currentUser) {
       this.loginSuccess = true;
-      this.stringeeService.stringeeConnect(this.currentUser.token);
       if (this.currentUser.avatar) {
         this.haveAvatar = true;
       }
@@ -41,12 +40,10 @@ export class AppComponent {
       this.fullName = this.currentUser.firstName + " " + this.currentUser.lastName
     }
     else this.loginSuccess = false;
-
     // Lắng nghe trạng thái kết nối với Stringee
-    this.stringeeService.onConnect();
+    // this.stringeeService.onConnect();
     this.stringeeService.onAuthen();
     this.stringeeService.onDisconnect();
-
   }
   // Xử lý sự kiện Log out
   onLogout() {

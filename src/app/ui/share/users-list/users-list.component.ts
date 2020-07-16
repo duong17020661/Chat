@@ -23,13 +23,13 @@ export class UsersListComponent implements OnInit {
 
   spinnerService: any;
   searchTerm: string;
-  usersID: string;
+  convId: string;
   userID: string = JSON.parse(localStorage.getItem('currentUser')).id
 
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
   public users = [];
-  public conversation = [] // List dữ liệu về cuộc trò chuyện
+  public conversation: any // List dữ liệu về cuộc trò chuyện
 
   constructor(
     private router: Router,
@@ -39,12 +39,21 @@ export class UsersListComponent implements OnInit {
     private _datatransfer: DatatransferService,
     private _stringeeservice: StringeeService
   ) {
-    this.getUserID()
+    route.params.subscribe(val => {
+      this.convId = val.id;
+      this._stringeeservice.stringeeClient.on('conversation', () => {
+        console.log('++++++++++++++ connected to StringeeServer');
+         // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
+        this.getConvesationList();
+       // this.onSelectConv(this.convId)
+      });
+    });
+
   }
 
   ngOnInit(): void {
     // Lấy ID hiện tại đang trỏ đến
-    this.getUserID()
+
     // Lấy danh sách người dùng sắp xếp theo ngày
     this._userservice.getUsers().pipe(
       map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
@@ -53,31 +62,14 @@ export class UsersListComponent implements OnInit {
       this.userResource = data;
     });
     // Lấy danh sách tin nhắn sắp xếp theo ngày
-    this._chatservice.getMessages().pipe(
-      map(users => users.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()))
-    ).subscribe(data => {
-      this.messages = data;
+    
+  }
+  // Lấy dữ liệu tin nhắn gần nhất
+  getConvesationList() {
+    this._stringeeservice.getConversation((status, code, message, convs) =>{
+        this.conversation = convs;
+        console.log("A: " + this.conversation)
     });
-
-  }
-  // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-  Add() {
-    this.getConvesationList();
-    this._stringeeservice.getUserInfo(this.userID)
-  }
-  // Lấy dữ liệu 25 tin nhắn gần nhất
-  async getConvesationList() {
-    this.conversation = await this._stringeeservice.getLastConv(25);
-  }
-
-  // Hàm lấy dữ liệu lastMessage
-  getLastMessage(user: IUsers) {
-    for (var i = 0; i < this.messages.length; i++) {
-      if (this.messages[i].receiverID == user.id || this.messages[i].senderID == user.id) {
-        user.lastMessage = this.messages[i].message;
-      }
-    }
-    return user.lastMessage
   }
   // Hàm ẩn thông báo tin nhắn chưa đọc
   disableNewMessage(userid) {
@@ -87,21 +79,16 @@ export class UsersListComponent implements OnInit {
       }
     }
   }
-  // Hàm lấy ID đang trỏ đến
-  getUserID() {
-    this._datatransfer.userId.subscribe(data => {
-      this.usersID = data;
-      this.disableNewMessage(data)
-    })
-  }
   // Hàm xử lý sự kiện click vào user
   onSelect(user: IUser) {
-    this.usersID = user.id;
+    this.convId = user.id;
     user.newMessage = 0;
-    this._stringeeservice.createConversation([this.usersID]);
+    this._stringeeservice.createConversation([this.convId]);
   }
   // Hàm xử lý sự kiện click vào cuộc trò chuyện
   onSelectConv(conv) {
+    this._datatransfer.changeUser(conv.id)
+    this.convId = conv.id;
     let userIDs = [];
     var j = 0;
     for (let user of conv.participants) {
@@ -120,7 +107,6 @@ export class UsersListComponent implements OnInit {
       let fullName = tag.firstName + " " + tag.lastName;
       return fullName.indexOf(term) >= 0;
     });
-    this._stringeeservice.getUserInfo(this.usersID)
   }
   // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian
   timeBetween: number // 1 : giờ | 2 : thứ | 3 : ngày

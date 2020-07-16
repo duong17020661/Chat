@@ -9,9 +9,9 @@ import { StringeeService } from '../../../services/stringee/stringee.service';
 // Hàm khởi tạo đối tượng File
 class FileSpinnet {
   constructor(
-    public src: string, 
+    public src: string,
     public file: File,
-    ) { }
+  ) { }
 }
 
 @Component({
@@ -30,19 +30,25 @@ export class MainChatComponent implements OnInit {
   id = "08d825b9-3599-46a2-89cd-ced2df8bfa9e"
   loading: boolean = false;
   constructor(
-    private _chatservice: MessagesService, 
-    private route: ActivatedRoute, 
-    private _users: UsersService, 
+    private _chatservice: MessagesService,
+    private route: ActivatedRoute,
+    private _users: UsersService,
     private _datatransfer: DatatransferService,
     private stringeeservices: StringeeService
-    ) {
-      this.getConvesationLast()
+  ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
-      this.getConvesationLast()
+      this.convId = val.id;
+      this.stringeeservices.stringeeClient.on('connect', () => {
+        console.log('++++++++++++++ connected to StringeeServer');
+         // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
+         this.getConvesationLast()
+       // this.onSelectConv(this.convId)
+      });
+      
       this.loading = true;
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
-      this.convId = localStorage.getItem('convId');
+      this.getConvId()
       this.loading = false;
       this._users.getUsers().subscribe(data => this.users = data);
     });
@@ -51,22 +57,31 @@ export class MainChatComponent implements OnInit {
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal;
   }
+  // Hàm lấy ID đang trỏ đến
+  getConvId() {
+    this._datatransfer.userId.subscribe(data => {
+      this.convId = data;
+    })
+  }
   // Lấy dữ liệu 25 tin nhắn gần nhất
-  async getConvesationLast() {
-    this.messages =  await this.stringeeservices.getLastMessage(this.convId, 25);
+  getConvesationLast() {
+    this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
+      this.messages = msgs;
+    });
   }
 
   // Hàm xử lý sự kiện Enter khi nhập dữ liệu
   onEnter(value: string) {
     if (value) {
-      this.stringeeservices.sendMessage(value,this.convId)
+      this.stringeeservices.sendMessage(value, this.convId)
       value = '';
     }
+    this.getConvesationLast();
   }
   // Thêm thời gian hoạt động người dùng vào dữ liệu tin nhắn
   addTimeDiff(messages: string | any[]) {
     for (let i = 0; i < messages.length - 1; i++) {
-   //   messages[i].timeDiff = this.timeBetween(this.messages[i].time, this.messages[i + 1].time)
+      //   messages[i].timeDiff = this.timeBetween(this.messages[i].time, this.messages[i + 1].time)
     }
   }
   // Tự động scroll xuống tin nhắn cuối cùng
@@ -107,7 +122,7 @@ export class MainChatComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.src, senderID: "08d825b9-3599-46a2-89cd-ced2df8bfa9e", receiverID: this.convId, time: Date(), type: "image" };
-    //  this.messages.push(message)
+      //  this.messages.push(message)
       this._datatransfer.setMessages(message);
     });
     reader.readAsDataURL(file);
@@ -123,7 +138,7 @@ export class MainChatComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.file.name, senderID: "08d825b9-3599-46a2-89cd-ced2df8bfa9e", receiverID: this.convId, time: Date(), type: 'file', typeof: fileType, url: this.selectedFile.src };
-    //  this.messages.push(message)
+      //  this.messages.push(message)
       this._datatransfer.setMessages(message);
       console.log(this.selectedFile.src)
     });

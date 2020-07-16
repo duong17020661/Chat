@@ -61,9 +61,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // Connect đến Stringee
-          this.stringeeService.stringeeConnect(data.token);
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421772551']);
         },
         error => {
           this.error = error;
@@ -81,8 +79,6 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // Connect đến Stringee
-          this.stringeeService.stringeeConnect(data.token);
           this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
         },
         error => {

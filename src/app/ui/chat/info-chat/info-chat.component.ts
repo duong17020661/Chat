@@ -22,10 +22,6 @@ export class InfoChatComponent implements OnInit {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
     this._userservice.getUsers().subscribe(data => this.users = data);
-    this._chatservice.getMessages().subscribe(data => this.images = data);
-      
-    let id = this.route.snapshot.paramMap.get('id');
-    this.convId = id;
     });
   }
 
@@ -44,6 +40,11 @@ export class InfoChatComponent implements OnInit {
         }
       });
   }
+  // Lấy dữ liệu người dùng
+  getUser(convId){
+
+  }
+
   // Lọc dữ liệu tin nhắn ảnh
   getImages(){
     return null

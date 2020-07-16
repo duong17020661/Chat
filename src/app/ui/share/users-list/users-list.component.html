@@ -6,7 +6,7 @@
       <img src="../../assets/ICON/IconAppChat/11.svg" alt="Search" class="search_icon">
       <input id="myInput" class="search_button" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
         style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()" />
-      <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button" (click)="Add()">
+      <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button">
       <!--Add button -->
     </div>
   </div>
@@ -20,16 +20,19 @@
       <!--List conversation -->
       <div class="list-user carousel-item active">
         <div class="list" *ngFor="let user of conversation" (click)="onSelectConv(user)" routerLink='/chat/{{user.id}}'>
-          <div class="space" [class.zxc]="user.id == usersID"></div>
+          <div class="space" [class.zxc]="user.id == convId"></div>
           <!--Conversation -->
-          <div id="user" class="users" [class.abc]="user.id == usersID">
-            <!--Thanh màu xanh -->
-            <ngx-avatar size="28" *ngFor="let name of user.participants" [name]="name.name"></ngx-avatar>
+          <div id="user" class="users" [class.abc]="user.id == convId">
+            <!--Thanh màu xanh khi select-->
+            <ng-container *ngFor="let name of user.participants">
+              <ngx-avatar size="28" *ngIf="name.name" [name]="name.name"></ngx-avatar>
+            </ng-container> 
+            
             <!--<img [src]="user.photo" roundShape="true" /> -->
             <span class="status" *ngIf="user.state"></span>
             <div class="info d-none d-lg-block" style="display: none;width: 262px;">
               <!--Right -->
-              <div style="float: left;" [class.bold]="user.unreadCount > 0 && user.id != usersID">
+              <div style="float: left;" [class.bold]="user.unreadCount > 0 && user.id != convId">
                 <p class="name" *ngFor="let name of user.participants">{{ name.name }}</p>
                 <p class="lastMessage">{{ user.lastMessage.content.content }}</p>
               </div>
@@ -61,13 +64,13 @@
       <div class="list-conversation carousel-item">
         <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='/chat/{{user.id}}'>
           <!--Conversation -->
-          <div id="user" class="users" [class.abc]="user.id == usersID">
+          <div id="user" class="users">
             <!--Thanh màu xanh -->
             <ngx-avatar size="28" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
             <!--<img [src]="user.photo" roundShape="true" /> -->
             <div class="info d-none d-lg-block" style="display: none;width: 262px;">
               <!--Right -->
-              <div style="float: left;" [class.bold]="user.newMessage > 0 && user.id != usersID">
+              <div style="float: left;" [class.bold]="user.newMessage > 0">
                 <p class="name">{{ user.firstName + " " + user.lastName }}</p>
               </div>
               <!--Right -->
