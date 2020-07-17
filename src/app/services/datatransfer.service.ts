@@ -22,9 +22,9 @@ export class DatatransferService {
   }
 
   // Nhận ID khi có sự kiện thay đổi user
-  @Output() userId = new EventEmitter<string>();
-  changeUser(id: string) {
-    this.userId.emit(id);
+  @Output() Id = new EventEmitter<{conv: string, user: string}>();
+  changeConv(conID: string, UseID: string) {
+    this.Id.emit({conv: conID,user: UseID});
   }
   constructor() { }
 }

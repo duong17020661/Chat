@@ -42,9 +42,9 @@ export class UsersListComponent implements OnInit {
     route.params.subscribe(val => {
       this.convId = val.id;
       this._stringeeservice.stringeeClient.on('connect', () => {
-         // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-         this.getConvesationList();
-       // this.onSelectConv(this.convId)
+        // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
+        this.getConvesationList();
+        // this.onSelectConv(this.convId)
       });
     });
 
@@ -60,14 +60,15 @@ export class UsersListComponent implements OnInit {
       this.users = data;
       this.userResource = data;
     });
+    this._userservice.getUser(this.userID).subscribe(data => console.log(data))
     // Lấy danh sách tin nhắn sắp xếp theo ngày
-    
+
   }
   // Lấy dữ liệu tin nhắn gần nhất
   getConvesationList() {
-    this._stringeeservice.getConversation((status, code, message, convs) =>{
-        this.conversation = convs;
-        console.log("A: " + this.conversation)
+    this._stringeeservice.getConversation((status, code, message, convs) => {
+      this.conversation = convs;
+      console.log("A: " + this.conversation)
     });
   }
   // Hàm ẩn thông báo tin nhắn chưa đọc
@@ -86,16 +87,16 @@ export class UsersListComponent implements OnInit {
   }
   // Hàm xử lý sự kiện click vào cuộc trò chuyện
   onSelectConv(conv) {
-    this._datatransfer.changeUser(conv.id)
     this.convId = conv.id;
     let userIDs = [];
     var j = 0;
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
+        this._datatransfer.changeConv(conv.id, user.userId)
         userIDs[j] = user.userId;
         j++;
       }
-      console.log(user.name)
+      console.log(j)
     }
     this._stringeeservice.createConversation(userIDs)
   }

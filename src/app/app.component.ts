@@ -46,15 +46,6 @@ export class AppComponent {
     // Lắng nghe trạng thái kết nối với Stringee
     this.stringeeService.onAuthen();
     this.stringeeService.onDisconnect();
-    this.stringeeService.stringeeClient.on('chatmessage', (msg) => {
-      console.log("Chatmess");
-      
-  });
-    this.stringeeService.stringeeClient.on('chatmessagestate', (msg) => {
-      console.log("Cháttate");
-  });
-    
-    
   }
   // Xử lý sự kiện Log out
   onLogout() {

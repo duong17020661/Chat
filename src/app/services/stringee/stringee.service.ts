@@ -21,9 +21,7 @@ export class StringeeService {
     this.stringeeClient.connect(token);
     console.log("Success")
   }
-  onConnect() {
-    this.stringeeClient.on('connect', () => {
-      console.log('++++++++++++++ connected to StringeeServer');
+  getAndUpdateInfo() {
       let userId = JSON.parse(localStorage.getItem("currentUser")).id;
       let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
       console.log("name: " + tokenInfo.name)
@@ -41,13 +39,13 @@ export class StringeeService {
             this.updateUserInfo(updateUserData)
           }
         });
-    });
   }
 
   // Authen Stringee
   onAuthen() {
-    this.stringeeClient.on('authen', function (res) {
+    this.stringeeClient.on('authen', (res) => {
       console.log('authen', res);
+      this.getAndUpdateInfo()
     });
   }
 
@@ -69,7 +67,7 @@ export class StringeeService {
       isGroup: false
     };
     this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
-      //console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
+      console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
       localStorage.setItem("convId", conv.id)
     });
   }

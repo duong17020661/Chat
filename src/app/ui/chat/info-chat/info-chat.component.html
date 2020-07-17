@@ -1,7 +1,7 @@
 <div class="chat-info">
     <!-- Thông tin người dùng phía đối diện -->
-    <div *ngFor="let user of users">
-        <div class="info" *ngIf="convId == user.id">
+    <div>
+        <div class="info">
             <ngx-avatar size="120" id="avatar" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
             <!--<img [src]="user.photo" alt="Avatar" id="avatar">-->
             <p><strong>{{ user.firstName + " " + user.lastName }}</strong></p>

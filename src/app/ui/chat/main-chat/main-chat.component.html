@@ -24,8 +24,8 @@
             <!-- Người gửi -->
             <!-- Người nhận -->
             <li class="sent" *ngIf="message.sender != currentUserId">
-                <ngx-avatar size="32" name="A"></ngx-avatar>
-                <!--<img [src]="getAvatar()" alt="" />-->
+                <ngx-avatar size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
+                <!--<img [src]="getAvatar()" alt="" />--> 
                 <img class="img-preview " *ngIf="message.type == 'image'" [src]="message.message" data-toggle="modal"
                     data-target="#exampleModalCenter" (click)="ModalImage(message.message)" />
                 <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>

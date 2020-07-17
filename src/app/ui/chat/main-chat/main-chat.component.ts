@@ -6,6 +6,8 @@ import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { map } from 'rxjs/internal/operators/map';
 import { StringeeService } from '../../../services/stringee/stringee.service';
+import { IUser } from 'src/models/user';
+import { filter } from 'jszip';
 // Hàm khởi tạo đối tượng File
 class FileSpinnet {
   constructor(
@@ -22,9 +24,11 @@ class FileSpinnet {
 export class MainChatComponent implements OnInit {
 
   public convId: string; // ID cuôc trò chuyện đang được trỏ đến
+  public userId: string; // ID người dùng đang được trỏ đến
   public currentUserId: string; // ID người dùng hiện tại
   public messages: any[]; // List dữ liệu về các tin nhắn
   public users = [];// List dữ liệu về người dùng
+  public user: IUser;
   modalImg: any; // Image modal
   popup: any; // Popup
   id = "08d825b9-3599-46a2-89cd-ced2df8bfa9e"
@@ -44,6 +48,7 @@ export class MainChatComponent implements OnInit {
       this.convId = val.id;
       this.loading = true;
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
+      this.getUserId()
       this.getConvId()
       this.loading = false;
       this._users.getUsers().subscribe(data => this.users = data);
@@ -56,8 +61,14 @@ export class MainChatComponent implements OnInit {
   }
   // Hàm lấy ID đang trỏ đến
   getConvId() {
-    this._datatransfer.userId.subscribe(data => {
-      this.convId = data;
+    this._datatransfer.Id.subscribe(data => {
+      this.convId = data.conv;
+      this.getConvesationLast();  
+    })
+  }
+  getUserId(){
+    this._datatransfer.Id.subscribe(data => {
+      this._users.getUser(data.user).subscribe(user => this.user = user)
     })
   }
   // Lấy dữ liệu 25 tin nhắn gần nhất
@@ -65,7 +76,6 @@ export class MainChatComponent implements OnInit {
     this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
     });
-    console.log("aaaaaaaaaaaaaaaaaaaa")
   }
 
   // Hàm xử lý sự kiện Enter khi nhập dữ liệu

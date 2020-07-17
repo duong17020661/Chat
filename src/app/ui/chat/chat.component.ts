@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit {
       this._userservice.getUsers().subscribe(data => this.users = data);
       let id = this.route.snapshot.paramMap.get('id');
       this.usersID = id;
-      this.datatransfer.changeUser(this.usersID)
+      this._userservice.changeUser(this.usersID)
     });
   }
 
