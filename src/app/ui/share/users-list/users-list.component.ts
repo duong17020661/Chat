@@ -68,7 +68,7 @@ export class UsersListComponent implements OnInit {
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
       this.conversation = convs;
-      console.log("A: " + this.conversation)
+      console.log(convs)
     });
   }
   // Hàm ẩn thông báo tin nhắn chưa đọc
@@ -96,8 +96,8 @@ export class UsersListComponent implements OnInit {
         userIDs[j] = user.userId;
         j++;
       }
-      console.log(j)
     }
+
     this._stringeeservice.createConversation(userIDs)
   }
   // Hàm tìm kiếm cuộc trò chuyện

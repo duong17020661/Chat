@@ -22,6 +22,7 @@ export class InfoChatComponent implements OnInit {
   constructor(private route: ActivatedRoute, private _datatransfer: DatatransferService, private _chatservice: MessagesService, private _userservice: UsersService) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
+      this.getUserId();
     });
   }
 
@@ -30,7 +31,7 @@ export class InfoChatComponent implements OnInit {
     this._chatservice.getMessages().subscribe(data => this.messages = data); // Lấy dữ liệu tin nhắn
     // Lấy ID theo url
     let id = this.route.snapshot.paramMap.get('id');
-    this.getUserId()
+    this.getUserId();
     // Theo dõi sự thay đổi tin nhắn
     this._datatransfer.messages$.subscribe(value =>
       {
@@ -57,6 +58,7 @@ export class InfoChatComponent implements OnInit {
     this._datatransfer.Id.subscribe(data => {
       this._userservice.getUser(data.user).subscribe(user => this.user = user)
     })
+    console.log(this.user.email)
   }
   // Hiển thị ảnh và file theo dropdown
   isShowFile = false;

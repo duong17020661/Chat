@@ -1,20 +1,20 @@
 <!-- Toolbar -->
 <div class="toolbar">
     <!-- Bên trái -->
-    <div *ngFor="let user of users">
-        <div id="info" *ngIf="usersID == user.id">
+    <!-- <div>
+        <div id="info">
             <ngx-avatar id="avatar" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-           <!-- <img [src]="user.photo" alt="Avatar" id="avatar"> -->
+            <img [src]="user.photo" alt="Avatar" id="avatar"> 
             <div>
                 <p style="font-size: 14px;
                 color: #212121; font-weight: 500;">{{ user.firstName + ' ' + user.lastName }}</p>
-                <p *ngIf="user.status" class="status" style="font-size: 12px;
+                <p *ngIf="user" class="status" style="font-size: 12px;
                 color: #757575;">Đang hoạt động</p>
-                <p *ngIf="!user.status" class="status" style="font-size: 12px;
-            color: #757575;">Hoạt động {{ timeDiff(user.lastSeen) }} phút trước</p>
+                <p *ngIf="!user" class="status" style="font-size: 12px;
+            color: #757575;">Hoạt động {{ 0 }} phút trước</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Bên trái -->
     <!-- Bên phải -->
     <div id="icon_info" ng-controller="myCtrl">

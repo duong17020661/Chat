@@ -8,6 +8,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { StringeeService } from '../../../services/stringee/stringee.service';
 import { IUser } from 'src/models/user';
 import { filter } from 'jszip';
+import { stringify } from 'querystring';
 // Hàm khởi tạo đối tượng File
 class FileSpinnet {
   constructor(
@@ -43,7 +44,10 @@ export class MainChatComponent implements OnInit {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
       this.stringeeservices.stringeeChat.on('onObjectChange', (info) => {
-        this.getConvesationLast()
+        this.getConvesationLast();
+        this.stringeeservices.getConversation((status, code, message, convs) => {
+          // this.conversation = convs;
+        });
       });
       this.convId = val.id;
       this.loading = true;
@@ -75,6 +79,7 @@ export class MainChatComponent implements OnInit {
   getConvesationLast() {
     this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
+      console.log(this.messages)
     });
   }
 
@@ -129,9 +134,24 @@ export class MainChatComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
-      let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.src, senderID: "08d825b9-3599-46a2-89cd-ced2df8bfa9e", receiverID: this.convId, time: Date(), type: "image" };
-      //  this.messages.push(message)
-      this._datatransfer.setMessages(message);
+      var fileMsg = {
+        type: 2,
+        convId: this.convId,
+        message: {
+          content: "",
+          photo: {
+            filePath: this.selectedFile.src,
+            thumbnail: "",
+            ratio: ""
+          },
+          data: {
+            key: 'value'
+          }
+        }
+      };
+      this.stringeeservices.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
+        console.log(status + code + message + "msg result " + JSON.stringify(msg));
+      });
     });
     reader.readAsDataURL(file);
 
@@ -145,12 +165,11 @@ export class MainChatComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
-      let message: IMessages = { id: this.messages.length + 1, message: this.selectedFile.file.name, senderID: "08d825b9-3599-46a2-89cd-ced2df8bfa9e", receiverID: this.convId, time: Date(), type: 'file', typeof: fileType, url: this.selectedFile.src };
-      //  this.messages.push(message)
-      this._datatransfer.setMessages(message);
-      console.log(this.selectedFile.src)
+      this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, this.selectedFile.src, file.size)
+      this.getConvesationLast();
     });
     reader.readAsDataURL(file);
+
   }
   // Xử lý sự kiện click tin nhắn dạng file
   openFile(url: string) {

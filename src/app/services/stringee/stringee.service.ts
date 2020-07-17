@@ -29,7 +29,7 @@ export class StringeeService {
         var userIds = [userId];
         this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
           let user = users[0];
-          if (!user) {
+          if (user) {
             let username = tokenInfo.name;
             let avatar = tokenInfo.avatar;
             let updateUserData = {
@@ -67,14 +67,14 @@ export class StringeeService {
       isGroup: false
     };
     this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
-      console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
+    //  console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
       localStorage.setItem("convId", conv.id)
     });
   }
 
   // Get last conversation
   getConversation(callback: any) {
-    this.stringeeChat.getLastConversations(10, true, callback);
+    this.stringeeChat.getLastConversations(10, false, callback);
   }
 
   // Send message
@@ -90,6 +90,27 @@ export class StringeeService {
       //console.log(status + code + message + "msg result " + JSON.stringify(msg));
     });
   }
+  // Send file
+    sendFile(message: string, convId: string, fName: string, fPath: string, fLenght: number){
+      var fileMsg = {
+        type: 5,
+        convId: convId,
+        message: {
+          content: message,
+          file: {
+            filePath: fPath,
+            filename: name,
+            length: fLenght
+          },
+          metadata: {
+            key: 'value'
+          }
+        }
+      };
+      this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
+        //console.log(status + code + message + "msg result " + JSON.stringify(msg));
+      });
+    }
 
   // Get last messages
   getLastMessages(convId: string, callback: any) {

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/services/users/users.service';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
+import { IUser } from 'src/models/user';
+import { MainChatComponent } from './main-chat/main-chat.component';
+import { InfoChatComponent } from './info-chat/info-chat.component';
 
 @Component({
   selector: 'app-chat',
@@ -11,22 +14,17 @@ import { DatatransferService } from 'src/app/services/datatransfer.service';
 export class ChatComponent implements OnInit {
   public users = [] // Danh sách dữ liệu người dùng
   public usersID; // ID người dùng đang được trỏ đến
+  user: IUser;
   constructor(private route: ActivatedRoute, private _userservice: UsersService, private datatransfer: DatatransferService) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
-      this._userservice.getUsers().subscribe(data => this.users = data);
-      let id = this.route.snapshot.paramMap.get('id');
-      this.usersID = id;
-      this._userservice.changeUser(this.usersID)
+      
     });
   }
 
   ngOnInit(): void {
     // Lấy dữ liệu người dùng
-    this._userservice.getUsers().subscribe(data => this.users = data);
-    // Lấy ID từ url
-    let id = this.route.snapshot.paramMap.get('id');
-    this.usersID = id;
+   //  this.getUserId();
   }
 
   isShowDivIf = false; // Hiện/đóng thông tin cuộc trò chuyện
@@ -48,5 +46,11 @@ export class ChatComponent implements OnInit {
     dateSent = new Date(dateSent);
     return Math.floor((currentDate.getTime() - dateSent.getTime()) / (1000 * 60));
   }
+  // getUserId(){
+  //   this.datatransfer.Id.subscribe(data => {
+  //     this._userservice.getUser(data.user).subscribe(user => this.user = user)
+  //   })
+  // }
+  
 }
 

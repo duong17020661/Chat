@@ -1,7 +1,7 @@
 <div class="chat-info">
     <!-- Thông tin người dùng phía đối diện -->
     <div>
-        <div class="info">
+        <div class="info" *ngIf="user">
             <ngx-avatar size="120" id="avatar" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
             <!--<img [src]="user.photo" alt="Avatar" id="avatar">-->
             <p><strong>{{ user.firstName + " " + user.lastName }}</strong></p>

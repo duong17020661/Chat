@@ -23,6 +23,7 @@
           <div class="space" [class.zxc]="user.id == convId"></div>
           <!--Conversation -->
           <div id="user" class="users" [class.abc]="user.id == convId">
+            <div id="user" class="users" [class.abc]="user.id == convId">
             <!--Thanh màu xanh khi select-->
             <ng-container *ngFor="let name of user.participants">
               <ngx-avatar size="28" *ngIf="name.name" [name]="name.name"></ngx-avatar>
@@ -32,27 +33,27 @@
             <span class="status" *ngIf="user.state"></span>
             <div class="info d-none d-lg-block" style="display: none;width: 262px;">
               <!--Right -->
-              <div style="float: left;" [class.bold]="user.unreadCount > 0 && user.id != convId">
+              <div style="float: left;" [class.bold]="0">
                 <p class="name" *ngFor="let name of user.participants">{{ name.name }}</p>
                 <p class="lastMessage">{{ user.lastMessage.content.content }}</p>
               </div>
               <!--Right -->
               <!--Left -->
-              <!-- <div class="day">
+              <div class="day">
                 <div style="display:block;">
-                  <p class="time" *ngIf="calculateDiff(user.lastSeen) <= 1">
-                    {{ convertDate(user.lastSeen) | date: 'H:mm' }}
+                  <p class="time" *ngIf="calculateDiff(convertDate(user.lastMessage.createdAt)) <= 1">
+                    {{ convertDate(user.lastMessage.createdAt) |  date: 'H:mm' }}
                   </p>
-                  <p class="time" *ngIf="calculateDiff(user.lastSeen) <=7 && calculateDiff(user.lastSeen) > 1">
-                    {{ convertDate(user.lastSeen) | date: 'EEE' }}</p>
-                  <p class="time" *ngIf="calculateDiff(user.lastSeen) > 7">
-                    {{ convertDate(user.lastSeen)| date: 'MMM d' }}
+                  <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt.timestamp) <=7 && calculateDiff(user.lastMessage.createdAt.timestamp) > 1">
+                    {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd'}}</p>
+                  <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt.timestamp) > 7">
+                    {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd' }}
                   </p>
                 </div>
-                <div class="have-seen" *ngIf="user.newMessage > 0 && user.id != usersID;">
-                  <p>{{ user.newMessage }}</p>
+                <div class="have-seen" *ngFor="let user of user.participants">
+                  <p *ngIf="!user.name ">{{ user.lastMsgSeqReceived - user.lastMsgSeqSeen }}</p>
                 </div>
-              </div> -->
+              </div>
               <!--Left -->
             </div>
           </div>
