@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { IMessages } from '../../../models/messages';
@@ -35,21 +35,16 @@ export class MessagesService {
 
 
   postFile(file: FormData, token: string) {
-    const options = {
-          headers: {
-            "X-STRINGEE-AUTH": token
-        },
-        url: "https://api.stringee.com/v1/file/upload?uploadType=multipart",
-        type: "POST",
-        data: file,
-        contentType: false,
-        cache: false,
-        processData: false
-    }
-    return this.http.post<any>(`https://api.stringee.com/v1/file/upload?uploadType=multipart`, options)
-        .pipe(data => {
-            return data;
-        });
+      // const headers= new HttpHeaders({ 
+      //   'Content-Type': 'multipart/form-data',
+      //   'X-STRINGEE-AUTH': token,
+      // })
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'X-STRINGEE-AUTH': token,
+        })
+      };
+    return this.http.post(`https://api.stringee.com/v1/file/upload?uploadType=multipart`,file ,httpOptions);
 }
 
 }

@@ -162,12 +162,11 @@ export class MainChatComponent implements OnInit {
     let fileType: string;
     fileType = fileInput.files[0].name.split(".").pop() // Lấy đuôi file
     const reader = new FileReader();
-    reader.addEventListener('load', async (event: any) => {
+    reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       var formData = new FormData();
       formData.set('file', file)
-      let fPath = await this.saveFileToServer(formData, JSON.parse(localStorage.getItem('currentUser')).token);
-      console.log(JSON.stringify(fPath))
+      this.saveFileToServer(formData, JSON.parse(localStorage.getItem('currentUser')).token);
       this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, this.selectedFile.src, file.size)
       this.getConvesationLast();
     });
@@ -176,7 +175,9 @@ export class MainChatComponent implements OnInit {
   }
 
   saveFileToServer(data,token) {
-    return this._chatservice.postFile(data,token)
+    this._chatservice.postFile(data,token).subscribe((file) => {
+      console.log(file)
+    })
 }
 
   // Xử lý sự kiện click tin nhắn dạng file
