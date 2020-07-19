@@ -1,10 +1,10 @@
 <!-- Toolbar -->
 <div class="toolbar">
     <!-- Bên trái -->
-    <!-- <div>
+    <div>
         <div id="info">
             <ngx-avatar id="avatar" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-            <img [src]="user.photo" alt="Avatar" id="avatar"> 
+            <!-- <img [src]="user.photo" alt="Avatar" id="avatar">  -->
             <div>
                 <p style="font-size: 14px;
                 color: #212121; font-weight: 500;">{{ user.firstName + ' ' + user.lastName }}</p>
@@ -14,7 +14,7 @@
             color: #757575;">Hoạt động {{ 0 }} phút trước</p>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Bên trái -->
     <!-- Bên phải -->
     <div id="icon_info" ng-controller="myCtrl">
@@ -27,7 +27,7 @@
 </div>
 <!-- Toolbar -->
 <!-- Content -->
-<div id="c3" *ngIf="!isShowDivIf">
+<div id="c3">
     <app-info-chat></app-info-chat>
 </div>
 <div id="c4">

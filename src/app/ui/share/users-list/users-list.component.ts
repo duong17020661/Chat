@@ -44,6 +44,7 @@ export class UsersListComponent implements OnInit {
       this._stringeeservice.stringeeClient.on('connect', () => {
         // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
         this.getConvesationList();
+        this._stringeeservice.getAndUpdateInfo(); 
         // this.onSelectConv(this.convId)
       });
     });
@@ -93,6 +94,7 @@ export class UsersListComponent implements OnInit {
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
         this._datatransfer.changeConv(conv.id, user.userId)
+        this,this._datatransfer.setUser(user.userId)
         userIDs[j] = user.userId;
         j++;
       }

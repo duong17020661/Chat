@@ -15,7 +15,7 @@
             <li class="replies" *ngIf="message.sender == currentUserId">
                 <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath" data-toggle="modal"
                     data-target="#exampleModalCenter" (click)="ModalImage(message.content.photo.filePath)" />
-                <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
+                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5" class="file">{{ message.content.content  }}</a>
                 <div *ngIf="message.type == 1" style="float: right;" data-toggle="tooltip" data-placement="right"
                     [title]="message.time">
                     <p>{{ message.content.content }}</p>
@@ -28,7 +28,7 @@
                 <!--<img [src]="getAvatar()" alt="" />--> 
                 <img class="img-preview " *ngIf="message.type == 2" [src]="message.content.photo.filePath" data-toggle="modal"
                     data-target="#exampleModalCenter" (click)="ModalImage(message.content.photo.filePath)" />
-                <a (click)="openFile(message.url)" *ngIf="message.type == 'file'" class="file">{{ message.message }}</a>
+                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5" class="file">{{ message.content.content }}</a>
                 <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left" [title]="message.time">
                     <p>{{ message.content.content }}</p>
                 </div>

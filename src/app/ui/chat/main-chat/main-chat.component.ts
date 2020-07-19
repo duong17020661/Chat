@@ -79,7 +79,6 @@ export class MainChatComponent implements OnInit {
   getConvesationLast() {
     this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
-      console.log(this.messages)
     });
   }
 
@@ -163,14 +162,23 @@ export class MainChatComponent implements OnInit {
     let fileType: string;
     fileType = fileInput.files[0].name.split(".").pop() // Lấy đuôi file
     const reader = new FileReader();
-    reader.addEventListener('load', (event: any) => {
+    reader.addEventListener('load', async (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
+      var formData = new FormData();
+      formData.set('file', file)
+      let fPath = await this.saveFileToServer(formData, JSON.parse(localStorage.getItem('currentUser')).token);
+      console.log(JSON.stringify(fPath))
       this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, this.selectedFile.src, file.size)
       this.getConvesationLast();
     });
     reader.readAsDataURL(file);
 
   }
+
+  saveFileToServer(data,token) {
+    return this._chatservice.postFile(data,token)
+}
+
   // Xử lý sự kiện click tin nhắn dạng file
   openFile(url: string) {
     window.open(url, "");

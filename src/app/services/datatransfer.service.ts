@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IMessages } from '../../models/messages';
 
 @Injectable({
@@ -25,6 +25,13 @@ export class DatatransferService {
   @Output() Id = new EventEmitter<{conv: string, user: string}>();
   changeConv(conID: string, UseID: string) {
     this.Id.emit({conv: conID,user: UseID});
+  }
+
+  private _getUser: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  getUser$: Observable<string> = this._getUser.asObservable();
+
+  setUser(userTranfer: any) {
+    this._getUser.next(userTranfer);
   }
   constructor() { }
 }

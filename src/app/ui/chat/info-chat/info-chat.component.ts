@@ -6,6 +6,7 @@ import { UsersService } from '../../../services/users/users.service';
 import { IUsers } from 'src/models/users';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { IUser } from 'src/models/user';
+import { StringeeService } from 'src/app/services/stringee/stringee.service';
 
 @Component({
   selector: 'app-info-chat',
@@ -19,20 +20,30 @@ export class InfoChatComponent implements OnInit {
   public user: IUser; // List dữ liệu về người dùng
   public convId; // ID người dùng đang trỏ đến
   modalImg: any; // Image modal
-  constructor(private route: ActivatedRoute, private _datatransfer: DatatransferService, private _chatservice: MessagesService, private _userservice: UsersService) {
+  
+  constructor(
+    private route: ActivatedRoute, 
+    private _datatransfer: DatatransferService, 
+    private _chatservice: MessagesService, 
+    private _userservice: UsersService,
+    private stringeeservices: StringeeService,
+    ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
+     // this.convId = val.id;
+          // Lấy ID theo url
+          console.log("___________________________________")
       this.getUserId();
+      this.getConvId();
+      console.log("+++++++++++++++++++++++++++++++++++")
     });
   }
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal
-    this._chatservice.getMessages().subscribe(data => this.messages = data); // Lấy dữ liệu tin nhắn
-    // Lấy ID theo url
-    let id = this.route.snapshot.paramMap.get('id');
-    this.getUserId();
+
     // Theo dõi sự thay đổi tin nhắn
+
     this._datatransfer.messages$.subscribe(value =>
       {
         if(value){
@@ -45,20 +56,32 @@ export class InfoChatComponent implements OnInit {
 
   }
 
+  getConvId() {
+    this._datatransfer.Id.subscribe(data => {
+      this.convId = data.conv;
+      this.getConvesationLast();  
+    })
+  }
+  getConvesationLast() {
+    this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
+      this.messages = msgs;
+      console.log(this.messages)
+    });
+  }
+
   // Lọc dữ liệu tin nhắn ảnh
   getImages(){
-    return null
+    return this.messages.filter(mess => ((mess.type == 2)));
   }
   // Lọc dữ liệu tin nhắn file
   getFiles(){
-    return null
+    return this.messages.filter(mess => ((mess.type == 5)));
   }
   // Theo dõi sự thay đổi và lấy ID
   getUserId(){
     this._datatransfer.Id.subscribe(data => {
       this._userservice.getUser(data.user).subscribe(user => this.user = user)
     })
-    console.log(this.user.email)
   }
   // Hiển thị ảnh và file theo dropdown
   isShowFile = false;

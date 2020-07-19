@@ -24,7 +24,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     // Lấy dữ liệu người dùng
-   //  this.getUserId();
+    this.getUserId();
   }
 
   isShowDivIf = false; // Hiện/đóng thông tin cuộc trò chuyện
@@ -34,9 +34,11 @@ export class ChatComponent implements OnInit {
     this.isShowDivIf = !this.isShowDivIf;
     if (!this.isShowDivIf) {
       document.getElementById("c4").style.width = "calc(100% - 300px)";
+      document.getElementById("c3").style.visibility = "visible";
     }
     else {
       document.getElementById("c4").style.width = "100%";
+      document.getElementById("c3").style.visibility = "hidden";
     }
   }
   
@@ -46,11 +48,11 @@ export class ChatComponent implements OnInit {
     dateSent = new Date(dateSent);
     return Math.floor((currentDate.getTime() - dateSent.getTime()) / (1000 * 60));
   }
-  // getUserId(){
-  //   this.datatransfer.Id.subscribe(data => {
-  //     this._userservice.getUser(data.user).subscribe(user => this.user = user)
-  //   })
-  // }
+  getUserId(){
+    this.datatransfer.getUser$.subscribe(data => {
+      this._userservice.getUser(data).subscribe(user => this.user = user)
+    })
+  }
   
 }
 

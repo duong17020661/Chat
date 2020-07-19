@@ -22,7 +22,6 @@ export class UsersService {
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.dataUrl).pipe(retry(3), catchError(this.handleError));
   }
-  getUserUrl = "https://localhost:44337/api/users";
   getUser(id: string): Observable<IUser> {
     return this.http.get<IUser>(this.dataUrl + "/" + id).pipe(retry(3), catchError(this.handleError));
   }

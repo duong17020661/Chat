@@ -33,4 +33,23 @@ export class MessagesService {
       'Something bad happened; please try again later.');
   };
 
+
+  postFile(file: FormData, token: string) {
+    const options = {
+          headers: {
+            "X-STRINGEE-AUTH": token
+        },
+        url: "https://api.stringee.com/v1/file/upload?uploadType=multipart",
+        type: "POST",
+        data: file,
+        contentType: false,
+        cache: false,
+        processData: false
+    }
+    return this.http.post<any>(`https://api.stringee.com/v1/file/upload?uploadType=multipart`, options)
+        .pipe(data => {
+            return data;
+        });
+}
+
 }

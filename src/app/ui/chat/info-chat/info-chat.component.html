@@ -18,8 +18,8 @@
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
             <ul type="square" *ngFor="let img of getFiles()">
-                <li class="list-file" *ngIf="img.senderID == convId || img.receiverID == convId">
-                    <img *ngIf="img.typeof === 'pdf'" src="../../../../assets/ICON/pdf.png" alt="IconPDF"
+                <li class="list-file">
+                    <img src="../../../../assets/ICON/pdf.png" alt="IconPDF"
                         style="width: 16px; height: 16px;" />
                     <img *ngIf="img.typeof === 'docx' || img.typeof === 'doc'" src="../../../../assets/ICON/docx.png"
                         alt="IconDOC" style="width: 16px; height: 16px;" />
@@ -27,7 +27,7 @@
                         style="width: 16px; height: 16px;" />
                     <img *ngIf="img.typeof === 'txt' || img.typeof === 'md'" src="../../../../assets/ICON/other.png"
                         alt="IconOther" style="width: 16px; height: 16px;" />
-                    <a href="#" class="item">{{ img.message }}</a>
+                    <a href="#" class="item">{{ img.content.content }}</a>
                 </li>
             </ul>
         </div>
@@ -41,8 +41,8 @@
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
             <div class="list-img" *ngFor="let img of getImages()">
-                <img class="img-preview" [src]="img.message" data-toggle="modal" data-target="#exampleModalCenter"
-                    (click)="ModalImage(img.message)">
+                <img class="img-preview" [src]="img.content.photo.filePath" data-toggle="modal" data-target="#exampleModalCenter"
+                    (click)="ModalImage(img.content.photo.filePath)">
             </div>
         </div>
     </div>
