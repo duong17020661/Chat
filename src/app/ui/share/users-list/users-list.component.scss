@@ -46,22 +46,22 @@
 .list_users{
     background-color: #0a1d3b;
 }
-.list-user {
-    height: calc(100vh - 140px);
-    overflow: auto;
-    overflow-x: hidden;
-}
 .list-conversation {
     height: calc(100vh - 140px);
     overflow: auto;
     overflow-x: hidden;
-    display: hidden;
 }
-.list-user::-webkit-scrollbar {
+.list-user {
+    height: calc(100vh - 140px);
+    overflow: auto;
+    overflow-x: hidden;
+    display: none;
+}
+.list-conversation::-webkit-scrollbar {
     width: 8px;
     background: transparent;
 }
-.list-user::-webkit-scrollbar-thumb {
+.list-conversation::-webkit-scrollbar-thumb {
 background-color: rgba(0, 0, 0, 0.3);
 }
 // Cuộc trò chuyện
@@ -73,7 +73,13 @@ background-color: rgba(0, 0, 0, 0.3);
     align-items: center;
 }
     // Bên trái
-
+    .left {
+        width: 200px;
+        color: #8c95a3;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; 
+    }
     .status {
         position: absolute;
         background-color: #48bb56;
@@ -104,7 +110,6 @@ background-color: rgba(0, 0, 0, 0.3);
     }
     .lastMessage {
         font-size: 12px;
-        color: #8c95a3;
     }
     .name {
         font-size: 13px;
@@ -115,7 +120,7 @@ background-color: rgba(0, 0, 0, 0.3);
         display: flex;
         align-items: center;
     }
-    .day {
+    .right {
         width: auto;
         font-size: 11px;
     }

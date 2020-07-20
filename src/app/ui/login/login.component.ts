@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421772551']); 
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421772513']); 
         },
         error => {
           this.error = error;

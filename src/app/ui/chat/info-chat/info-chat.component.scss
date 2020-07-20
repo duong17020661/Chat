@@ -78,6 +78,9 @@
 }
 .list-file {
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
     height: 28px;
 }
 .list-file a {

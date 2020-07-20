@@ -7,8 +7,7 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { map } from 'rxjs/internal/operators/map';
 import { StringeeService } from '../../../services/stringee/stringee.service';
 import { IUser } from 'src/models/user';
-import { filter } from 'jszip';
-import { stringify } from 'querystring';
+import { PlatformLocation } from '@angular/common'
 // Hàm khởi tạo đối tượng File
 class FileSpinnet {
   constructor(
@@ -39,25 +38,20 @@ export class MainChatComponent implements OnInit {
     private route: ActivatedRoute,
     private _users: UsersService,
     private _datatransfer: DatatransferService,
-    private stringeeservices: StringeeService
+    private stringeeservices: StringeeService,
+    private location: PlatformLocation
   ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
+      this.convId = val.id;
       this.stringeeservices.stringeeChat.on('onObjectChange', (info) => {
         this.getConvesationLast();
-        this.stringeeservices.getConversation((status, code, message, convs) => {
-          // this.conversation = convs;
-        });
       });
-      this.convId = val.id;
-      this.loading = true;
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
       this.getConvId()
-      this.loading = false;
       this._users.getUsers().subscribe(data => this.users = data);
     });
-
   }
 
   ngOnInit(): void {
@@ -67,10 +61,10 @@ export class MainChatComponent implements OnInit {
   getConvId() {
     this._datatransfer.Id.subscribe(data => {
       this.convId = data.conv;
-      this.getConvesationLast();  
+      this.getConvesationLast();
     })
   }
-  getUserId(){
+  getUserId() {
     this._datatransfer.Id.subscribe(data => {
       this._users.getUser(data.user).subscribe(user => this.user = user)
     })
@@ -133,24 +127,12 @@ export class MainChatComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new FileSpinnet(event.target.result, file);
-      var fileMsg = {
-        type: 2,
-        convId: this.convId,
-        message: {
-          content: "",
-          photo: {
-            filePath: this.selectedFile.src,
-            thumbnail: "",
-            ratio: ""
-          },
-          data: {
-            key: 'value'
-          }
-        }
-      };
-      this.stringeeservices.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
-        console.log(status + code + message + "msg result " + JSON.stringify(msg));
-      });
+      var formData = new FormData();
+      formData.set('file', file)
+      this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
+        let filePath = Object(data).filename
+        this.stringeeservices.sendImage(this.convId, filePath)
+      })
     });
     reader.readAsDataURL(file);
 
@@ -166,19 +148,16 @@ export class MainChatComponent implements OnInit {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       var formData = new FormData();
       formData.set('file', file)
-      this.saveFileToServer(formData, JSON.parse(localStorage.getItem('currentUser')).token);
-      this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, this.selectedFile.src, file.size)
+      this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
+        let filePath = Object(data).filename
+        this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
+      })
       this.getConvesationLast();
     });
     reader.readAsDataURL(file);
 
   }
 
-  saveFileToServer(data,token) {
-    this._chatservice.postFile(data,token).subscribe((file) => {
-      console.log(file)
-    })
-}
 
   // Xử lý sự kiện click tin nhắn dạng file
   openFile(url: string) {

@@ -39,21 +39,21 @@ export class UsersListComponent implements OnInit {
     private _datatransfer: DatatransferService,
     private _stringeeservice: StringeeService
   ) {
+    console.log(this.route.snapshot.paramMap.get('id'))
     route.params.subscribe(val => {
       this.convId = val.id;
-      this._stringeeservice.stringeeClient.on('connect', () => {
-        // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-        this.getConvesationList();
-        this._stringeeservice.getAndUpdateInfo(); 
-        // this.onSelectConv(this.convId)
-      });
+      this.getConvesationList();
     });
 
   }
 
   ngOnInit(): void {
     // Lấy ID hiện tại đang trỏ đến
-
+    this._stringeeservice.stringeeClient.on('connect', () => {
+      // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
+      this.getConvesationList();
+      this._stringeeservice.getAndUpdateInfo();
+    });
     // Lấy danh sách người dùng sắp xếp theo ngày
     this._userservice.getUsers().pipe(
       map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
@@ -69,7 +69,11 @@ export class UsersListComponent implements OnInit {
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
       this.conversation = convs;
-      console.log(convs)
+      for (let conv of this.conversation) {
+        if (conv.id == this.convId) {
+          this.onSelectConv(conv)
+        }
+      }
     });
   }
   // Hàm ẩn thông báo tin nhắn chưa đọc
@@ -94,13 +98,22 @@ export class UsersListComponent implements OnInit {
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
         this._datatransfer.changeConv(conv.id, user.userId)
-        this,this._datatransfer.setUser(user.userId)
+        this._datatransfer.setUser(user.userId)
         userIDs[j] = user.userId;
         j++;
       }
     }
 
     this._stringeeservice.createConversation(userIDs)
+  }
+  // Ham get userId tu ConvId
+  getUserfromConv(){
+    console.log("--------1--------: " + this.conversation)
+    for(let c of this.conversation){
+      if (c.id == this.convId) {
+        this.onSelectConv(c);
+      }
+    }
   }
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {
@@ -115,11 +128,22 @@ export class UsersListComponent implements OnInit {
   calculateDiff(dateSent) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
-    return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
+    let dateDiff = Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
+    return dateDiff
   }
   // Hàm chuyển dữ liệu thành Date()
   convertDate(date) {
     return new Date(date);
+  }
+
+  // Hàm chuyển tab khi focus vào search
+  openUser(tabNames) {
+    var i, tabcontent;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    document.getElementById(tabNames).style.display = "block";
   }
 
 }

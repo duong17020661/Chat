@@ -2,86 +2,75 @@
 <div class="main_user_list" ng-controller="filterctrl">
   <!--Search -->
   <div class="search_user d-none d-lg-block">
-    <div class="search">
+    <div class="search tab">
       <img src="../../assets/ICON/IconAppChat/11.svg" alt="Search" class="search_icon">
-      <input id="myInput" class="search_button" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
-        style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()" />
+      <input id="myInput" class="search_button tablinks" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
+        style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()"
+        (focus)="openUser('userlist')" />
       <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button">
       <!--Add button -->
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
   <!--Search -->
-  <div id="carouselExampleControls" class="carousel slide">
-    <div class="carousel-inner">
-      <!--List conversation -->
-      <div class="list-user carousel-item active">
-        <div class="list" *ngFor="let user of conversation" (click)="onSelectConv(user)" routerLink='/chat/{{user.id}}'>
-          <div class="space" [class.zxc]="user.id == convId"></div>
-          <!--Conversation -->
-          <div id="user" class="users" [class.abc]="user.id == convId">
-            <div id="user" class="users" [class.abc]="user.id == convId">
-            <!--Thanh màu xanh khi select-->
-            <ng-container *ngFor="let name of user.participants">
-              <ngx-avatar size="28" *ngIf="name.name" [name]="name.name"></ngx-avatar>
-            </ng-container> 
-            
-            <!--<img [src]="user.photo" roundShape="true" /> -->
-            <span class="status" *ngIf="user.state"></span>
-            <div class="info d-none d-lg-block" style="display: none;width: 262px;">
-              <!--Right -->
-              <div style="float: left;" [class.bold]="0">
-                <p class="name" *ngFor="let name of user.participants">{{ name.name }}</p>
-                <p class="lastMessage">{{ user.lastMessage.content.content }}</p>
-              </div>
-              <!--Right -->
-              <!--Left -->
-              <div class="day">
-                <div style="display:block;">
-                  <p class="time" *ngIf="calculateDiff(convertDate(user.lastMessage.createdAt)) <= 1">
-                    {{ convertDate(user.lastMessage.createdAt) |  date: 'H:mm' }}
-                  </p>
-                  <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt.timestamp) <=7 && calculateDiff(user.lastMessage.createdAt.timestamp) > 1">
-                    {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd'}}</p>
-                  <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt.timestamp) > 7">
-                    {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd' }}
-                  </p>
-                </div>
-                <div class="have-seen" *ngFor="let user of user.participants">
-                  <p *ngIf="!user.name ">{{ user.lastMsgSeqReceived - user.lastMsgSeqSeen }}</p>
-                </div>
-              </div>
-              <!--Left -->
+  <!--List conversation -->
+  <div class="list-conversation tabcontent" id="conversation">
+    <div class="list" *ngFor="let user of conversation" (click)="onSelectConv(user)" routerLink='/chat/{{user.id}}'>
+      <div class="space" [class.zxc]="user.id == convId"></div>
+      <!--Conversation -->
+      <div id="user" class="users" [class.abc]="user.id == convId">
+        <!--Thanh màu xanh khi select-->
+        <ng-container *ngFor="let name of user.participants">
+          <ngx-avatar size="28" *ngIf="name.name" [name]="name.name"></ngx-avatar>
+        </ng-container>
+        <!--<img [src]="user.photo" roundShape="true" /> -->
+        <span class="status" *ngIf="user.state"></span>
+        <div class="info d-none d-lg-block" style="display: none;width: 262px;">
+          <!--Right -->
+          <div class="left" style="float: left;" [class.bold]="0">
+            <p class="name" *ngFor="let name of user.participants">{{ name.name }}</p>
+            <p class="lastMessage">{{ user.lastMessage.content.content }}</p>
+          </div>
+          <!--Right -->
+          <!--Left -->
+          <div class="right">
+            <div style="display:block;">
+              <p class="time" *ngIf="calculateDiff(convertDate(user.lastMessage.createdAt)) <= 1">
+                {{ convertDate(user.lastMessage.createdAt) |  date: 'H:mm' }}
+              </p>
+              <p class="time"
+                *ngIf="calculateDiff(user.lastMessage.createdAt) <=7 && calculateDiff(user.lastMessage.createdAt) > 1">
+                {{ convertDate(user.lastMessage.createdAt) | date: 'EEE'}}</p>
+              <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt) > 7">
+                {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd' }}
+              </p>
+            </div>
+            <div class="have-seen" *ngFor="let user of user.participants">
+              <p *ngIf="!user.name ">{{ user.lastMsgSeqReceived - user.lastMsgSeqSeen }}</p>
             </div>
           </div>
-          <!--Conversation -->
+          <!--Left -->
         </div>
       </div>
-      <!--List conversation -->
-      <!-- List User -->
-      <div class="list-conversation carousel-item">
-        <div class="list" *ngFor="let user of users" (click)="onSelect(user)" routerLink='/chat/{{user.id}}'>
-          <!--Conversation -->
-          <div id="user" class="users">
-            <!--Thanh màu xanh -->
-            <ngx-avatar size="28" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-            <!--<img [src]="user.photo" roundShape="true" /> -->
-            <div class="info d-none d-lg-block" style="display: none;width: 262px;">
-              <!--Right -->
-              <div style="float: left;" [class.bold]="user.newMessage > 0">
-                <p class="name">{{ user.firstName + " " + user.lastName }}</p>
-              </div>
-              <!--Right -->
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-    <!-- List User -->
-
   </div>
-  <!--Content -->
+  <!--Conversation -->
+  <!--List conversation -->
+  <!-- List User -->
+  <div class="list-user tabcontent" id="userlist">
+    <div class="list" *ngFor="let user of users" (click)="onSelect(user); openUser('conversation')" routerLink='/chat/{{user.id}}'>
+      <div id="user" class="users" >
+        <ngx-avatar size="28" *ngIf="user.firstName" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
+        <div class="info d-none d-lg-block" style="display: none;width: 262px;">
+          <!--Right -->
+          <div class="left" style="float: left;">
+            <p class="name">{{ user.firstName + ' ' + user.lastName }}</p>
+          </div>
+        </div>
+        <!--Right -->
+      </div>
+    </div>
+  </div>
+  <!-- List User -->
+
+</div>
+<!--Content -->

@@ -18,13 +18,13 @@ export class ChatComponent implements OnInit {
   constructor(private route: ActivatedRoute, private _userservice: UsersService, private datatransfer: DatatransferService) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
-      
+      this.getUserId();  
     });
   }
 
   ngOnInit(): void {
     // Lấy dữ liệu người dùng
-    this.getUserId();
+    
   }
 
   isShowDivIf = false; // Hiện/đóng thông tin cuộc trò chuyện
@@ -34,11 +34,11 @@ export class ChatComponent implements OnInit {
     this.isShowDivIf = !this.isShowDivIf;
     if (!this.isShowDivIf) {
       document.getElementById("c4").style.width = "calc(100% - 300px)";
-      document.getElementById("c3").style.visibility = "visible";
+      document.getElementById("c3").style.width = "300px";
     }
     else {
       document.getElementById("c4").style.width = "100%";
-      document.getElementById("c3").style.visibility = "hidden";
+      document.getElementById("c3").style.width = "0";
     }
   }
   

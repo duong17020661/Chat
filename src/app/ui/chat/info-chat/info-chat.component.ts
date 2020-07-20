@@ -32,10 +32,8 @@ export class InfoChatComponent implements OnInit {
     route.params.subscribe(val => {
      // this.convId = val.id;
           // Lấy ID theo url
-          console.log("___________________________________")
       this.getUserId();
       this.getConvId();
-      console.log("+++++++++++++++++++++++++++++++++++")
     });
   }
 
@@ -65,7 +63,6 @@ export class InfoChatComponent implements OnInit {
   getConvesationLast() {
     this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
-      console.log(this.messages)
     });
   }
 

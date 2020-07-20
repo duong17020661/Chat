@@ -22,23 +22,23 @@ export class StringeeService {
     console.log("Success")
   }
   getAndUpdateInfo() {
-      let userId = JSON.parse(localStorage.getItem("currentUser")).id;
-      let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
-      console.log("name: " + tokenInfo.name)
-        // Get user info
-        var userIds = [userId];
-        this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
-          let user = users[0];
-          if (user) {
-            let username = tokenInfo.name;
-            let avatar = tokenInfo.avatar;
-            let updateUserData = {
-              display_name: username,
-              avatar_url: avatar
-            }
-            this.updateUserInfo(updateUserData)
-          }
-        });
+    let userId = JSON.parse(localStorage.getItem("currentUser")).id;
+    let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
+    console.log("name: " + tokenInfo.name)
+    // Get user info
+    var userIds = [userId];
+    this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
+      let user = users[0];
+      if (user) {
+        let username = tokenInfo.name;
+        let avatar = tokenInfo.avatar;
+        let updateUserData = {
+          display_name: username,
+          avatar_url: avatar
+        }
+        this.updateUserInfo(updateUserData)
+      }
+    });
   }
 
   // Authen Stringee
@@ -67,8 +67,8 @@ export class StringeeService {
       isGroup: false
     };
     this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
-    //  console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
-      localStorage.setItem("convId", conv.id)
+      //  console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
+      localStorage.setItem("convId", JSON.stringify(conv))
     });
   }
 
@@ -91,37 +91,59 @@ export class StringeeService {
     });
   }
   // Send file
-    sendFile(message: string, convId: string, fName: string, fPath: string, fLenght: number){
-      var fileMsg = {
-        type: 5,
-        convId: convId,
-        message: {
-          content: message,
-          file: {
-            filePath: fPath,
-            filename: name,
-            length: fLenght
-          },
-          metadata: {
-            key: 'value'
-          }
+  sendFile(message: string, convId: string, fName: string, fPath: string, fLenght: number) {
+    var fileMsg = {
+      type: 5,
+      convId: convId,
+      message: {
+        content: message,
+        file: {
+          filePath: fPath,
+          filename: name,
+          length: fLenght
+        },
+        metadata: {
+          key: 'value'
         }
-      };
-      this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
-        //console.log(status + code + message + "msg result " + JSON.stringify(msg));
-      });
-    }
+      }
+    };
+    this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
+      //console.log(status + code + message + "msg result " + JSON.stringify(msg));
+    });
+  }
+
+  // Send file
+  sendImage(convId: string, fPath: string) {
+    var fileMsg = {
+      type: 2,
+      convId: convId,
+      message: {
+        content: "",
+        photo: {
+          filePath: fPath,
+          thumbnail: "",
+          ratio: ""
+        },
+        data: {
+          key: 'value'
+        }
+      }
+    };
+    this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
+      //console.log(status + code + message + "msg result " + JSON.stringify(msg));
+    });
+  }
 
   // Get last messages
   getLastMessages(convId: string, callback: any) {
-      this.stringeeChat.getLastMessages(convId, 20, true, callback);
+    this.stringeeChat.getLastMessages(convId, 20, true, callback);
   }
   // Get user info
-  getUser(userId: string, callback: any){
+  getUser(userId: string, callback: any) {
     this.stringeeChat.getUsersInfo([userId], callback)
   }
   // Update user info
-  updateUserInfo(data) {  
+  updateUserInfo(data) {
     this.stringeeChat.updateUserInfo(data, function (res) {
       console.log(res)
     });
