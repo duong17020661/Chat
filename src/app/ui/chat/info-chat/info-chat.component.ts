@@ -56,7 +56,7 @@ export class InfoChatComponent implements OnInit {
 
   getConvId() {
     this._datatransfer.Id.subscribe(data => {
-      this.convId = data.conv;
+      this.convId = data;
       this.getConvesationLast();  
     })
   }
@@ -76,8 +76,8 @@ export class InfoChatComponent implements OnInit {
   }
   // Theo dõi sự thay đổi và lấy ID
   getUserId(){
-    this._datatransfer.Id.subscribe(data => {
-      this._userservice.getUser(data.user).subscribe(user => this.user = user)
+    this._datatransfer.getUser$.subscribe(data => {
+      this._userservice.getUser(data).subscribe(user => this.user = user)
     })
   }
   // Hiển thị ảnh và file theo dropdown

@@ -42,7 +42,7 @@ export class UsersListComponent implements OnInit {
     console.log(this.route.snapshot.paramMap.get('id'))
     route.params.subscribe(val => {
       this.convId = val.id;
-      this.getConvesationList();
+      this.getConvId();
     });
 
   }
@@ -65,7 +65,14 @@ export class UsersListComponent implements OnInit {
     // Lấy danh sách tin nhắn sắp xếp theo ngày
 
   }
-  // Lấy dữ liệu tin nhắn gần nhất
+  // lấy dữ liệu convId
+  getConvId(){
+    this._datatransfer.Id.subscribe((data) => {
+      this.convId = data
+      this.getConvesationList();
+    })
+  }
+  // Lấy dữ liệu cuộc trò chuyện gần nhất
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
       this.conversation = convs;
@@ -97,7 +104,6 @@ export class UsersListComponent implements OnInit {
     var j = 0;
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
-        this._datatransfer.changeConv(conv.id, user.userId)
         this._datatransfer.setUser(user.userId)
         userIDs[j] = user.userId;
         j++;
@@ -105,15 +111,6 @@ export class UsersListComponent implements OnInit {
     }
 
     this._stringeeservice.createConversation(userIDs)
-  }
-  // Ham get userId tu ConvId
-  getUserfromConv(){
-    console.log("--------1--------: " + this.conversation)
-    for(let c of this.conversation){
-      if (c.id == this.convId) {
-        this.onSelectConv(c);
-      }
-    }
   }
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {

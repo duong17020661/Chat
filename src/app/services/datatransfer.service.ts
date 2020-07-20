@@ -13,18 +13,18 @@ import { IMessages } from '../../models/messages';
 })
 export class DatatransferService {
 
-  private messages: IMessages;
-  messages$ = new BehaviorSubject<IMessages>(this.messages)
+  private messages: any;
+  messages$ = new BehaviorSubject<any>(this.messages)
   
   // Thêm tin nhắn sau khi có tin nhắn mới được tạo
-  setMessages(message: IMessages) {
+  setMessages(message: any) {
     this.messages$.next(message)
   }
 
   // Nhận ID khi có sự kiện thay đổi user
-  @Output() Id = new EventEmitter<{conv: string, user: string}>();
-  changeConv(conID: string, UseID: string) {
-    this.Id.emit({conv: conID,user: UseID});
+  @Output() Id = new EventEmitter<string>();
+  changeConv(conID: string) {
+    this.Id.emit(conID);
   }
 
   private _getUser: BehaviorSubject<string> = new BehaviorSubject<string>('');

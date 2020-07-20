@@ -33,6 +33,7 @@ export class MainChatComponent implements OnInit {
   popup: any; // Popup
   id = "08d825b9-3599-46a2-89cd-ced2df8bfa9e"
   loading: boolean = false;
+  private _userservice: any;
   constructor(
     private _chatservice: MessagesService,
     private route: ActivatedRoute,
@@ -44,12 +45,13 @@ export class MainChatComponent implements OnInit {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
       this.convId = val.id;
+      this._datatransfer.changeConv(this.convId)
       this.stringeeservices.stringeeChat.on('onObjectChange', (info) => {
         this.getConvesationLast();
       });
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
-      this.getConvId()
+    //  this.getConvId()
       this._users.getUsers().subscribe(data => this.users = data);
     });
   }
@@ -58,15 +60,15 @@ export class MainChatComponent implements OnInit {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal;
   }
   // Hàm lấy ID đang trỏ đến
-  getConvId() {
-    this._datatransfer.Id.subscribe(data => {
-      this.convId = data.conv;
-      this.getConvesationLast();
-    })
-  }
+  // getConvId() {
+  //   this._datatransfer.Id.subscribe(data => {
+  //     this.convId = data.conv;
+  //     this.getConvesationLast();
+  //   })
+  // }
   getUserId() {
-    this._datatransfer.Id.subscribe(data => {
-      this._users.getUser(data.user).subscribe(user => this.user = user)
+    this._datatransfer.getUser$.subscribe(data => {
+      this._users.getUser(data).subscribe(user => this.user = user)
     })
   }
   // Lấy dữ liệu 25 tin nhắn gần nhất
@@ -82,6 +84,7 @@ export class MainChatComponent implements OnInit {
       this.stringeeservices.sendMessage(value, this.convId)
       value = '';
     }
+    this._datatransfer.changeConv(this.convId)
     this.getConvesationLast();
   }
   // Thêm thời gian hoạt động người dùng vào dữ liệu tin nhắn
