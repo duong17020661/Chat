@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, ElementRef, QueryList, Input } from '@angular/core';
 import { MessagesService } from '../../../services/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
-import { IMessages } from '../../../../models/messages';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { UsersService } from 'src/app/services/users/users.service';
-import { map } from 'rxjs/internal/operators/map';
 import { StringeeService } from '../../../services/stringee/stringee.service';
 import { IUser } from 'src/models/user';
-import { PlatformLocation } from '@angular/common'
 // Hàm khởi tạo đối tượng File
 class FileSpinnet {
   constructor(
@@ -26,7 +23,8 @@ export class MainChatComponent implements OnInit {
   public convId: string; // ID cuôc trò chuyện đang được trỏ đến
   public userId: string; // ID người dùng đang được trỏ đến
   public currentUserId: string; // ID người dùng hiện tại
-  public messages: any[]; // List dữ liệu về các tin nhắn
+  @Input() message: any; // List dữ liệu về các tin nhắn
+  public messages = this.message
   public users = [];// List dữ liệu về người dùng
   public user: IUser;
   modalImg: any; // Image modal
@@ -38,44 +36,32 @@ export class MainChatComponent implements OnInit {
     private route: ActivatedRoute,
     private _users: UsersService,
     private _datatransfer: DatatransferService,
-    private stringeeservices: StringeeService,
+    private stringeeService: StringeeService,
     private messageService: MessagesService
   ) {
     // Tạo lại các đối tượng khi có thay đổi
-    route.params.subscribe(val => {
+    this.route.params.subscribe(val => {
       this.convId = val.id;
-      this._datatransfer.changeConv(this.convId)
-      this.stringeeservices.stringeeChat.on('onObjectChange', (info) => {
-        this.getConvesationLast();
-      });
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
- //     this.getConvId()
-    //  this._users.getUsers().subscribe(data => this.users = data);
     });
+    
   }
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal;
   }
-  // Hàm lấy ID đang trỏ đến
-  getConvId() {
-    this._datatransfer.Id.subscribe(data => {
-      this.convId = data;
-      this.getConvesationLast();
-    })
-  }
   getUserId() {
     this._datatransfer.getUser$.subscribe(data => {
       this._users.getUser(data).subscribe(user => {
-        this.user = user
+        this.user = user;
         this.getConvesationLast();
       })
     })
   }
   // Lấy dữ liệu 25 tin nhắn gần nhất
   getConvesationLast() {
-    this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
+    this.stringeeService.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
     });
   }
@@ -83,7 +69,7 @@ export class MainChatComponent implements OnInit {
   // Hàm xử lý sự kiện Enter khi nhập dữ liệu
   onEnter(value: string) {
     if (value) {
-      this.stringeeservices.sendMessage(value, this.convId)
+      this.stringeeService.sendMessage(value, this.convId)
       value = '';
     }
     this._datatransfer.changeConv(this.convId)
@@ -136,7 +122,7 @@ export class MainChatComponent implements OnInit {
       formData.set('file', file)
       this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
-        this.stringeeservices.sendImage(this.convId, filePath)
+        this.stringeeService.sendImage(this.convId, filePath)
       })
     });
     reader.readAsDataURL(file);
@@ -155,7 +141,7 @@ export class MainChatComponent implements OnInit {
       formData.set('file', file)
       this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
-        this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
+        this.stringeeService.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
         this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 5, fileType)
       })
       this.getConvesationLast();

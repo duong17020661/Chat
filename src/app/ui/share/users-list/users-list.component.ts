@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input  } from '@angular/core';
 import { Router } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
 import { ActivatedRoute } from '@angular/router';
@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
   public users = [];
-  public conversation: any // List dữ liệu về cuộc trò chuyện
+  @Input() conversations: any; // List dữ liệu về cuộc trò chuyện
 
   constructor(
     private router: Router,
@@ -42,15 +42,7 @@ export class UsersListComponent implements OnInit {
     // Lấy ID hiện tại đang trỏ đến
     route.params.subscribe(val => {
       this.convId = val.id;
-      this._stringeeservice.stringeeClient.on('connect', () => {
-        // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-        this.getConvesationList();
-        this._stringeeservice.getAndUpdateInfo();
-      });
-      this.getConvId();
     });
-   // this._stringeeservice.stringeeChat.getUnreadConversationCount();
-
   }
 
   ngOnInit(): void {
@@ -62,23 +54,10 @@ export class UsersListComponent implements OnInit {
     // Lấy danh sách tin nhắn sắp xếp theo ngày
 
   }
-  // lấy dữ liệu convId
-  getConvId(){
-    this._datatransfer.Id.subscribe((data) => {
-      this.getConvesationList();
-    })
-  }
   // Lấy dữ liệu cuộc trò chuyện gần nhất
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
-      this.conversation = convs;
-      if(this.conversation){
-        for (let conv of this.conversation) {
-          if (conv.id == this.convId) {
-            this.onSelectConv(conv)
-          }
-        }
-      }
+      this.conversations = convs;
     });
   }
   // Hàm ẩn thông báo tin nhắn chưa đọc

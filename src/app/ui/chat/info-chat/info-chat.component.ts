@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MessagesService } from '../../../services/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
 import { IMessages } from '../../../../models/messages';
@@ -15,7 +15,7 @@ import { StringeeService } from 'src/app/services/stringee/stringee.service';
 })
 export class InfoChatComponent implements OnInit {
   public images = [] // List dữ liệu về ảnh
-  public messages = [] // List dữ liệu về tin nhắn
+  messages = []; // List dữ liệu về tin nhắn
   public file = [] // List dữ liệu về dile
   public user: IUser; // List dữ liệu về người dùng
   public convId; // ID người dùng đang trỏ đến
@@ -30,20 +30,16 @@ export class InfoChatComponent implements OnInit {
     ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
-     // this.convId = val.id;
-          // Lấy ID theo url
       this.getUserId();
-      this.getConvId();
+      this.getConvesationLast();
     });
+    
   }
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal
-
-    // Theo dõi sự thay đổi tin nhắn
   }
   // Lấy dữ liệu người dùng
-
   getConvId(){
     this._datatransfer.Id.subscribe((data) => {
       this.getConvesationLast();

@@ -18,8 +18,8 @@
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
             <div class="scroll-file">
-                <ul type="square" *ngFor="let img of file">
-                    <li class="list-file">
+                <ul type="square" *ngFor="let img of messages">
+                    <li class="list-file" *ngIf="img.type == 5">
                         <img src="../../../../assets/ICON/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;" />
                         <img *ngIf="img.typeof === 'docx' || img.typeof === 'doc'"
                             src="../../../../assets/ICON/docx.png" alt="IconDOC" style="width: 16px; height: 16px;" />
@@ -41,8 +41,8 @@
             <p class="header">ẢNH ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
-            <div class="list-img" *ngFor="let img of images">
-                <img class="img-preview" [src]="img.content.photo.filePath" data-toggle="modal"
+            <div class="list-img" *ngFor="let img of messages">
+                <img class="img-preview" *ngIf="img.type == 2" [src]="img.content.photo.filePath" data-toggle="modal"
                     data-target="#exampleModalCenter" (click)="ModalImage(img.content.photo.filePath)">
             </div>
         </div>

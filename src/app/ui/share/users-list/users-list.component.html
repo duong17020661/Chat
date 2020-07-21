@@ -14,7 +14,7 @@
   <!--Search -->
   <!--List conversation -->
   <div class="list-conversation tabcontent" id="conversation">
-    <div class="list" *ngFor="let user of conversation" (click)="onSelectConv(user)" routerLink='/chat/{{user.id}}'>
+    <div class="list" *ngFor="let user of conversations" (click)="onSelectConv(user)" routerLink='/chat/{{user.id}}'>
       <div class="space" [class.zxc]="user.id == convId"></div>
       <!--Conversation -->
       <div id="user" class="users" [class.abc]="user.id == convId">

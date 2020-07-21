@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/services/users/users.service';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
@@ -12,6 +12,7 @@ import { InfoChatComponent } from './info-chat/info-chat.component';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @Input() messages: any; 
   public users = [] // Danh sách dữ liệu người dùng
   public usersID; // ID người dùng đang được trỏ đến
   user: IUser;
