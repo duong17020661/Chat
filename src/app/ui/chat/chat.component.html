@@ -3,8 +3,10 @@
     <!-- Bên trái -->
     <div>
         <div id="info">
-            <ngx-avatar id="avatar" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-            <!-- <img [src]="user.photo" alt="Avatar" id="avatar">  -->
+            <ng-container >
+                <ngx-avatar id="avatar" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
+                <!-- <img [src]="user.photo" alt="Avatar" id="avatar">  -->
+            </ng-container>
             <div>
                 <p style="font-size: 14px;
                 color: #212121; font-weight: 500;">{{ user.firstName + ' ' + user.lastName }}</p>

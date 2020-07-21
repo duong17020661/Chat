@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 import * as jwt_decode from 'jwt-decode';
 import Conversation from 'src/models/conversation';
+import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,12 @@ export class StringeeService {
     console.log("Success")
   }
   getAndUpdateInfo() {
-    let userId = JSON.parse(localStorage.getItem("currentUser")).id;
-    let tokenInfo = this.getDecodedAccessToken(JSON.parse(localStorage.getItem("currentUser")).token);
-    console.log("name: " + tokenInfo.name)
+    let token = JSON.parse(localStorage.getItem('currentUser')).token;
+    let tokenInfo = this.getDecodedAccessToken(token);
+    let userId = tokenInfo.userId
+    console.log("name: " + tokenInfo.userId)
     // Get user info
-    var userIds = [userId];
-    this.stringeeChat.getUsersInfo(userIds, (status, code, message, users) => {
+    this.stringeeChat.getUsersInfo([userId], (_status: any, _code: any, _msg: any, users: any[]) => {
       let user = users[0];
       if (user) {
         let username = tokenInfo.name;

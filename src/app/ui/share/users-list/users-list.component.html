@@ -20,32 +20,35 @@
       <div id="user" class="users" [class.abc]="user.id == convId">
         <!--Thanh màu xanh khi select-->
         <ng-container *ngFor="let name of user.participants">
-          <ngx-avatar size="28" *ngIf="name.name" [name]="name.name"></ngx-avatar>
+          <ngx-avatar size="28" *ngIf="name.userId != userID" [name]="name.name"></ngx-avatar>
         </ng-container>
         <!--<img [src]="user.photo" roundShape="true" /> -->
         <span class="status" *ngIf="user.state"></span>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
           <!--Right -->
           <div class="left" style="float: left;" [class.bold]="0">
-            <p class="name" *ngFor="let name of user.participants">{{ name.name }}</p>
-            <p class="lastMessage">{{ user.lastMessage.content.content }}</p>
+            <ng-container *ngFor="let name of user.participants">
+              <p class="name" *ngIf="name.userId != userID">{{ name.name }}</p>
+            </ng-container>
+              <p class="lastMessage" *ngIf="user.lastMessage.sender">{{ user.lastMessage.content.content }}</p>
+              <p class="lastMessage" *ngIf="!user.lastMessage.sender">Bạn: {{ user.lastMessage.content.content }}</p>
           </div>
           <!--Right -->
           <!--Left -->
           <div class="right">
             <div style="display:block;">
-              <p class="time" *ngIf="calculateDiff(convertDate(user.lastMessage.createdAt)) <= 1">
+              <p class="time" *ngIf="calculateDiff(convertDate(user.lastMessage.createdAt)) < 1">
                 {{ convertDate(user.lastMessage.createdAt) |  date: 'H:mm' }}
               </p>
               <p class="time"
-                *ngIf="calculateDiff(user.lastMessage.createdAt) <=7 && calculateDiff(user.lastMessage.createdAt) > 1">
+                *ngIf="calculateDiff(user.lastMessage.createdAt) <=7 && calculateDiff(user.lastMessage.createdAt) >= 1">
                 {{ convertDate(user.lastMessage.createdAt) | date: 'EEE'}}</p>
               <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt) > 7">
                 {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd' }}
               </p>
             </div>
-            <div class="have-seen" *ngFor="let user of user.participants">
-              <p *ngIf="!user.name ">{{ user.lastMsgSeqReceived - user.lastMsgSeqSeen }}</p>
+            <div class="have-seen">
+              <p *ngIf="user.unreadCount > 0 ">{{ user.unreadCount }}</p>
             </div>
           </div>
           <!--Left -->
@@ -57,8 +60,9 @@
   <!--List conversation -->
   <!-- List User -->
   <div class="list-user tabcontent" id="userlist">
-    <div class="list" *ngFor="let user of users" (click)="onSelect(user); openUser('conversation')" routerLink='/chat/{{user.id}}'>
-      <div id="user" class="users" >
+    <div class="list" *ngFor="let user of users" (click)="onSelect(user); openUser('conversation')"
+      routerLink='/chat/{{user.id}}'>
+      <div id="user" class="users">
         <ngx-avatar size="28" *ngIf="user.firstName" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
           <!--Right -->

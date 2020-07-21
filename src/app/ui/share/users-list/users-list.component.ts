@@ -39,36 +39,32 @@ export class UsersListComponent implements OnInit {
     private _datatransfer: DatatransferService,
     private _stringeeservice: StringeeService
   ) {
-    console.log(this.route.snapshot.paramMap.get('id'))
+    // Lấy ID hiện tại đang trỏ đến
     route.params.subscribe(val => {
       this.convId = val.id;
+      this._stringeeservice.stringeeClient.on('connect', () => {
+        // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
+        this.getConvesationList();
+        this._stringeeservice.getAndUpdateInfo();
+      });
       this.getConvId();
     });
+   // this._stringeeservice.stringeeChat.getUnreadConversationCount();
 
   }
 
   ngOnInit(): void {
-    // Lấy ID hiện tại đang trỏ đến
-    this._stringeeservice.stringeeClient.on('connect', () => {
-      // Get dữ liệu cuộc trò chuyện và cập nhật thông tin người dùng lên Stringee
-      this.getConvesationList();
-      this._stringeeservice.getAndUpdateInfo();
-    });
     // Lấy danh sách người dùng sắp xếp theo ngày
-    this._userservice.getUsers().pipe(
-      map(users => users.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime()))
-    ).subscribe(data => {
+    this._userservice.getUsers().subscribe(data => {
       this.users = data;
       this.userResource = data;
     });
-    this._userservice.getUser(this.userID).subscribe(data => console.log(data))
     // Lấy danh sách tin nhắn sắp xếp theo ngày
 
   }
   // lấy dữ liệu convId
   getConvId(){
     this._datatransfer.Id.subscribe((data) => {
-      this.convId = data
       this.getConvesationList();
     })
   }
@@ -76,9 +72,11 @@ export class UsersListComponent implements OnInit {
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
       this.conversation = convs;
-      for (let conv of this.conversation) {
-        if (conv.id == this.convId) {
-          this.onSelectConv(conv)
+      if(this.conversation){
+        for (let conv of this.conversation) {
+          if (conv.id == this.convId) {
+            this.onSelectConv(conv)
+          }
         }
       }
     });
@@ -99,7 +97,6 @@ export class UsersListComponent implements OnInit {
   }
   // Hàm xử lý sự kiện click vào cuộc trò chuyện
   onSelectConv(conv) {
-    this.convId = conv.id;
     let userIDs = [];
     var j = 0;
     for (let user of conv.participants) {
@@ -109,8 +106,8 @@ export class UsersListComponent implements OnInit {
         j++;
       }
     }
-
     this._stringeeservice.createConversation(userIDs)
+    this._stringeeservice.stringeeChat.markConversationAsRead(this.convId)
   }
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {

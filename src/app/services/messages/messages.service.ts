@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { IMessages } from '../../../models/messages';
 import { IUser } from 'src/models/user';
+import { Guid } from "guid-typescript";
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,6 @@ export class MessagesService {
 
 
   postFile(file: FormData, token: string) {
-      // const headers= new HttpHeaders({ 
-      //   'Content-Type': 'multipart/form-data',
-      //   'X-STRINGEE-AUTH': token,
-      // })
       const httpOptions = {
         headers: new HttpHeaders({
           'X-STRINGEE-AUTH': token,
@@ -46,5 +43,17 @@ export class MessagesService {
       };
     return this.http.post(`https://api.stringee.com/v1/file/upload?uploadType=multipart`,file ,httpOptions);
 }
+  postFileToDatabase(convId: string, content: string, filePath: string, type: number, typeOf: string){
+    var options = {
+        Id: Object(Guid.create()).value,
+        convId: convId,
+        content: content,
+        filePath: filePath,
+        type: type,
+        typeOf: typeOf
+    }
+    console.log(options)
+    return this.http.post<any>('https://localhost:44337/api/Files', options)
+  }
 
 }

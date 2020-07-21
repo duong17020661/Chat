@@ -31,7 +31,6 @@ export class MainChatComponent implements OnInit {
   public user: IUser;
   modalImg: any; // Image modal
   popup: any; // Popup
-  id = "08d825b9-3599-46a2-89cd-ced2df8bfa9e"
   loading: boolean = false;
   private _userservice: any;
   constructor(
@@ -40,7 +39,7 @@ export class MainChatComponent implements OnInit {
     private _users: UsersService,
     private _datatransfer: DatatransferService,
     private stringeeservices: StringeeService,
-    private location: PlatformLocation
+    private messageService: MessagesService
   ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
@@ -51,8 +50,8 @@ export class MainChatComponent implements OnInit {
       });
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
-    //  this.getConvId()
-      this._users.getUsers().subscribe(data => this.users = data);
+ //     this.getConvId()
+    //  this._users.getUsers().subscribe(data => this.users = data);
     });
   }
 
@@ -60,15 +59,18 @@ export class MainChatComponent implements OnInit {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal;
   }
   // Hàm lấy ID đang trỏ đến
-  // getConvId() {
-  //   this._datatransfer.Id.subscribe(data => {
-  //     this.convId = data.conv;
-  //     this.getConvesationLast();
-  //   })
-  // }
+  getConvId() {
+    this._datatransfer.Id.subscribe(data => {
+      this.convId = data;
+      this.getConvesationLast();
+    })
+  }
   getUserId() {
     this._datatransfer.getUser$.subscribe(data => {
-      this._users.getUser(data).subscribe(user => this.user = user)
+      this._users.getUser(data).subscribe(user => {
+        this.user = user
+        this.getConvesationLast();
+      })
     })
   }
   // Lấy dữ liệu 25 tin nhắn gần nhất
@@ -154,6 +156,7 @@ export class MainChatComponent implements OnInit {
       this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
         this.stringeeservices.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
+        this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 5, fileType)
       })
       this.getConvesationLast();
     });

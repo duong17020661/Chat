@@ -41,38 +41,31 @@ export class InfoChatComponent implements OnInit {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal
 
     // Theo dõi sự thay đổi tin nhắn
-
-    this._datatransfer.messages$.subscribe(value =>
-      {
-        if(value){
-          this.messages.push(value)
-        }
-      });
   }
   // Lấy dữ liệu người dùng
-  getUser(convId){
 
-  }
-
-  getConvId() {
-    this._datatransfer.Id.subscribe(data => {
-      this.convId = data;
-      this.getConvesationLast();  
+  getConvId(){
+    this._datatransfer.Id.subscribe((data) => {
+      this.getConvesationLast();
     })
   }
   getConvesationLast() {
     this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
+      if(this.messages){
+        this.getImages();
+        this.getFiles();
+      }
     });
   }
 
   // Lọc dữ liệu tin nhắn ảnh
   getImages(){
-    return this.messages.filter(mess => ((mess.type == 2)));
+    this.images = this.messages.filter(mess => ((mess.type == 2)));
   }
   // Lọc dữ liệu tin nhắn file
   getFiles(){
-    return this.messages.filter(mess => ((mess.type == 5)));
+    this.file = this.messages.filter(mess => ((mess.type == 5)));
   }
   // Theo dõi sự thay đổi và lấy ID
   getUserId(){

@@ -7,11 +7,12 @@
       </div>
       <div class="container">
         <label for="uname"><b>Username</b></label>
-        <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-          placeholder="Enter Username" name="uname" required>
+        <input type="text" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          placeholder="Enter Username" name="uname">
+          
         <label for="psw"><b>Password</b></label>
-        <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-          placeholder="Enter Password" name="psw" required>
+        <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          placeholder="Enter Password" name="psw">
         <button type="submit" [disabled]="loading">Login</button>
         <img *ngIf="loading"
           src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -48,25 +49,24 @@
         <h1>Register Form</h1>
         <br>
         <label for="fname"><b>First name</b></label>
-        <input type="text" formControlName="firstName" placeholder="Enter your first name" name="fname" required>
+        <input type="text" class="form-control" formControlName="firstName" placeholder="Enter your first name" name="fname" [ngClass]="{ 'is-invalid': submitted && rf.firstName.errors }" >
         <label for="lname"><b>Last name</b></label>
-        <input type="text" formControlName="lastName" placeholder="Enter your last name" name="lname" required>
+        <input type="text" class="form-control" formControlName="lastName" placeholder="Enter your last name" name="lname" [ngClass]="{ 'is-invalid': submitted && rf.lastName.errors }" >
 
         <label for="email"><b>Email</b></label>
-        <input type="email" formControlName="email" placeholder="Enter your Email" name="email" required>
+        <input type="email" class="form-control" formControlName="email" placeholder="Enter your Email" name="email" [ngClass]="{ 'is-invalid': submitted && rf.email.errors }" >
 
         <label for="phone"><b>Phone Number</b></label>
-        <input type="tel" formControlName="phone" placeholder="Enter your phone number" name="phone" pattern="[0-9]{10}"
-          required>
+        <input type="tel" class="form-control" formControlName="phone" placeholder="Enter your phone number" name="phone" [ngClass]="{ 'is-invalid': submitted && rf.phone.errors && rf.phone.errors.pattern }">
 
         <label for="uname"><b>Username</b></label>
-        <input type="text" formControlName="username" placeholder="Enter your Username" name="uname" required>
+        <input type="text" class="form-control" formControlName="username" placeholder="Enter your Username" name="uname" [ngClass]="{ 'is-invalid': submitted && rf.username.errors }">
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" formControlName="password" placeholder="Enter your Password" name="psw" required>
+        <input type="password" class="form-control" formControlName="password" placeholder="Enter your Password" name="psw" [ngClass]="{ 'is-invalid': submitted && rf.password.errors }">
 
         <label for="psw"><b>Re-Password</b></label>
-        <input type="password" placeholder="Re type your Password" name="psw" required>
+        <input type="password" class="form-control" formControlName="repassword" placeholder="Re type your Password" name="psw" [ngClass]="{ 'is-invalid': submitted && rf.repassword.errors }">
 
         <!--<label for="avatar"><b>Avatar </b></label>
         <input type="file" accept="image/*" name="avatar" required>-->

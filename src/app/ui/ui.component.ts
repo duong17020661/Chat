@@ -15,7 +15,7 @@ export class UiComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.stringeeService.stringeeConnect(this.currentUser.token); 
+    this.stringeeService.stringeeConnect(this.currentUser.token);
   }
 
 }

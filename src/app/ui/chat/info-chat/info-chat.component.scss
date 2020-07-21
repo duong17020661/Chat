@@ -14,7 +14,7 @@
 // Thông tin người dùng
 .info {
     padding-top: 30px;
-    height: 40%;
+    height: 250px;
     border-bottom: 1px solid white;
     text-align: center;
 }
@@ -50,6 +50,18 @@
 #dropdown-file {
     align-items: center;
     margin-left: 16px;
+}
+.scroll-file{
+    max-height: 250px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.scroll-file::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.scroll-file::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 .drop-img{
     margin-left: 16px;
@@ -89,7 +101,7 @@
 }
 // Danh sách ảnh
 #drop {
-    margin-right: 16px;
+    margin-right: 24px;
     float: right;
     width: 16px;
     height: 16px;

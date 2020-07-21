@@ -36,10 +36,11 @@ export class LoginComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      repassword: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', Validators.required, Validators.pattern("((09|03|07|08|05)+([0-9]{8}))")],
     });
 
     // Reset trạng thái đăng nhập
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421772513']); 
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421844878']); 
         },
         error => {
           this.error = error;
@@ -73,14 +74,17 @@ export class LoginComponent implements OnInit {
   get rf() { return this.registerForm.controls; }
   // Xử lý sự kiện Đăng ký
   register() {
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.submitted = true;
     this.loading = true;
-    this.authenticationService.register(this.rf.firstName.value, this.rf.lastName.value, this.rf.username.value, this.rf.password.value, this.rf.email.value, this.rf.phone.value)
+
+    this.authenticationService.register(this.rf.firstName.value, this.rf.lastName.value, this.rf.username.value, this.rf.password.value , this.rf.repassword.value, this.rf.email.value, this.rf.phone.value)
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + '08d826cf-0eaa-4c2e-8f7b-5381cb6c895b']);
-          this.stringeeService.getAndUpdateInfo();
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421844878']);
         },
         error => {
           this.error = error;

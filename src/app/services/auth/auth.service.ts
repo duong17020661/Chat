@@ -19,7 +19,6 @@ export class AuthService {
                     user.authdata = window.btoa(username + ':' + password);
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
-
                 return user;
             }));
     }
@@ -30,11 +29,12 @@ export class AuthService {
         localStorage.removeItem('convId')
     }
 
-    register(firstName: string, lastName: string, username: string, password: string, email: string, phone: string) {
+    register(firstName: string, lastName: string, username: string, password: string, repassword: string, email: string, phone: string) {
         console.log(firstName + " " + lastName + " " + username + " " + password + " " + email + " " + phone)
         return this.http.post<any>(`https://localhost:44337/api/authenticate/register`, {
             username: username,
             password: password,
+            repassword: repassword,
             firstName: firstName,
             lastName: lastName,
             email: email,

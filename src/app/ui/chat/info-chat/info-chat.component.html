@@ -11,38 +11,39 @@
     </div>
     <!-- Danh sách các file -->
     <div class="file">
-        <button type="button" class="drop-file" data-toggle="dropdown" data-display="static" aria-haspopup="true"
+        <button type="button" class="drop-file" data-toggle="dropdown"
             aria-expanded="false" (click)=toggleDisplayFile()>
             <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
             <p class="header">TỆP ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowFile" id="dropdown-file">
-            <ul type="square" *ngFor="let img of getFiles()">
-                <li class="list-file">
-                    <img src="../../../../assets/ICON/pdf.png" alt="IconPDF"
-                        style="width: 16px; height: 16px;" />
-                    <img *ngIf="img.typeof === 'docx' || img.typeof === 'doc'" src="../../../../assets/ICON/docx.png"
-                        alt="IconDOC" style="width: 16px; height: 16px;" />
-                    <img *ngIf="img.typeof === 'pptx'" src="../../../../assets/ICON/pptx.png" alt="IconPPTX"
-                        style="width: 16px; height: 16px;" />
-                    <img *ngIf="img.typeof === 'txt' || img.typeof === 'md'" src="../../../../assets/ICON/other.png"
-                        alt="IconOther" style="width: 16px; height: 16px;" />
-                    <a href="#" class="item">{{ img.content.content }}</a>
-                </li>
-            </ul>
+            <div class="scroll-file">
+                <ul type="square" *ngFor="let img of file">
+                    <li class="list-file">
+                        <img src="../../../../assets/ICON/pdf.png" alt="IconPDF" style="width: 16px; height: 16px;" />
+                        <img *ngIf="img.typeof === 'docx' || img.typeof === 'doc'"
+                            src="../../../../assets/ICON/docx.png" alt="IconDOC" style="width: 16px; height: 16px;" />
+                        <img *ngIf="img.typeof === 'pptx'" src="../../../../assets/ICON/pptx.png" alt="IconPPTX"
+                            style="width: 16px; height: 16px;" />
+                        <img *ngIf="img.typeof === 'txt' || img.typeof === 'md'" src="../../../../assets/ICON/other.png"
+                            alt="IconOther" style="width: 16px; height: 16px;" />
+                        <a href="#" class="item">{{ img.content.content }}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- Danh sách các file -->
     <!-- Danh sách các ảnh -->
     <div class="image">
-        <button type="button" class="drop-img" data-toggle="dropdown" data-display="static" (click)=toggleDisplayImg()>
+        <button type="button" class="drop-img" data-toggle="dropdown" (click)=toggleDisplayImg()>
             <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
             <p class="header">ẢNH ĐÃ CHIA SẺ</p>
         </button>
         <div *ngIf="!isShowImg" id="dropdown-img">
-            <div class="list-img" *ngFor="let img of getImages()">
-                <img class="img-preview" [src]="img.content.photo.filePath" data-toggle="modal" data-target="#exampleModalCenter"
-                    (click)="ModalImage(img.content.photo.filePath)">
+            <div class="list-img" *ngFor="let img of images">
+                <img class="img-preview" [src]="img.content.photo.filePath" data-toggle="modal"
+                    data-target="#exampleModalCenter" (click)="ModalImage(img.content.photo.filePath)">
             </div>
         </div>
     </div>
