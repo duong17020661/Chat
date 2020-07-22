@@ -15,8 +15,9 @@ import { StringeeService } from 'src/app/services/stringee/stringee.service';
 })
 export class InfoChatComponent implements OnInit {
   public images = [] // List dữ liệu về ảnh
-  messages = []; // List dữ liệu về tin nhắn
-  public file = [] // List dữ liệu về dile
+  @Input() message: any; // List dữ liệu về tin nhắn
+  public messages: any
+  public files = [] // List dữ liệu về dile
   public user: IUser; // List dữ liệu về người dùng
   public convId; // ID người dùng đang trỏ đến
   modalImg: any; // Image modal
@@ -30,8 +31,13 @@ export class InfoChatComponent implements OnInit {
     ) {
     // Tạo lại các đối tượng khi có thay đổi
     route.params.subscribe(val => {
+      this.convId = val.id
       this.getUserId();
-      this.getConvesationLast();
+      this._chatservice.getFileAndImage(val.id).subscribe((res) => {
+        this.messages = res
+        this.getFiles();
+        this.getImages();
+      })
     });
     
   }
@@ -42,31 +48,26 @@ export class InfoChatComponent implements OnInit {
   // Lấy dữ liệu người dùng
   getConvId(){
     this._datatransfer.Id.subscribe((data) => {
-      this.getConvesationLast();
+      
     })
   }
-  getConvesationLast() {
-    this.stringeeservices.getLastMessages(this.convId, (status, code, message, msgs) => {
-      this.messages = msgs;
-      if(this.messages){
-        this.getImages();
-        this.getFiles();
-      }
-    });
-  }
-
   // Lọc dữ liệu tin nhắn ảnh
   getImages(){
     this.images = this.messages.filter(mess => ((mess.type == 2)));
   }
   // Lọc dữ liệu tin nhắn file
   getFiles(){
-    this.file = this.messages.filter(mess => ((mess.type == 5)));
+    this.files = this.messages.filter(mess => ((mess.type == 5)));
   }
   // Theo dõi sự thay đổi và lấy ID
   getUserId(){
     this._datatransfer.getUser$.subscribe(data => {
       this._userservice.getUser(data).subscribe(user => this.user = user)
+      this._chatservice.getFileAndImage(this.convId).subscribe((res) => { 
+        this.messages = res
+        this.getFiles();
+        this.getImages();
+      })
     })
   }
   // Hiển thị ảnh và file theo dropdown

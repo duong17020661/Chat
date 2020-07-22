@@ -6,7 +6,7 @@
       <img src="../../assets/ICON/IconAppChat/11.svg" alt="Search" class="search_icon">
       <input id="myInput" class="search_button tablinks" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
         style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()"
-        (focus)="openUser('userlist')" />
+        (focus)="openUser('userlist')" autocomplete="off"/>
       <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button">
       <!--Add button -->
     </div>
@@ -26,12 +26,16 @@
         <span class="status" *ngIf="user.state"></span>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">
           <!--Right -->
-          <div class="left" style="float: left;" [class.bold]="0">
+          <div class="left" style="float: left;" [class.bold]="user.unreadCount > 0">
             <ng-container *ngFor="let name of user.participants">
               <p class="name" *ngIf="name.userId != userID">{{ name.name }}</p>
             </ng-container>
-              <p class="lastMessage" *ngIf="user.lastMessage.sender">{{ user.lastMessage.content.content }}</p>
-              <p class="lastMessage" *ngIf="!user.lastMessage.sender">Bạn: {{ user.lastMessage.content.content }}</p>
+              <p class="lastMessage" *ngIf="user.lastMessage.sender && user.lastMessage.type == 1">Bạn: {{ user.lastMessage.content.content }}</p>
+              <p class="lastMessage" *ngIf="!user.lastMessage.sender && user.lastMessage.type == 1" >{{ user.lastMessage.content.content }}</p>
+              <p class="lastMessage" *ngIf="user.lastMessage.sender && user.lastMessage.type == 2">Bạn đã gửi một file</p>
+              <p class="lastMessage" *ngIf="!user.lastMessage.sender && user.lastMessage.type == 2" >Bạn vừa nhận một file</p>
+              <p class="lastMessage" *ngIf="user.lastMessage.sender && user.lastMessage.type == 5">Bạn đã gửi một ảnh</p>
+              <p class="lastMessage" *ngIf="!user.lastMessage.sender && user.lastMessage.type == 5" >Bạn vừa nhận một ảnh</p>
           </div>
           <!--Right -->
           <!--Left -->
@@ -61,7 +65,7 @@
   <!-- List User -->
   <div class="list-user tabcontent" id="userlist">
     <div class="list" *ngFor="let user of users" (click)="onSelect(user); openUser('conversation')"
-      routerLink='/chat/{{user.id}}'>
+      routerLink='/chat/{{convId}}'>
       <div id="user" class="users">
         <ngx-avatar size="28" *ngIf="user.firstName" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
         <div class="info d-none d-lg-block" style="display: none;width: 262px;">

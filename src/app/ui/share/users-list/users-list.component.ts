@@ -40,8 +40,10 @@ export class UsersListComponent implements OnInit {
     private _stringeeservice: StringeeService
   ) {
     // Lấy ID hiện tại đang trỏ đến
-    route.params.subscribe(val => {
+    this.route.params.subscribe(val => {
       this.convId = val.id;
+      console.log(this.convId)
+    //  this.getConvesationList()
     });
   }
 
@@ -58,6 +60,13 @@ export class UsersListComponent implements OnInit {
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
       this.conversations = convs;
+      for (let conv of convs) {
+        console.log(this.convId)
+        if (conv.id == this.convId) {
+          this.onSelectConv(conv)
+          break;
+        }
+      }
     });
   }
   // Hàm ẩn thông báo tin nhắn chưa đọc
@@ -70,14 +79,22 @@ export class UsersListComponent implements OnInit {
   }
   // Hàm xử lý sự kiện click vào user
   onSelect(user: IUser) {
-    this.convId = user.id;
-    user.newMessage = 0;
-    this._stringeeservice.createConversation([this.convId]);
+    var options = {
+      isDistinct: true,
+      isGroup: false
+    };
+    this._stringeeservice.stringeeChat.createConversation([user.id], options, (status, code, message, conv) => {
+       //console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
+       this.router.navigate(['/chat/' + conv.id]).then(() => {
+        this._datatransfer.setUser(user.id)
+      });
+    });
   }
   // Hàm xử lý sự kiện click vào cuộc trò chuyện
   onSelectConv(conv) {
     let userIDs = [];
     var j = 0;
+    console.log(conv)
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
         this._datatransfer.setUser(user.userId)

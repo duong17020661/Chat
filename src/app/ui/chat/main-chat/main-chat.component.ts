@@ -23,8 +23,7 @@ export class MainChatComponent implements OnInit {
   public convId: string; // ID cuôc trò chuyện đang được trỏ đến
   public userId: string; // ID người dùng đang được trỏ đến
   public currentUserId: string; // ID người dùng hiện tại
-  @Input() message: any; // List dữ liệu về các tin nhắn
-  public messages = this.message
+  @Input() messages: any; // List dữ liệu về các tin nhắn
   public users = [];// List dữ liệu về người dùng
   public user: IUser;
   modalImg: any; // Image modal
@@ -123,6 +122,7 @@ export class MainChatComponent implements OnInit {
       this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
         this.stringeeService.sendImage(this.convId, filePath)
+        this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 2, "image").subscribe()
       })
     });
     reader.readAsDataURL(file);
@@ -142,7 +142,7 @@ export class MainChatComponent implements OnInit {
       this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
         this.stringeeService.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
-        this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 5, fileType)
+        this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 5, fileType).subscribe()
       })
       this.getConvesationLast();
     });

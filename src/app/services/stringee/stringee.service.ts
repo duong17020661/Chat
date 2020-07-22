@@ -30,7 +30,7 @@ export class StringeeService {
     // Get user info
     this.stringeeChat.getUsersInfo([userId], (_status: any, _code: any, _msg: any, users: any[]) => {
       let user = users[0];
-      if (user) {
+      if (1) {
         let username = tokenInfo.name;
         let avatar = tokenInfo.avatar;
         let updateUserData = {
@@ -146,6 +146,7 @@ export class StringeeService {
   // Update user info
   updateUserInfo(data) {
     this.stringeeChat.updateUserInfo(data, function (res) {
+      console.log("Ssssssss")
       console.log(res)
     });
   }

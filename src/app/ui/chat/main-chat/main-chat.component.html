@@ -57,7 +57,7 @@
     <p id="info3" class="d-none d-lg-block">Buzz</p> <!-- Buzz -->
     <!-- Send Messages -->
     <input type="text" id="message" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên &#128540;" #box
-        (keyup.enter)="onEnter(box.value); box.value = '' " />
+        (keyup.enter)="onEnter(box.value); box.value = '' " autocomplete="off"/>
     <!-- Send Messages -->
     <!-- Emoji -->
     <div class="popup" (click)="showPopupIcon()">

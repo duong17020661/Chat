@@ -56,4 +56,7 @@ export class MessagesService {
     return this.http.post<any>('https://localhost:44337/api/Files', options)
   }
 
+  getFileAndImage(convId: string){
+    return this.http.get<any>('https://localhost:44337/api/Files/' + convId)
+  }
 }
