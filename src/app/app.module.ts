@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersListComponent } from './ui/share/users-list/users-list.component'
 import { IgxListModule, IgxAvatarModule, IgxIconModule } from 'igniteui-angular';
 import { AvatarModule } from 'ngx-avatar';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { DatatransferService } from './services/datatransfer.service';
 
@@ -40,6 +41,7 @@ import { DatatransferService } from './services/datatransfer.service';
     FormsModule,
     ReactiveFormsModule,
     AvatarModule,
+    InfiniteScrollModule,
   ],
   providers: [DatatransferService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

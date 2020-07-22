@@ -1,14 +1,18 @@
 <!-- Content -->
-<div class="messages" #scrollframe>
+<div class="messages" #scrollframe >
+    <div ttyle="height: 90%" infinite-scroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollUpDistance]="2"
+    [infiniteScrollThrottle]="300"
+    [scrollWindow]="false"
+    (scrolledUp)="onScroll()">
     <!-- Loading -->
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <img *ngIf="loading"
-        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-
+    
     <ul #item>
         <ng-container *ngFor="let message of messages">
             <!-- Người gửi -->
@@ -39,7 +43,7 @@
             {{ convertDate(message.time) | date: 'MMM d, H:mm' }}</p> -->
         </ng-container>
     </ul>
-
+</div>
 </div>
 <!-- Content -->
 <!-- Create messages -->
@@ -84,7 +88,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
         <div class="modal-content center">
             <div class="modal-body">
-                <img id="img" />
+                <img id="img" class="modal-image" />
             </div>
         </div>
     </div>

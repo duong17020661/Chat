@@ -44,7 +44,7 @@ export class MainChatComponent implements OnInit {
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
     });
-    
+
   }
 
   ngOnInit(): void {
@@ -188,5 +188,18 @@ export class MainChatComponent implements OnInit {
     dateSent2 = new Date(dateSent2);
     return (dateSent2.getTime() - dateSent1.getTime()) / (1000 * 60);
   }
+  direction = ''
+  onScroll() {
+    console.log('scrolled up!');
+    this.loading = true;
+    this.stringeeService.stringeeChat.getMessagesBefore(this.convId, this.messages[0].sequence, 15, true, (status, code, message, msgs) => {
+      this.messages = msgs.concat(this.messages);
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
 
+    });
+    this.direction = 'up';
+  }
 }
+

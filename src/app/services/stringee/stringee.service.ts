@@ -137,7 +137,7 @@ export class StringeeService {
 
   // Get last messages
   getLastMessages(convId: string, callback: any) {
-    this.stringeeChat.getLastMessages(convId, 20, true, callback);
+    this.stringeeChat.getLastMessages(convId, 15, true, callback);
   }
   // Get user info
   getUser(userId: string, callback: any) {
