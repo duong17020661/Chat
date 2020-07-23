@@ -1,25 +1,23 @@
 <!-- Content -->
-<div class="messages" #scrollframe >
-    <div ttyle="height: 90%" infinite-scroll
-    [infiniteScrollDistance]="1"
-    [infiniteScrollUpDistance]="2"
-    [infiniteScrollThrottle]="300"
-    [scrollWindow]="false"
+<div class="messages" #scrollframe infinite-scroll [infiniteScrollDistance]="2"
+    [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="300" [scrollWindow]="false"
     (scrolledUp)="onScroll()">
     <!-- Loading -->
-    <div class="d-flex justify-content-center">
+    <div *ngIf="loading" class="d-flex justify-content-center">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    
+
     <ul #item>
         <ng-container *ngFor="let message of messages">
             <!-- Người gửi -->
             <li class="replies" *ngIf="message.sender == currentUserId">
-                <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath" data-toggle="modal"
-                    data-target="#exampleModalCenter" (click)="ModalImage(message.content.photo.filePath)" />
-                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5" class="file">{{ message.content.content  }}</a>
+                <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath"
+                    data-toggle="modal" data-target="#exampleModalCenter"
+                    (click)="ModalImage(message.content.photo.filePath)" />
+                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
+                    class="file">{{ message.content.content  }}</a>
                 <div *ngIf="message.type == 1" style="float: right;" data-toggle="tooltip" data-placement="right"
                     [title]="convertDate(message.createdAt)">
                     <p>{{ message.content.content }}</p>
@@ -29,21 +27,23 @@
             <!-- Người nhận -->
             <li class="sent" *ngIf="message.sender != currentUserId">
                 <ngx-avatar *ngIf="user" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-                <!--<img [src]="getAvatar()" alt="" />--> 
-                <img class="img-preview " *ngIf="message.type == 2" [src]="message.content.photo.filePath" data-toggle="modal"
-                    data-target="#exampleModalCenter" (click)="ModalImage(message.content.photo.filePath)" />
-                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5" class="file">{{ message.content.content }}</a>
-                <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left" [title]="convertDate(message.createdAt)">
+                <!--<img [src]="getAvatar()" alt="" />-->
+                <img class="img-preview " *ngIf="message.type == 2" [src]="message.content.photo.filePath"
+                    data-toggle="modal" data-target="#exampleModalCenter"
+                    (click)="ModalImage(message.content.photo.filePath)" />
+                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
+                    class="file">{{ message.content.content }}</a>
+                <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left"
+                    [title]="convertDate(message.createdAt)">
                     <p>{{ message.content.content }}</p>
                 </div>
-            </li>   
+            </li>
             <!-- Người nhận -->
             <!-- Thời gian gửi tin nhắn -->
-            <!-- <p class="timeDiff" *ngIf="message.timeDiff > 15 && message.receiverID == userID || message.senderID == userID">
-            {{ convertDate(message.time) | date: 'MMM d, H:mm' }}</p> -->
+            <p class="timeDiff">
+            {{ message.createdAt | date: 'MMM d, H:mm' }}</p>
         </ng-container>
     </ul>
-</div>
 </div>
 <!-- Content -->
 <!-- Create messages -->
@@ -61,7 +61,7 @@
     <p id="info3" class="d-none d-lg-block">Buzz</p> <!-- Buzz -->
     <!-- Send Messages -->
     <input type="text" id="message" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên &#128540;" #box
-        (keyup.enter)="onEnter(box.value); box.value = '' " autocomplete="off"/>
+        (keyup.enter)="onEnter(box.value); box.value = '' " autocomplete="off" />
     <!-- Send Messages -->
     <!-- Emoji -->
     <div class="popup" (click)="showPopupIcon()">

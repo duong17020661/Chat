@@ -7,7 +7,7 @@
       <input id="myInput" class="search_button tablinks" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
         style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()"
         (focus)="openUser('userlist')" autocomplete="off"/>
-      <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button">
+      <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button" (click)="Add()">
       <!--Add button -->
     </div>
   </div>
@@ -41,14 +41,14 @@
           <!--Left -->
           <div class="right">
             <div style="display:block;">
-              <p class="time" *ngIf="calculateDiff(convertDate(user.lastMessage.createdAt)) < 1">
-                {{ convertDate(user.lastMessage.createdAt) |  date: 'H:mm' }}
+              <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt) < 1">
+                {{ user.lastMessage.createdAt |  date: 'H:mm' }}
               </p>
               <p class="time"
                 *ngIf="calculateDiff(user.lastMessage.createdAt) <=7 && calculateDiff(user.lastMessage.createdAt) >= 1">
-                {{ convertDate(user.lastMessage.createdAt) | date: 'EEE'}}</p>
+                {{ user.lastMessage.createdAt | date: 'EEE'}}</p>
               <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt) > 7">
-                {{ convertDate(user.lastMessage.createdAt) | date: 'yyyy-MM-dd' }}
+                {{ user.lastMessage.createdAt | date: 'yyyy-MM-dd' }}
               </p>
             </div>
             <div class="have-seen">

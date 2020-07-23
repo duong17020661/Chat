@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StringeeService } from '../app/services/stringee/stringee.service'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DatatransferService } from './services/datatransfer.service';
@@ -21,19 +21,38 @@ export class AppComponent {
     private route: ActivatedRoute,
     private stringeeService: StringeeService,
     private formBuilder: FormBuilder,
-    ) {
+    private router: Router,
+    private dataTransfer: DatatransferService,
+
+  ) {
+    this.route.params.subscribe((val) => {
+      // Tạo form
+      this.editForm = this.formBuilder.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+      });
+      // Get dữ liệu người dùng
+
+      this.dataTransfer.getcurrentUser$.subscribe((res) => {
+        this.currentUser = res
+        console.log(this.currentUser)
+        // Kiểm tra trạng thái đăng nhập và đường dẫn avatar
+        if (this.currentUser) {
+          this.loginSuccess = true;
+          if (this.currentUser.avatar) {
+            this.haveAvatar = true;
+          }
+          else this.haveAvatar = false;
+          this.fullName = this.currentUser.firstName + " " + this.currentUser.lastName
+        }
+        else this.loginSuccess = false;
+      })
+
+    })
   }
 
   ngOnInit(): void {
-
-    // Tạo form
-    this.editForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-    });
-    // Get dữ liệu người dùng
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    // Kiểm tra trạng thái đăng nhập và đường dẫn avatar
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     if (this.currentUser) {
       this.loginSuccess = true;
       if (this.currentUser.avatar) {
@@ -43,16 +62,12 @@ export class AppComponent {
       this.fullName = this.currentUser.firstName + " " + this.currentUser.lastName
     }
     else this.loginSuccess = false;
-    // Lắng nghe trạng thái kết nối với Stringee
-    this.stringeeService.onAuthen();
-    this.stringeeService.onDisconnect();
-    
-
   }
   // Xử lý sự kiện Log out
   onLogout() {
     this.loginSuccess = false;
     this.stringeeService.stringeeDisconnect();
+    window.location.reload();
   }
 
   // Edit form

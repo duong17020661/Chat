@@ -7,7 +7,7 @@
   <div id="navbarDropdownMenuLink" id="avatar" class="dropdown dropleft" role="button" data-toggle="dropdown"
     aria-haspopup="true" aria-expanded="false">
     <img *ngIf="haveAvatar && loginSuccess" src="user.imageUrl" alt="message-icon">
-    <ngx-avatar *ngIf="!haveAvatar" size="34" [name]="fullName" id="avatar"></ngx-avatar>
+    <ngx-avatar *ngIf="!haveAvatar && loginSuccess" size="34" [name]="fullName" id="avatar"></ngx-avatar>
   </div>
   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
     <li class="dropdown-item" onclick="document.getElementById('edit-profile').style.display='block'">Edit Profile</li>

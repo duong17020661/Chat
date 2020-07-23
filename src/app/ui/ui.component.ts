@@ -18,39 +18,56 @@ export class UiComponent implements OnInit {
   messages: any;
   files: any;
 
-  constructor(private stringeeService: StringeeService, private messageService: MessagesService, private dataTransfer: DatatransferService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private stringeeService: StringeeService,
+    private messageService: MessagesService,
+    private dataTransfer: DatatransferService,
+    private route: ActivatedRoute,
+    private router: Router) {
+    this.route.params.subscribe(val => {
+      this.convId = val.id;
+      this.stringeeService.stringeeClient.on('connect', () => {
+        // Lắng nghe trạng thái kết nối với Stringee
+        this.stringeeService.onAuthen();
+        this.stringeeService.onDisconnect();
+        this.stringeeService.getConversation((status, code, message, convs) => {
+          this.conversations = convs;
+          for (let parti of convs[0].participants) {
+            if (parti.userId != this.currentUser.id) {
+              this.router.navigate(['/chat/' + convs[0].id]).then(() => {
+                this.dataTransfer.setUser(parti.userId)
+              });
+              break;
+            }
+          }
+          this.stringeeService.getLastMessages(this.conversations[0], (status, code, message, smsg) => {
+            this.messages = smsg;
+          });
+        });
+
+        this.stringeeService.getAndUpdateInfo();
+      });
+      this.stringeeService.stringeeChat.on('onObjectChange', () => {
+        this.getConversations();
+        this.getMessages();
+      });
+    })
 
   }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.stringeeService.stringeeConnect(this.currentUser.token);
-    this.route.params.subscribe(val =>{
-      this.convId = val.id;
-    })
-    this.stringeeService.stringeeClient.on('connect', () => {
-      console.log("+++connected");
-      this.getConversations();
-      this.getMessages();
-      this.stringeeService.getAndUpdateInfo();
-    });
-    this.stringeeService.stringeeChat.on('onObjectChange', () => {
-      console.log("+++Objectchange");
-      this.getConversations();
-      this.getMessages();
-    });
-
   }
 
   getConversations() {
     this.stringeeService.getConversation((status, code, message, convs) => {
       this.conversations = convs;
-      console.log("------------------------------------------------")
       for (let conv of convs) {
         if (conv.id == this.convId) {
           for (let parti of conv.participants) {
             if (parti.userId != this.currentUser.id) {
-              this.dataTransfer.setUser(parti.userId);
+              this.dataTransfer.setUser(parti.userId)
               break;
             }
           }

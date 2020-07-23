@@ -1,6 +1,6 @@
 import { Injectable, } from '@angular/core';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { IUser } from '../../../models/user';
@@ -13,10 +13,6 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class UsersService {
 
   constructor(private http: HttpClient) { }
-  @Output() userId = new EventEmitter<string>();
-  changeUser(id: string) {
-    this.userId.emit(id);
-  }
   // Lấy dữ liệu về người dùng
   dataUrl = "https://localhost:44337/api/users"
   getUsers(): Observable<IUser[]> {
@@ -41,4 +37,19 @@ export class UsersService {
     return throwError(
       'Something bad happened; please try again later.');
   };
+
+  getUserOnline(token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-STRINGEE-AUTH': token,
+      })
+    };
+    const params = {
+      page: 1,
+      limit: 100,
+      attribute: "111",
+      userId: "08d82d1a-b0d4-40e0-8ea8-f68abff2e607"
+    }
+  return this.http.post(`https://api.stringee.com/v1/users`,params ,httpOptions);
+}
 }

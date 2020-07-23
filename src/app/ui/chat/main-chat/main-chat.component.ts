@@ -71,7 +71,6 @@ export class MainChatComponent implements OnInit {
       this.stringeeService.sendMessage(value, this.convId)
       value = '';
     }
-    this._datatransfer.changeConv(this.convId)
     this.getConvesationLast();
   }
   // Thêm thời gian hoạt động người dùng vào dữ liệu tin nhắn
@@ -81,20 +80,15 @@ export class MainChatComponent implements OnInit {
     }
   }
   // Tự động scroll xuống tin nhắn cuối cùng
+
   @ViewChild('scrollframe', { static: false }) scrollFrame: ElementRef;
   @ViewChildren('item') itemElements: QueryList<any>;
 
   private scrollContainer: any;
-  private items = [];
 
   ngAfterViewInit() {
     this.scrollContainer = this.scrollFrame.nativeElement;
     this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());
-
-    // Add a new item every 2 seconds
-    setInterval(() => {
-      this.items.push({});
-    }, 2000);
   }
 
   private onItemElementsChanged(): void {
@@ -108,6 +102,7 @@ export class MainChatComponent implements OnInit {
       behavior: 'smooth'
     });
   }
+
   // ----
 
   selectedFile: FileSpinnet // Khai báo đối tượng File
@@ -188,18 +183,14 @@ export class MainChatComponent implements OnInit {
     dateSent2 = new Date(dateSent2);
     return (dateSent2.getTime() - dateSent1.getTime()) / (1000 * 60);
   }
-  direction = ''
   onScroll() {
-    console.log('scrolled up!');
     this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
     this.stringeeService.stringeeChat.getMessagesBefore(this.convId, this.messages[0].sequence, 15, true, (status, code, message, msgs) => {
       this.messages = msgs.concat(this.messages);
-      setTimeout(() => {
-        this.loading = false;
-      }, 3000);
-
     });
-    this.direction = 'up';
   }
 }
 

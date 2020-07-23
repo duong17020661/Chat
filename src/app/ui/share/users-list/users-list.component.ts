@@ -1,15 +1,11 @@
 import { Component, OnInit, Input  } from '@angular/core';
 import { Router } from '@angular/router';
-import { Route } from '@angular/compiler/src/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users/users.service';
-import { IUsers } from 'src/models/users';
-import { map } from 'rxjs/operators';
 import { MessagesService } from 'src/app/services/messages/messages.service';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { StringeeService } from '../../../services/stringee/stringee.service'
 import { IUser } from 'src/models/user';
-import * as jwt_decode from "jwt-decode";
 
 
 @Component({
@@ -25,6 +21,7 @@ export class UsersListComponent implements OnInit {
   searchTerm: string;
   convId: string;
   userID: string = JSON.parse(localStorage.getItem('currentUser')).id
+  token: string = JSON.parse(localStorage.getItem('currentUser')).token
 
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
@@ -42,8 +39,6 @@ export class UsersListComponent implements OnInit {
     // Lấy ID hiện tại đang trỏ đến
     this.route.params.subscribe(val => {
       this.convId = val.id;
-      console.log(this.convId)
-    //  this.getConvesationList()
     });
   }
 
@@ -56,12 +51,16 @@ export class UsersListComponent implements OnInit {
     // Lấy danh sách tin nhắn sắp xếp theo ngày
 
   }
+  getConv(){
+    this._datatransfer.Id.subscribe((data) => {
+      this.getConvesationList();
+    })
+  }
   // Lấy dữ liệu cuộc trò chuyện gần nhất
   getConvesationList() {
     this._stringeeservice.getConversation((status, code, message, convs) => {
       this.conversations = convs;
       for (let conv of convs) {
-        console.log(this.convId)
         if (conv.id == this.convId) {
           this.onSelectConv(conv)
           break;
@@ -94,7 +93,6 @@ export class UsersListComponent implements OnInit {
   onSelectConv(conv) {
     let userIDs = [];
     var j = 0;
-    console.log(conv)
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
         this._datatransfer.setUser(user.userId)
@@ -135,6 +133,10 @@ export class UsersListComponent implements OnInit {
     }
     document.getElementById(tabNames).style.display = "block";
   }
-
+  Add(){
+    this._userservice.getUserOnline(this.token).subscribe((res) => {
+      console.log(res)
+    })
+  }
 }
 

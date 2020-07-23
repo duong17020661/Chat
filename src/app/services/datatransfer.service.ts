@@ -23,8 +23,8 @@ export class DatatransferService {
 
   // Nhận ID khi có sự kiện thay đổi user
   @Output() Id = new EventEmitter<string>();
-  changeConv(conID: string) {
-    this.Id.emit(conID);
+  changeConv(convId: string) {
+    this.Id.emit(convId);
   }
 
   private _getUser: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -32,6 +32,13 @@ export class DatatransferService {
 
   setUser(userTranfer: any) {
     this._getUser.next(userTranfer);
+  }
+
+  private _getCurrentUser: BehaviorSubject<string> = new BehaviorSubject<any>('');
+  getcurrentUser$: Observable<any> = this._getCurrentUser.asObservable();
+
+  setCurrentUser(userTranfer: any) {
+    this._getCurrentUser.next(userTranfer);
   }
   constructor() { }
 }
