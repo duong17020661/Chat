@@ -6,7 +6,7 @@
       <img src="../../assets/ICON/IconAppChat/11.svg" alt="Search" class="search_icon">
       <input id="myInput" class="search_button tablinks" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
         style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()"
-        (focus)="openUser('userlist')" autocomplete="off"/>
+        (focus)="openUser('userlist')"autocomplete="off"/>
       <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button" (click)="Add()">
       <!--Add button -->
     </div>
@@ -64,7 +64,7 @@
   <!--List conversation -->
   <!-- List User -->
   <div class="list-user tabcontent" id="userlist">
-    <div class="list" *ngFor="let user of users" (click)="onSelect(user); openUser('conversation')"
+    <div class="list" *ngFor="let user of users" (click)=" openUser('conversation');onSelect(user);" (blur)="openUser('conversation')" 
       routerLink='/chat/{{convId}}'>
       <div id="user" class="users">
         <ngx-avatar size="28" *ngIf="user.firstName" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>

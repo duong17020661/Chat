@@ -6,9 +6,16 @@
         <div class="container-login100">
           <div class="wrap-login100">
             <div class="login100-form-title">
-              <span class="login100-form-title-1">
-                Sign In
-              </span>
+              <div class="switch">
+                <div class="login100-form-title-1">
+                  Sign In
+                </div>
+                <div class="login100-form-title-1">
+                  Sign Up
+                </div>
+                <div class="active" style="height: 5px; background-color: blue; margin-top: 15px; margin-right: 5px;"></div>
+                <div class="active" style="height: 5px; background-color: blue; margin-top: 15px; margin-left: 5px;"></div>
+              </div>
             </div>
 
             <form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -30,7 +37,7 @@
                   </label>
                 </div>
                 <div>
-                  <a href="#" class="txt1">
+                  <a class="txt1">
                     Forgot Password?
                   </a>
                 </div>
