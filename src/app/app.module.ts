@@ -19,6 +19,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { DatatransferService } from './services/datatransfer.service';
+import { NavbarComponent } from './ui/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DatatransferService } from './services/datatransfer.service';
     LoginComponent,
     UiComponent,
     UsersListComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

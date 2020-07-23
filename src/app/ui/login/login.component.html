@@ -1,45 +1,53 @@
+
 <div class="content" role="main">
   <!-- LoginForm -->
   <div class="login">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="imgcontainer">
-        <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" width="auto" height="64px">
-      </div>
-      <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-          placeholder="Enter Username" name="uname">
-          
-        <label for="psw"><b>Password</b></label>
-        <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-          placeholder="Enter Password" name="psw">
-        <button type="submit" [disabled]="loading">Login</button>
-        <img *ngIf="loading"
-          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-      </div>
-      <!-- Remember password & Register modal -->
-      <div class="container">
-        <label class="checkbox">
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-        <span class="psw">Create a new account <a
-            onclick="document.getElementById('register').style.display='block'">Resgister</a></span>
+      <div class="limiter">
+        <div class="container-login100">
+          <div class="wrap-login100">
+            <div class="login100-form-title">
+              <span class="login100-form-title-1">
+                Sign In
+              </span>
+            </div>
 
-        <script>
-          // Get the modal
-          var modal = document.getElementById('register');
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function (event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          }
-        </script>
-        
+            <form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                <input class="input100" type="text" name="username" placeholder="Enter username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                <input class="input100" type="password" name="pass" placeholder="Enter password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="flex-sb-m w-full p-b-30">
+                <div class="contact100-form-checkbox">
+                  <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                  <label class="label-checkbox100" for="ckb1">
+                    Remember me
+                  </label>
+                </div>
+                <div>
+                  <a href="#" class="txt1">
+                    Forgot Password?
+                  </a>
+                </div>
+              </div>
+
+              <div class="container-login100-form-btn">
+                <button class="login100-form-btn" type="submit" [disabled]="loading">
+                  Login
+                </button>
+              </div>
+              <img *ngIf="loading"
+                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+            </form>
+          </div>
+        </div>
       </div>
-      <!-- Remember password & Register modal -->
-    </form>
   </div>
   <!-- LoginForm -->
   <!-- Resgister Form -->
@@ -49,24 +57,31 @@
         <h1>Register Form</h1>
         <br>
         <label for="fname"><b>First name</b></label>
-        <input type="text" class="form-control" formControlName="firstName" placeholder="Enter your first name" name="fname" [ngClass]="{ 'is-invalid': submitted && rf.firstName.errors }" >
+        <input type="text" class="form-control" formControlName="firstName" placeholder="Enter your first name"
+          name="fname" [ngClass]="{ 'is-invalid': submitted && rf.firstName.errors }">
         <label for="lname"><b>Last name</b></label>
-        <input type="text" class="form-control" formControlName="lastName" placeholder="Enter your last name" name="lname" [ngClass]="{ 'is-invalid': submitted && rf.lastName.errors }" >
+        <input type="text" class="form-control" formControlName="lastName" placeholder="Enter your last name"
+          name="lname" [ngClass]="{ 'is-invalid': submitted && rf.lastName.errors }">
 
         <label for="email"><b>Email</b></label>
-        <input type="email" class="form-control" formControlName="email" placeholder="Enter your Email" name="email" [ngClass]="{ 'is-invalid': submitted && rf.email.errors }" >
+        <input type="email" class="form-control" formControlName="email" placeholder="Enter your Email" name="email"
+          [ngClass]="{ 'is-invalid': submitted && rf.email.errors }">
 
         <label for="phone"><b>Phone Number</b></label>
-        <input type="tel" class="form-control" formControlName="phone" placeholder="Enter your phone number" name="phone" [ngClass]="{ 'is-invalid': submitted && rf.phone.errors && rf.phone.errors.pattern }">
+        <input type="tel" class="form-control" formControlName="phone" placeholder="Enter your phone number"
+          name="phone" [ngClass]="{ 'is-invalid': submitted && rf.phone.errors && rf.phone.errors.pattern }">
 
         <label for="uname"><b>Username</b></label>
-        <input type="text" class="form-control" formControlName="username" placeholder="Enter your Username" name="uname" [ngClass]="{ 'is-invalid': submitted && rf.username.errors }">
+        <input type="text" class="form-control" formControlName="username" placeholder="Enter your Username"
+          name="uname" [ngClass]="{ 'is-invalid': submitted && rf.username.errors }">
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" class="form-control" formControlName="password" placeholder="Enter your Password" name="psw" [ngClass]="{ 'is-invalid': submitted && rf.password.errors }">
+        <input type="password" class="form-control" formControlName="password" placeholder="Enter your Password"
+          name="psw" [ngClass]="{ 'is-invalid': submitted && rf.password.errors }">
 
         <label for="psw"><b>Re-Password</b></label>
-        <input type="password" class="form-control" formControlName="repassword" placeholder="Re type your Password" name="psw" [ngClass]="{ 'is-invalid': submitted && rf.repassword.errors }">
+        <input type="password" class="form-control" formControlName="repassword" placeholder="Re type your Password"
+          name="psw" [ngClass]="{ 'is-invalid': submitted && rf.repassword.errors }">
 
         <!--<label for="avatar"><b>Avatar </b></label>
         <input type="file" accept="image/*" name="avatar" required>-->

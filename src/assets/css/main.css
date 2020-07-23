@@ -1,11 +1,49 @@
+/* input[type="password"] {
+  color: transparent;
+} */
 
 
 
 /*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Medium;
+  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-SemiBold;
+  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+}
+
+/*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+	font-family: Poppins-Regular, sans-serif;
+}
 
 /*---------------------------------------------*/
 a {
+	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -22,7 +60,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #417eda;
+  color: #57b846;
 }
 
 /*---------------------------------------------*/
@@ -31,6 +69,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
+	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -113,6 +152,7 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
+  font-family: Poppins-Regular;
   font-size: 13px;
   line-height: 1.4;
   color: #999999;
@@ -138,7 +178,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background-image: url("https://marketingland.com/wp-content/ml-loads/2014/08/social-network-media-data-ss-1920.jpg");
+  background: #ebeeef;
 }
 
 
@@ -169,10 +209,11 @@ iframe {
   background-size: cover;
   background-position: center;
 
-  padding: 30px 15px 15px 15px;
+  padding: 70px 15px 74px 15px;
 }
 
 .login100-form-title-1 {
+  font-family: Poppins-Bold;
   font-size: 30px;
   color: #fff;
   text-transform: uppercase;
@@ -189,7 +230,7 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #48a0f1;
+  background-color: rgba(54,84,99,0.7);
 }
 
 
@@ -204,9 +245,8 @@ iframe {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 50px 50px 50px 50px;
+  justify-content: space-between;
+  padding: 43px 88px 93px 190px;
 }
 
 
@@ -220,6 +260,7 @@ iframe {
 }
 
 .label-input100 {
+  font-family: Poppins-Regular;
   font-size: 15px;
   color: #808080;
   line-height: 1.2;
@@ -234,6 +275,7 @@ iframe {
 
 /*---------------------------------------------*/
 .input100 {
+  font-family: Poppins-Regular;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;
@@ -268,7 +310,7 @@ iframe {
   -moz-transition: all 0.6s;
   transition: all 0.6s;
 
-  color: #417eda;
+  background: #57b846;
 }
 
 
@@ -294,6 +336,7 @@ input.input100 {
 }
 
 .label-checkbox100 {
+  font-family: Poppins-Regular;
   font-size: 13px;
   color: #999999;
   line-height: 1.4;
@@ -306,6 +349,7 @@ input.input100 {
 
 .label-checkbox100::before {
   content: "\f00c";
+  font-family: FontAwesome;
   font-size: 13px;
   color: transparent;
 
@@ -358,9 +402,10 @@ input.input100 {
   padding: 0 20px;
   min-width: 160px;
   height: 50px;
-  background-color: #417eda;
+  background-color: #57b846;
   border-radius: 25px;
 
+  font-family: Poppins-Regular;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -425,6 +470,7 @@ input.input100 {
   right: 2px;
   pointer-events: none;
 
+  font-family: Poppins-Medium;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
@@ -441,6 +487,7 @@ input.input100 {
 
 .alert-validate::after {
   content: "\f06a";
+  font-family: FontAwesome;
   display: block;
   position: absolute;
   color: #c80000;
@@ -465,17 +512,5 @@ input.input100 {
     opacity: 1;
   }
 }
-.flex-sb-m {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	justify-content: space-between;
-	-ms-align-items: center;
-	align-items: center;
-}
-.p-b-30 {
-  padding-top: 15px;
-  padding-bottom: 5px;}
-.w-full {width: 100%;}
+
+
