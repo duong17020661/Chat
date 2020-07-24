@@ -1,50 +1,58 @@
 <!-- Content -->
 <div class="messages" #scrollframe infinite-scroll [infiniteScrollDistance]="2"
-    [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="300" [scrollWindow]="false"
-    (scrolledUp)="onScroll()">
+    [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="300" [scrollWindow]="false" (scrolledUp)="onScroll()">
     <!-- Loading -->
-    <div *ngIf="loading" class="d-flex justify-content-center">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
+    <div *ngIf="messages">
+        <div *ngIf="loading" class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
-    </div>
 
-    <ul #item>
-        <ng-container *ngFor="let message of messages">
-            <!-- Người gửi -->
-            <li class="replies" *ngIf="message.sender == currentUserId">
-                <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath"
-                    data-toggle="modal" data-target="#exampleModalCenter"
-                    (click)="ModalImage(message.content.photo.filePath)" />
-                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
-                    class="file">{{ message.content.content  }}</a>
-                <div *ngIf="message.type == 1" style="float: right;" data-toggle="tooltip" data-placement="right"
-                    [title]="convertDate(message.createdAt)">
-                    <p>{{ message.content.content }}</p>
-                </div>
-            </li>
-            <!-- Người gửi -->
-            <!-- Người nhận -->
-            <li class="sent" *ngIf="message.sender != currentUserId">
-                <ngx-avatar *ngIf="user" size="32" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-                <!--<img [src]="getAvatar()" alt="" />-->
-                <img class="img-preview " *ngIf="message.type == 2" [src]="message.content.photo.filePath"
-                    data-toggle="modal" data-target="#exampleModalCenter"
-                    (click)="ModalImage(message.content.photo.filePath)" />
-                <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
-                    class="file">{{ message.content.content }}</a>
-                <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left"
-                    [title]="convertDate(message.createdAt)">
-                    <p>{{ message.content.content }}</p>
-                </div>
-            </li>
-            <!-- Người nhận -->
-            <!-- Thời gian gửi tin nhắn -->
-            <p class="timeDiff">
-            {{ message.createdAt | date: 'MMM d, H:mm' }}</p>
-        </ng-container>
-    </ul>
+        <ul #item>
+            <ng-container *ngFor="let message of messages">
+                <!-- Người gửi -->
+                <li class="replies" *ngIf="message.sender == currentUserId">
+                    <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath"
+                        data-toggle="modal" data-target="#exampleModalCenter"
+                        (click)="ModalImage(message.content.photo.filePath)" />
+                    <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
+                        class="file">{{ message.content.content  }}</a>
+                    <div *ngIf="message.type == 1" style="float: right;" data-toggle="tooltip" data-placement="right"
+                        [title]="convertDate(message.createdAt)">
+                        <p>{{ message.content.content }}</p>
+                    </div>
+                </li>
+                <!-- Người gửi -->
+                <!-- Người nhận -->
+                <li class="sent" *ngIf="message.sender != currentUserId">
+                    <ngx-avatar *ngIf="!user.avatar" size="32" [name]="user.firstName + ' ' + user.lastName">
+                    </ngx-avatar>
+                    <img *ngIf="user.avatar" [src]="user.avatar" class="avatar">
+                    <img class="img-preview " *ngIf="message.type == 2" [src]="message.content.photo.filePath"
+                        data-toggle="modal" data-target="#exampleModalCenter"
+                        (click)="ModalImage(message.content.photo.filePath)" />
+                    <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
+                        class="file">{{ message.content.content }}</a>
+                    <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left"
+                        [title]="convertDate(message.createdAt)">
+                        <p>{{ message.content.content }}</p>
+                    </div>
+                </li>
+                <!-- Người nhận -->
+                <!-- Thời gian gửi tin nhắn -->
+                <p class="timeDiff">
+                    {{ message.createdAt | date: 'MMM d, H:mm' }}</p>
+            </ng-container>
+        </ul>
+    </div>
+    <div *ngIf="!messages" class="started">
+        <img src="../../../../assets/IMG/Watermark/watermark.svg" alt="started image" />
+        <h4>Chưa có tin nhắn</h4>
+        <p>Nhập nội dung tin nhắn, gõ @tên để nhắc tên</p>
+    </div>
 </div>
+
 <!-- Content -->
 <!-- Create messages -->
 <div class="sendMessage">

@@ -34,7 +34,7 @@ export class DatatransferService {
     this._getUser.next(userTranfer);
   }
 
-  private _getCurrentUser: BehaviorSubject<string> = new BehaviorSubject<any>('');
+  private _getCurrentUser: BehaviorSubject<any> = new BehaviorSubject<any>('');
   getcurrentUser$: Observable<any> = this._getCurrentUser.asObservable();
 
   setCurrentUser(userTranfer: any) {

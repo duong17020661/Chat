@@ -43,6 +43,7 @@ export class MainChatComponent implements OnInit {
       this.convId = val.id;
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
+      this._datatransfer.changeConv(val.id);
     });
 
   }
@@ -121,8 +122,6 @@ export class MainChatComponent implements OnInit {
       })
     });
     reader.readAsDataURL(file);
-
-
   }
   // Xử lý sự kiện upload file
   processFile(fileInput: any) {

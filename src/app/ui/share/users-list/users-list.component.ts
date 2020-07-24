@@ -22,6 +22,7 @@ export class UsersListComponent implements OnInit {
   convId: string;
   userID: string = JSON.parse(localStorage.getItem('currentUser')).id
   token: string = JSON.parse(localStorage.getItem('currentUser')).token
+  user: IUser;
 
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
@@ -39,6 +40,9 @@ export class UsersListComponent implements OnInit {
     // Lấy ID hiện tại đang trỏ đến
     this.route.params.subscribe(val => {
       this.convId = val.id;
+      this._datatransfer.Id.subscribe((res) => {
+        this.getConvesationList();
+      })
     });
   }
 

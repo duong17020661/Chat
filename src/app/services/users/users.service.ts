@@ -52,4 +52,14 @@ export class UsersService {
     }
   return this.http.post(`https://api.stringee.com/v1/users`,params ,httpOptions);
 }
+  updateUser(id: string, fName: string, lName: string, email: string, ava: string){
+    const options = {
+      firstName: fName,
+      lastName: lName,
+      email: email,
+      avatar: ava
+    }
+    console.log(options)
+    return this.http.put<any>('https://localhost:44337/api/users/' + id, options)
+  }
 }

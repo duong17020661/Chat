@@ -1,42 +1,64 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-    <img src="/assets/ICON/IconAppChat/20.svg" alt="Open" id="open">
-    <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" id="icon">
-    <span id="name">Web Chat Online</span>
-  
-    <div id="navbarDropdownMenuLink" id="avatar" class="dropdown dropleft" role="button" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      <img *ngIf="haveAvatar && loginSuccess" src="user.imageUrl" alt="message-icon">
-      <ngx-avatar *ngIf="!haveAvatar && loginSuccess" size="34" [name]="fullName" id="avatar"></ngx-avatar>
+  <img src="/assets/ICON/IconAppChat/20.svg" alt="Open" id="open">
+  <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" id="icon">
+  <span id="name">Web Chat Online</span>
+
+  <div id="navbarDropdownMenuLink" id="avatar" class="dropdown dropleft" role="button" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    <img *ngIf="haveAvatar && loginSuccess" id="avatar" [src]="currentUser.avatar" alt="message-icon">
+    <ngx-avatar *ngIf="!haveAvatar && loginSuccess" size="34" [name]="fullName" id="avatar"></ngx-avatar>
+  </div>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <a class="dropdown-item" onclick="document.getElementById('edit-profile').style.display='block'">Edit Profile</a>
+    <a class="dropdown-item" [routerLink]="['/login']" (click)="onLogout()">Log Out</a>
+  </ul>
+</div>
+<!-- Chat -->
+<!-- Footer -->
+<footer>
+</footer>
+<!-- Edit profile -->
+<div id="edit-profile" class="modal">
+  <form class="modal-content animate" [formGroup]="editForm" (ngSubmit)="onEdit()">
+    <div class="container">
+      <div class="row">
+        <h4 class="info-text" style="width: 100%; margin-right: 25px;">Thông tin cá nhân</h4>
+        <div class="col-sm-4 col-sm-offset-1">
+          <div class="picture-container">
+            <div class="picture">
+              <img class="picture-src" *ngIf="filePath" [src]="filePath" id="wizardPicturePreview" title="" />
+              <img class="picture-src" *ngIf="!filePath" [src]="currentUser.avatar" id="wizardPicturePreview" title="" />
+              <input type="file" id="wizard-picture" #fileInput (change)="processFile(fileInput)" >
+            </div>
+            <h6>Choose Picture</h6>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>First Name <small>(required)</small></label>
+            <input name="firstname" type="text" class="form-control" formControlName="firstName" [value]="user?.firstName">
+          </div>
+          <div class="form-group">
+            <label>Last Name <small>(required)</small></label>
+            <input name="lastname" type="text" class="form-control" formControlName="lastName" [value]="user?.lastName">
+          </div>
+        </div>
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="form-group">
+            <label>Email <small>(required)</small></label>
+            <input name="email" type="email" class="form-control" formControlName="email" [value]="user?.email">
+          </div>
+        </div>
+      </div>
     </div>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <li class="dropdown-item" onclick="document.getElementById('edit-profile').style.display='block'">Edit Profile</li>
-      <li class="dropdown-item" [routerLink]="['/login']" (click)="onLogout()">Log Out</li>
-    </ul>
-  </div>
-  <!-- Chat -->
-  <!-- Footer -->
-  <footer>
-  </footer>
-  <!-- Edit profile -->
-  <div id="edit-profile" class="modal">
-    <form class="modal-content animate" [formGroup]="editForm" (ngSubmit)="onEdit()">
-      <div class="container">
-        <h1>Edit Form</h1>
-        <br>
-        <label for="fname"><b>First name</b></label>
-        <input type="text" formControlName="firstName" placeholder="Enter your first name" name="fname" required>
-        <label for="lname"><b>Last name</b></label>
-        <input type="text" formControlName="lastName" placeholder="Enter your last name" name="lname" required>
-        <!--<label for="avatar"><b>Avatar </b></label>
-        <input type="file" accept="image/*" name="avatar" required>-->
-        <button type="submit">Edit</button>
-      </div>
+    <!-- Update Button -->
+    <div style="display: inline-block; padding-bottom: 10px;">
+      <button style="background-color: blue; width: 100px; float: right; margin-right: 24px" type="submit" class="cancelbtn">Cập nhật</button>
       <!-- Cancel Button -->
-      <div class="container">
-        <button type="button" onclick="document.getElementById('edit-profile').style.display='none'"
-          class="cancelbtn">Cancel</button>
-      </div>
-    </form>
-  </div>
-  <!-- Edit profile -->
+      <button style="background-color: red; width: 100px; float: right; margin-right: 24px" type="button"
+        onclick="document.getElementById('edit-profile').style.display='none'" class="cancelbtn">Hủy bỏ</button>
+    </div>
+  </form>
+</div>
+<!-- Edit profile -->
