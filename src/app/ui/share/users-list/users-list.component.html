@@ -21,9 +21,10 @@
         <div id="user" class="users" [class.abc]="user.id == convId">
           <!--Thanh màu xanh khi select-->
           <ng-container *ngFor="let name of user.participants">
-            <ngx-avatar size="28" *ngIf="name.userId != userID" [name]="name.name"></ngx-avatar>
+            <ngx-avatar size="28" *ngIf="name.userId != userID && !name.avatar" [name]="name.name"></ngx-avatar>
+            <img *ngIf="name.userId != userID && name.avatar" [src]="name.avatar" roundShape="true" />
           </ng-container>
-          <!--<img [src]="user.photo" roundShape="true" /> -->
+          
           <span class="status" *ngIf="user.state"></span>
           <div class="info d-none d-lg-block" style="display: none;width: 262px;">
             <!--Right -->

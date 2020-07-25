@@ -29,6 +29,7 @@ export class MainChatComponent implements OnInit {
   modalImg: any; // Image modal
   popup: any; // Popup
   loading: boolean = false;
+  typing: boolean = false;
   private _userservice: any;
   constructor(
     private _chatservice: MessagesService,
@@ -50,6 +51,12 @@ export class MainChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal;
+    this.stringeeService.stringeeClient.on('userBeginTypingListener',  (msg) => {
+      this.typing = true;
+    });
+    this.stringeeService.stringeeClient.on('userEndTypingListener',  (msg) => {
+      this.typing = false;
+    });
   }
   getUserId() {
     this._datatransfer.getUser$.subscribe(data => {
@@ -190,6 +197,29 @@ export class MainChatComponent implements OnInit {
     this.stringeeService.stringeeChat.getMessagesBefore(this.convId, this.messages[0].sequence, 15, true, (status, code, message, msgs) => {
       this.messages = msgs.concat(this.messages);
     });
+  }
+  onKeyUp(){
+    let info = {
+      userId: this.currentUserId,
+      convId: this.convId
+    }
+    console.log(info)
+    setTimeout(() => {
+      this.stringeeService.stringeeChat.userEndTyping(info, function (res) {
+        console.log(res)
+       })
+    }, 1000);
+  }
+  onKeyDown(){
+    let info = {
+      userId: this.currentUserId,
+      convId: this.convId
+    }
+    console.log(info)
+      this.stringeeService.stringeeChat.userBeginTyping(info, function (res) {
+        console.log(res)
+       })
+
   }
 }
 

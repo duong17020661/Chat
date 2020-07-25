@@ -48,6 +48,7 @@ export class UiComponent implements OnInit {
         this.stringeeService.getAndUpdateInfo();
       });
       this.stringeeService.stringeeChat.on('onObjectChange', () => {
+        console.log("-OJC-")
         this.getConversations();
         this.getMessages();
       });

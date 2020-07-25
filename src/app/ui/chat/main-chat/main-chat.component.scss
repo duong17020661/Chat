@@ -82,6 +82,18 @@
     word-wrap: break-word;
     color: #212121;;
   }
+  .messages ul li.sent .typing {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background: #eeeeee;
+    width: max-content;
+    display: inline-block;
+  }
+  .messages ul li.sent .typing .spin {
+    width: 10px;
+    height: 10px;
+    margin-bottom: 3px;
+  }
   .messages ul li.replies p {
     background: #2688e6;
     color: #ffffff;

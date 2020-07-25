@@ -111,13 +111,7 @@ export class UsersListComponent implements OnInit {
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {
     let term = this.searchTerm;
-    // let info = {
-    //   userId: this.userID,
-    //   convId: this.convId
-    // }
-    // this._stringeeservice.stringeeChat.prototype.userBeginTyping(info,(status, code, message, conv)=>{
-    //   console.log("----------")
-    // })
+
     this.users = this.userResource.filter(function (tag) {
       let fullName = tag.firstName + " " + tag.lastName;
       return fullName.indexOf(term) >= 0;
