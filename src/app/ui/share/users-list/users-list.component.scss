@@ -163,3 +163,25 @@ background-color: rgba(0, 0, 0, 0.3);
         color: #ffffff;
     }
 }
+
+.started {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+  }
+  .started ngx-avatar {
+    flex-direction: row;
+  }
+  .started div {
+      margin: 5px;
+  }
+.started p {
+    color: #757575;
+    opacity: 0.8;
+}
+.started .list-avatar{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}

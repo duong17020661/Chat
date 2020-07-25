@@ -23,6 +23,7 @@ export class UsersListComponent implements OnInit {
   userID: string = JSON.parse(localStorage.getItem('currentUser')).id
   token: string = JSON.parse(localStorage.getItem('currentUser')).token
   user: IUser;
+  switchtab = 0;
 
   // List chứa tất cả dữ liệu về User
   public userResource = []; // Dữ liệu lưu để so sánh
@@ -110,6 +111,13 @@ export class UsersListComponent implements OnInit {
   // Hàm tìm kiếm cuộc trò chuyện
   search(): void {
     let term = this.searchTerm;
+    // let info = {
+    //   userId: this.userID,
+    //   convId: this.convId
+    // }
+    // this._stringeeservice.stringeeChat.prototype.userBeginTyping(info,(status, code, message, conv)=>{
+    //   console.log("----------")
+    // })
     this.users = this.userResource.filter(function (tag) {
       let fullName = tag.firstName + " " + tag.lastName;
       return fullName.indexOf(term) >= 0;
@@ -136,6 +144,7 @@ export class UsersListComponent implements OnInit {
       tabcontent[i].style.display = "none";
     }
     document.getElementById(tabNames).style.display = "block";
+    this.switchtab++;
   }
   Add(){
     this._userservice.getUserOnline(this.token).subscribe((res) => {

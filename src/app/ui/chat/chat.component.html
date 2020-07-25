@@ -4,8 +4,8 @@
     <div>
         <div id="info">
             <ng-container >
-                <ngx-avatar id="avatar" *ngIf="!user.avatar" size="32" [name]="user?.firstName + ' ' + user?.lastName"></ngx-avatar>
-                <img id="avatar" *ngIf="user.avatar" [src]="user.avatar" alt="Avatar"> 
+                <ngx-avatar id="avatar" *ngIf="!user?.avatar" size="32" [name]="user?.firstName + ' ' + user?.lastName"></ngx-avatar>
+                <img id="avatar" *ngIf="user?.avatar" [src]="user.avatar" alt="Avatar"> 
             </ng-container>
             <div>
                 <p style="font-size: 14px;

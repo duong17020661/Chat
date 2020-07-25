@@ -46,7 +46,7 @@
             </ng-container>
         </ul>
     </div>
-    <div *ngIf="!messages" class="started">
+    <div *ngIf="!messages || messages[0].content.content == ''" class="started">
         <img src="../../../../assets/IMG/Watermark/watermark.svg" alt="started image" />
         <h4>Chưa có tin nhắn</h4>
         <p>Nhập nội dung tin nhắn, gõ @tên để nhắc tên</p>

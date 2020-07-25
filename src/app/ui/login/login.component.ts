@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  rSubmitted = false;
   returnUrl: string;
   error = '';
   users = [];
@@ -78,16 +79,18 @@ export class LoginComponent implements OnInit {
   get rf() { return this.registerForm.controls; }
   // Xử lý sự kiện Đăng ký
   register() {
+    this.rSubmitted = true;
     if (this.registerForm.invalid) {
       return;
     }
-    this.submitted = true;
+
     this.loading = true;
 
     this.authenticationService.register(this.rf.firstName.value, this.rf.lastName.value, this.rf.username.value, this.rf.password.value, this.rf.repassword.value, this.rf.email.value, this.rf.phone.value)
       .pipe(first())
       .subscribe(
         data => {
+          alert("Đăng ký thành công!!!!!!")
           this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421844878']);
         },
         error => {
