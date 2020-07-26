@@ -1,8 +1,7 @@
-import { Component, OnInit, Input  } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users/users.service';
-import { MessagesService } from 'src/app/services/messages/messages.service';
 import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { StringeeService } from '../../../services/stringee/stringee.service'
 import { IUser } from 'src/models/user';
@@ -14,123 +13,130 @@ import { IUser } from 'src/models/user';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  // List chứa tất cả dữ liệu về Inbox
-  public messages = [];
-
-  spinnerService: any;
-  searchTerm: string;
-  convId: string;
-  userID: string = JSON.parse(localStorage.getItem('currentUser')).id
-  token: string = JSON.parse(localStorage.getItem('currentUser')).token
-  user: IUser;
-  switchtab = 0;
-
-  // List chứa tất cả dữ liệu về User
+  public messages = []; // List dữ liệu về tin nhắn
+  searchTerm: string; // Dữ liệu tìm kiếm
+  convId: string; // Mã cuộc trò chuyện
+  userID: string = JSON.parse(localStorage.getItem('currentUser')).id // Id người dùng hiện tại
+  token: string = JSON.parse(localStorage.getItem('currentUser')).token // token của người dùng
+  user: IUser; // Dữ liệu về người dùng đang trỏ đến
+  switchtab = 0; // Dùng để hiển thị màn hình khi chưa có cuộc trò chuyện nào
   public userResource = []; // Dữ liệu lưu để so sánh
-  public users = [];
+  public users = []; // List chứa tất cả dữ liệu về User
   @Input() conversations: any; // List dữ liệu về cuộc trò chuyện
 
   constructor(
-    private router: Router,
-    private _chatservice: MessagesService,
-    private _userservice: UsersService,
-    private route: ActivatedRoute,
-    private _datatransfer: DatatransferService,
-    private _stringeeservice: StringeeService
+    private _router: Router,
+    private _userService: UsersService,
+    private _route: ActivatedRoute,
+    private _dataTransfer: DatatransferService,
+    private _stringeeService: StringeeService
   ) {
-    // Lấy ID hiện tại đang trỏ đến
-    this.route.params.subscribe(val => {
+    // Tạo lại các đối tượng khi đường dẫn thay đổi
+    this._route.params.subscribe(val => {
       this.convId = val.id;
-      this._datatransfer.Id.subscribe((res) => {
+      this._dataTransfer.Id.subscribe((res) => {
         this.getConvesationList();
       })
     });
   }
 
   ngOnInit(): void {
-    // Lấy danh sách người dùng sắp xếp theo ngày
-    this._userservice.getUsers().subscribe(data => {
+    // Lấy danh sách tất cả người dùng
+    this._userService.getUsers().subscribe(data => {
       this.users = data;
       this.userResource = data;
     });
-    // Lấy danh sách tin nhắn sắp xếp theo ngày
-
   }
-  getConv(){
-    this._datatransfer.Id.subscribe((data) => {
+  /**
+   * Lấy dữ liệu các cuộc trò chuyện dựa vào convId được truyền từ MainChat
+   */
+  getConv() {
+    this._dataTransfer.Id.subscribe((data) => {
       this.getConvesationList();
     })
   }
-  // Lấy dữ liệu cuộc trò chuyện gần nhất
+  /**
+   * Lấy dữ liệu các cuộc trò chuyện và truyền Id người đang trò chuyện đến các component khác
+   */
   getConvesationList() {
-    this._stringeeservice.getConversation((status, code, message, convs) => {
+    this._stringeeService.getConversation((status, code, message, convs) => {
       this.conversations = convs;
-      for (let conv of convs) {
-        if (conv.id == this.convId) {
-          this.onSelectConv(conv)
-          break;
+      if (convs) {
+        for (let conv of convs) {
+          if (conv.id == this.convId) {
+            this.onSelectConv(conv)
+            break;
+          }
         }
       }
     });
   }
-  // Hàm ẩn thông báo tin nhắn chưa đọc
-  disableNewMessage(userid) {
-    for (var i = 0; i < this.users.length; i++) {
-      if (this.users[i].id == userid) {
-        this.users[i].newMessage = 0;
-      }
-    }
-  }
-  // Hàm xử lý sự kiện click vào user
+  /**
+   * Hàm xử lý khi người dùng chọn người muốn trò chuyện
+   * @param user Người dùng được chọn
+   */
   onSelect(user: IUser) {
     var options = {
       isDistinct: true,
       isGroup: false
     };
-    this._stringeeservice.stringeeChat.createConversation([user.id], options, (status, code, message, conv) => {
-       //console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
-       this.router.navigate(['/chat/' + conv.id]).then(() => {
-        this._datatransfer.setUser(user.id)
+    this._stringeeService.stringeeChat.createConversation([user.id], options, (status, code, message, conv) => {
+      // Chuyển đến cuộc trò chuyện giữa 2 người
+      this._router.navigate(['/chat/' + conv.id]).then(() => {
+        this._dataTransfer.setUser(user.id)
       });
     });
   }
-  // Hàm xử lý sự kiện click vào cuộc trò chuyện
+  /**
+   * Hàm xử lý khi chọn vào 1 cuộc trò chuyện nào đó
+   * @param conv Cuộc trò chuyện được chọn
+   */
   onSelectConv(conv) {
     let userIDs = [];
     var j = 0;
     for (let user of conv.participants) {
       if (user.userId != this.userID) {
-        this._datatransfer.setUser(user.userId)
+        this._dataTransfer.setUser(user.userId)
         userIDs[j] = user.userId;
         j++;
       }
     }
-    this._stringeeservice.createConversation(userIDs)
-    this._stringeeservice.stringeeChat.markConversationAsRead(this.convId)
+    this._stringeeService.createConversation(userIDs)
+    // Đánh dấu đã đọc hết tất cả tin nhắn
+    this._stringeeService.stringeeChat.markConversationAsRead(this.convId)
   }
-  // Hàm tìm kiếm cuộc trò chuyện
+  /**
+   * Tìm kiếm người dùng muốn trò chuyện cùng
+   */
   search(): void {
     let term = this.searchTerm;
-
     this.users = this.userResource.filter(function (tag) {
       let fullName = tag.firstName + " " + tag.lastName;
       return fullName.indexOf(term) >= 0;
     });
   }
-  // Hàm tính sự chệnh lệch giữa 2 khoảng thời gian
   timeBetween: number // 1 : giờ | 2 : thứ | 3 : ngày
+  /**
+   * Tính chênh lệch giữa 2 khoảng thời gian hiện tại và thời gian truyền vào
+   * @param dateSent Thời gian muốn tính chênh lệch
+   */
   calculateDiff(dateSent) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
     let dateDiff = Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
     return dateDiff
   }
-  // Hàm chuyển dữ liệu thành Date()
+  /**
+   * Chuyển dữ liệu sang dạng Date()
+   * @param date Dữ liệu muốn chuyển
+   */
   convertDate(date) {
     return new Date(date);
   }
-
-  // Hàm chuyển tab khi focus vào search
+  /**
+   * Hàm xử lý chuyển động giữa các tab
+   * @param tabNames id của tab
+   */
   openUser(tabNames) {
     var i, tabcontent;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -140,8 +146,11 @@ export class UsersListComponent implements OnInit {
     document.getElementById(tabNames).style.display = "block";
     this.switchtab++;
   }
-  Add(){
-    this._userservice.getUserOnline(this.token).subscribe((res) => {
+  /**
+   * Hàm test get status của người dùng (Chưa làm được)
+   */
+  Add() {
+    this._userService.getUserOnline(this.token).subscribe((res) => {
       console.log(res)
     })
   }

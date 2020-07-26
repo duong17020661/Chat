@@ -1,35 +1,36 @@
 import { Injectable } from '@angular/core';
 import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 import * as jwt_decode from 'jwt-decode';
-import Conversation from 'src/models/conversation';
-import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StringeeService {
-
-
-  // Init
+  // Khời tạo các đối tượng Stringee
   stringeeClient = new StringeeClient();
   stringeeChat = new StringeeChat(this.stringeeClient);
   returnConversations = [];
 
   constructor() { }
-  // Connect stringee
+  /**
+   * Kết nối tới Stringee
+   * @param token Token để xác thực người dùng
+   */
   stringeeConnect(token: string) {
     console.log("Connecting.......")
     this.stringeeClient.connect(token);
     console.log("Success")
   }
+  /**
+   * Hàm lấy thông tin người dùng từ storage và cập nhật thông tin lên Stringee
+   */
   getAndUpdateInfo() {
+    // Lấy thông tin người dùng từ Token
     let token = JSON.parse(localStorage.getItem('currentUser')).token;
     let tokenInfo = this.getDecodedAccessToken(token);
     let userId = tokenInfo.userId
-    console.log("name: " + tokenInfo.userId)
-    // Get user info
+    // Lấy thông tin người dùng
     this.stringeeChat.getUsersInfo([userId], (_status: any, _code: any, _msg: any, users: any[]) => {
-      let user = users[0];
       if (1) {
         let username = tokenInfo.name;
         let avatar = tokenInfo.avatar;
@@ -37,30 +38,39 @@ export class StringeeService {
           display_name: username,
           avatar_url: avatar
         }
+        // Cập nhật thông tin người dùng
         this.updateUserInfo(updateUserData)
       }
     });
   }
-
-  // Authen Stringee
+  /**
+   *   Hàm lắng nghe và xác thực tài khoản Stringee
+   */
   onAuthen() {
     this.stringeeClient.on('authen', (res) => {
       console.log('authen', res);
+      // Cập nhật thông tin sau khi xác thực
       this.getAndUpdateInfo()
     });
   }
-
-  // Disconnect stringee
+  /**
+   * Hàm ngắt kết nối tới Stringee
+   */
   stringeeDisconnect() {
     this.stringeeClient.disconnect();
   }
+  /**
+   * Hàm lắng nghe kết nối và chạy khi người dùng ngắt kết nối với Stringee
+   */
   onDisconnect() {
     this.stringeeClient.on('disconnect', function () {
       console.log('++++++++++++++ disconnected');
     });
   }
-
-  // Create Conversation 1-1
+  /**
+   * Tạo một cuộc trò chuyện
+   * @param userId Danh sách những người dùng trong cuộc trò chuyện
+   */
   createConversation(userId) {
     var userIds = userId;
     var options = {
@@ -68,17 +78,20 @@ export class StringeeService {
       isGroup: false
     };
     this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
-      //  console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
       localStorage.setItem("convId", JSON.stringify(conv))
     });
   }
-
-  // Get last conversation
+  /**
+   * Hàm lấy 20 cuộc trò chuyện gần nhất
+   */
   getConversation(callback: any) {
-    this.stringeeChat.getLastConversations(10, false, callback);
+    this.stringeeChat.getLastConversations(20, false, callback);
   }
-
-  // Send message
+  /**
+   * Hàm gửi tin nhắn dạng text
+   * @param message Nội dung tin nhắn
+   * @param conversationId Mã cuộc trò chuyện
+   */
   sendMessage(message: string, conversationId: string) {
     var txtMsg = {
       type: 1,
@@ -88,10 +101,17 @@ export class StringeeService {
       }
     };
     this.stringeeChat.sendMessage(txtMsg, function (status, code, message, msg) {
-      //console.log(status + code + message + "msg result " + JSON.stringify(msg));
+
     });
   }
-  // Send file
+  /**
+   * Hàm gửi tin nhắn dạng file
+   * @param message Nội dung tin nhắn
+   * @param convId Mã cuộc trò chuyện
+   * @param fName Tên file
+   * @param fPath Đường dẫn file
+   * @param fLenght Kích thước file
+   */
   sendFile(message: string, convId: string, fName: string, fPath: string, fLenght: number) {
     var fileMsg = {
       type: 5,
@@ -109,11 +129,14 @@ export class StringeeService {
       }
     };
     this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
-      //console.log(status + code + message + "msg result " + JSON.stringify(msg));
+
     });
   }
-
-  // Send file
+  /**
+   * Hàm gửi tin nhắn dạng ảnh
+   * @param convId Mã cuộc trò chuyện
+   * @param fPath Đường dẫn ảnh
+   */
   sendImage(convId: string, fPath: string) {
     var fileMsg = {
       type: 2,
@@ -131,19 +154,22 @@ export class StringeeService {
       }
     };
     this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
-      //console.log(status + code + message + "msg result " + JSON.stringify(msg));
+
     });
   }
 
-  // Get last messages
+  /**
+   * Hàm lấy 15 tin nhắn gần nhất từ 1 cuộc trò chuyện
+   * @param convId Mã cuộc trò chuyện
+   * @param callback Hàm callback lưu thông tin các tin nhắn
+   */
   getLastMessages(convId: string, callback: any) {
     this.stringeeChat.getLastMessages(convId, 15, true, callback);
   }
-  // Get user info
-  getUser(userId: string, callback: any) {
-    this.stringeeChat.getUsersInfo([userId], callback)
-  }
-  // Update user info
+  /**
+   * Hàm cập nhật thông tin người dùng
+   * @param data Dữ liệu của người dùng gồm ảnh, tên và email
+   */
   updateUserInfo(data) {
     this.stringeeChat.updateUserInfo(data, function (res) {
       console.log("Ssssssss")
@@ -151,7 +177,10 @@ export class StringeeService {
     });
   }
 
-  // Decode token
+  /**
+   * Hàm decode để lấy dữ liệu của người dùng từ token
+   * @param token Token người dùng
+   */
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);

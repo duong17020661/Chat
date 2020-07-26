@@ -1,103 +1,178 @@
 <!--Content -->
-<div class="main_user_list" ng-controller="filterctrl">
+<div class="main_user_list" 
+  ng-controller="filterctrl">
   <!--Search -->
   <div class="search_user d-none d-lg-block">
     <div class="search tab">
-      <img src="../../assets/ICON/IconAppChat/11.svg" alt="Search" class="search_icon">
-      <input id="myInput" class="search_button tablinks" type="text" placeholder="Tìm kiếm cuộc trò chuyện"
-        style="font-family:Arial, FontAwesome" [(ngModel)]="searchTerm" (ngModelChange)="search()"
-        (focus)="openUser('userlist')" autocomplete="off" />
-      <img src="../../assets/ICON/IconAppChat/3.svg" alt="Add" class="add_button" (click)="Add()">
+      <img src="../../assets/ICON/IconAppChat/11.svg" 
+        alt="Search" 
+        class="search_icon">
+      <input id="myInput" 
+        class="search_button tablinks" 
+        type="text" 
+        placeholder="Tìm kiếm cuộc trò chuyện"
+        style="font-family:Arial, FontAwesome" 
+        [(ngModel)]="searchTerm" 
+        (ngModelChange)="search()"
+        (focus)="openUser('userlist')" 
+        autocomplete="off" />
+      <img src="../../assets/ICON/IconAppChat/3.svg" 
+        alt="Add" 
+        class="add_button" 
+        (click)="Add()">
       <!--Add button -->
     </div>
   </div>
   <!--Search -->
   <!--List conversation -->
-  <div class="list-conversation tabcontent" id="conversation">
+  <div class="list-conversation tabcontent" 
+    id="conversation">
     <div *ngIf="conversations?.length > 0">
-      <div class="list" *ngFor="let user of conversations" (click)="onSelectConv(user)" routerLink='/chat/{{user.id}}'>
+      <div class="list" 
+        *ngFor="let user of conversations" 
+          (click)="onSelectConv(user)" 
+          routerLink='/chat/{{user.id}}'>
+        <!--Thanh màu xanh khi select-->
         <div class="space" [class.zxc]="user.id == convId"></div>
         <!--Conversation -->
-        <div id="user" class="users" [class.abc]="user.id == convId">
-          <!--Thanh màu xanh khi select-->
+        <div id="user" 
+          class="users" 
+          [class.abc]="user.id == convId">
           <ng-container *ngFor="let name of user.participants">
-            <ngx-avatar size="28" *ngIf="name.userId != userID && !name.avatar" [name]="name.name"></ngx-avatar>
-            <img *ngIf="name.userId != userID && name.avatar" [src]="name.avatar" roundShape="true" />
+            <ngx-avatar size="28" 
+              *ngIf="name.userId != userID && !name.avatar" 
+              [name]="name.name">
+            </ngx-avatar>
+            <img *ngIf="name.userId != userID && name.avatar" 
+            [src]="name.avatar" 
+            roundShape="true" />
           </ng-container>
-          
-          <span class="status" *ngIf="user.state"></span>
-          <div class="info d-none d-lg-block" style="display: none;width: 262px;">
+
+          <span class="status" 
+            *ngIf="user.state">
+          </span>
+          <div class="info d-none d-lg-block" 
+            style="display: none;width: 262px;">
             <!--Right -->
-            <div class="left" style="float: left;" [class.bold]="user.unreadCount > 0">
+            <div class="left" 
+              style="float: left;" 
+              [class.bold]="user.unreadCount > 0">
               <ng-container *ngFor="let name of user.participants">
-                <p class="name" *ngIf="name.userId != userID">{{ name.name }}</p>
+                <p class="name" 
+                  *ngIf="name.userId != userID">
+                    {{ name.name }}
+                </p>
               </ng-container>
-              <p class="lastMessage" *ngIf="user.lastMessage.sender && user.lastMessage.type == 1">Bạn:
-                {{ user.lastMessage.content.content }}</p>
-              <p class="lastMessage" *ngIf="!user.lastMessage.sender && user.lastMessage.type == 1">
-                {{ user.lastMessage.content.content }}</p>
-              <p class="lastMessage" *ngIf="user.lastMessage.sender && user.lastMessage.type == 2">Bạn đã gửi một file
+              <!-- Kiểu tin nhắn hiển thị với mỗi dạng -->
+              <!-- Text -->
+              <p class="lastMessage" 
+                *ngIf="user.lastMessage.sender && user.lastMessage.type == 1">
+                Bạn: {{ user.lastMessage.content.content }}
               </p>
-              <p class="lastMessage" *ngIf="!user.lastMessage.sender && user.lastMessage.type == 2">Bạn vừa nhận một
-                file</p>
-              <p class="lastMessage" *ngIf="user.lastMessage.sender && user.lastMessage.type == 5">Bạn đã gửi một ảnh
+              <p class="lastMessage" 
+                *ngIf="!user.lastMessage.sender && user.lastMessage.type == 1">
+                {{ user.lastMessage.content.content }}
               </p>
-              <p class="lastMessage" *ngIf="!user.lastMessage.sender && user.lastMessage.type == 5">Bạn vừa nhận một ảnh
+              <!-- File -->
+              <p class="lastMessage" 
+                *ngIf="user.lastMessage.sender && user.lastMessage.type == 2">
+                Bạn đã gửi một file
+              </p>
+              <p class="lastMessage" 
+                *ngIf="!user.lastMessage.sender && user.lastMessage.type == 2">
+                Bạn vừa nhận một file</p>
+              <!-- Ảnh -->
+              <p class="lastMessage" 
+                *ngIf="user.lastMessage.sender && user.lastMessage.type == 5">
+                Bạn đã gửi một ảnh
+              </p>
+              <p class="lastMessage" 
+                *ngIf="!user.lastMessage.sender && user.lastMessage.type == 5">
+                Bạn vừa nhận một ảnh
               </p>
             </div>
             <!--Right -->
             <!--Left -->
             <div class="right">
+              <!-- Thời gian tin nhắn cuối cùng -->
               <div style="display:block;">
-                <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt) < 1">
+                <p class="time" 
+                  *ngIf="calculateDiff(user.lastMessage.createdAt) < 1">
                   {{ user.lastMessage.createdAt |  date: 'H:mm' }}
                 </p>
                 <p class="time"
-                  *ngIf="calculateDiff(user.lastMessage.createdAt) <=7 && calculateDiff(user.lastMessage.createdAt) >= 1">
-                  {{ user.lastMessage.createdAt | date: 'EEE'}}</p>
-                <p class="time" *ngIf="calculateDiff(user.lastMessage.createdAt) > 7">
+                  *ngIf="calculateDiff(user.lastMessage.createdAt) <=7 
+                  && calculateDiff(user.lastMessage.createdAt) >= 1">
+                  {{ user.lastMessage.createdAt | date: 'EEE'}}
+                </p>
+                <p class="time" 
+                *ngIf="calculateDiff(user.lastMessage.createdAt) > 7">
                   {{ user.lastMessage.createdAt | date: 'yyyy-MM-dd' }}
                 </p>
               </div>
+              <!-- Thời gian tin nhắn cuối cùng -->
+              <!-- Số tin nhắn chưa đọc -->
               <div class="have-seen">
-                <p *ngIf="user.unreadCount > 0 ">{{ user.unreadCount }}</p>
+                <p *ngIf="user.unreadCount > 0 ">
+                  {{ user.unreadCount }}
+                </p>
               </div>
+              <!-- Số tin nhắn chưa đọc -->
             </div>
             <!--Left -->
           </div>
         </div>
       </div>
     </div>
-    <!-- Started -->
+    <!-- Hiển thị khi chưa có cuộc trò chuyện nào được tạo -->
     <div class="started" *ngIf="conversations?.length == 0">
       <div>
         <p>Rất nhiều người đang đợi để trò chuyện</p>
       </div>
       <div class="list-avatar">
-        <ngx-avatar size="30" name="Chưa xác định"></ngx-avatar>
-        <ngx-avatar size="30" name="Chưa xác định"></ngx-avatar>
-        <ngx-avatar size="30" name="Chưa xác định"></ngx-avatar>
-        <ngx-avatar size="30" name="Chưa xác định"></ngx-avatar>
+        <ngx-avatar size="40" 
+          name="C">
+        </ngx-avatar>
+        <ngx-avatar size="40" 
+          name="H">
+        </ngx-avatar>
+        <ngx-avatar size="40" 
+          name="A">
+        </ngx-avatar>
+        <ngx-avatar size="40" 
+          name="T">
+        </ngx-avatar>
       </div>
       <div>
         <p>Hãy bắt đầu bằng cách tìm kiếm cuộc trò chuyện</p>
       </div>
     </div>
-    <!-- Started -->
+    <!-- Hiển thị khi chưa có cuộc trò chuyện nào được tạo -->
   </div>
   <!--Conversation -->
   <!--List conversation -->
 
   <!-- List User -->
   <div class="list-user tabcontent" id="userlist">
-    <div class="list" *ngFor="let user of users" (click)=" openUser('conversation');onSelect(user);"
-      (blur)="openUser('conversation')" routerLink='/chat/{{convId}}'>
+    <div class="list" 
+      *ngFor="let user of users" 
+      (click)="openUser('conversation');
+        onSelect(user);"
+      (blur)="openUser('conversation')" 
+      routerLink='/chat/{{convId}}'>
       <div id="user" class="users">
-        <ngx-avatar size="28" *ngIf="user.firstName" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-        <div class="info d-none d-lg-block" style="display: none;width: 262px;">
+        <ngx-avatar size="28" 
+          *ngIf="user.firstName" 
+          [name]="user.firstName + ' ' + user.lastName">
+        </ngx-avatar>
+        <div class="info d-none d-lg-block" 
+          style="display: none;width: 262px;">
           <!--Right -->
-          <div class="left" style="float: left;">
-            <p class="name">{{ user.firstName + ' ' + user.lastName }}</p>
+          <div class="left" 
+            style="float: left;">
+            <p class="name">
+              {{ user.firstName + ' ' + user.lastName }}
+            </p>
           </div>
         </div>
         <!--Right -->
@@ -105,6 +180,5 @@
     </div>
   </div>
   <!-- List User -->
-
 </div>
 <!--Content -->

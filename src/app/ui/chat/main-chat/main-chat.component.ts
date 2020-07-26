@@ -5,7 +5,9 @@ import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { StringeeService } from '../../../services/stringee/stringee.service';
 import { IUser } from 'src/models/user';
-// Hàm khởi tạo đối tượng File
+/**
+ * Hàm khởi tạo đối tượng file
+ */
 class FileSpinnet {
   constructor(
     public src: string,
@@ -25,70 +27,69 @@ export class MainChatComponent implements OnInit {
   public currentUserId: string; // ID người dùng hiện tại
   @Input() messages: any; // List dữ liệu về các tin nhắn
   public users = [];// List dữ liệu về người dùng
-  public user: IUser;
+  public user: IUser; // Dữ liệu về người dùng đang trỏ đến
   modalImg: any; // Image modal
   popup: any; // Popup
-  loading: boolean = false;
-  typing: boolean = false;
-  private _userservice: any;
+  loading: boolean = false; // Hiển thị loading
+  typing: boolean = false; // Hiển thị typing
   constructor(
-    private _chatservice: MessagesService,
-    private route: ActivatedRoute,
-    private _users: UsersService,
-    private _datatransfer: DatatransferService,
-    private stringeeService: StringeeService,
-    private messageService: MessagesService
+    private _messageService: MessagesService,
+    private _route: ActivatedRoute,
+    private _userService: UsersService,
+    private _dataTransferService: DatatransferService,
+    private _stringeeService: StringeeService,
   ) {
     // Tạo lại các đối tượng khi có thay đổi
-    this.route.params.subscribe(val => {
+    this._route.params.subscribe(val => {
       this.convId = val.id;
       this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).id
       this.getUserId()
-      this._datatransfer.changeConv(val.id);
+      this._dataTransferService.changeConv(val.id);
     });
 
   }
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal;
-    this.stringeeService.stringeeClient.on('userBeginTypingListener',  (msg) => {
-      this.typing = true;
+    // Lắng nghe những người dùng đang nhập tin nhắn
+    this._stringeeService.stringeeClient.on('userBeginTypingListener', (msg) => {
+      this.typing = true; // Lắng nghe sự kiện Keydown
     });
-    this.stringeeService.stringeeClient.on('userEndTypingListener',  (msg) => {
-      this.typing = false;
+    this._stringeeService.stringeeClient.on('userEndTypingListener', (msg) => {
+      this.typing = false; // Lắng nghe sự kiện Keyup
     });
   }
+  /**
+   * Lắng nghe thay đổi về người dùng và lấy dữ liệu về người dùng theo Id
+   */
   getUserId() {
-    this._datatransfer.getUser$.subscribe(data => {
-      this._users.getUser(data).subscribe(user => {
+    this._dataTransferService.getUser$.subscribe(data => {
+      this._userService.getUser(data).subscribe(user => {
         this.user = user;
-        this.getConvesationLast();
+        this.getMessages();
       })
     })
   }
-  // Lấy dữ liệu 25 tin nhắn gần nhất
-  getConvesationLast() {
-    this.stringeeService.getLastMessages(this.convId, (status, code, message, msgs) => {
+  /**
+   * Lấy dữ liệu 15 tin nhắn gần nhất
+   */
+  getMessages() {
+    this._stringeeService.getLastMessages(this.convId, (status, code, message, msgs) => {
       this.messages = msgs;
     });
   }
-
-  // Hàm xử lý sự kiện Enter khi nhập dữ liệu
+  /**
+   * Hàm gửi tin nhắn dạng text
+   * @param value Dữ liệu nhập vào
+   */
   onEnter(value: string) {
     if (value) {
-      this.stringeeService.sendMessage(value, this.convId)
+      this._stringeeService.sendMessage(value, this.convId)
       value = '';
     }
-    this.getConvesationLast();
+    this.getMessages();
   }
-  // Thêm thời gian hoạt động người dùng vào dữ liệu tin nhắn
-  addTimeDiff(messages: string | any[]) {
-    for (let i = 0; i < messages.length - 1; i++) {
-      //   messages[i].timeDiff = this.timeBetween(this.messages[i].time, this.messages[i + 1].time)
-    }
-  }
-  // Tự động scroll xuống tin nhắn cuối cùng
-
+  // Tự động scroll xuống tin nhắn cuối cùng ---------------------------------------------------------
   @ViewChild('scrollframe', { static: false }) scrollFrame: ElementRef;
   @ViewChildren('item') itemElements: QueryList<any>;
 
@@ -110,11 +111,13 @@ export class MainChatComponent implements OnInit {
       behavior: 'smooth'
     });
   }
-
-  // ----
+  // -----------------------------------------------------------------------------------------------
 
   selectedFile: FileSpinnet // Khai báo đối tượng File
-  // Xử lý sự kiện upload ảnh
+  /**
+   * Hàm xử lý việc gửi tin nhắn dạng ảnh
+   * @param imageInput Ảnh được chọn từ input
+   */
   processImage(imageInput: any) {
     const file: File = imageInput.files[0];
     const reader = new FileReader();
@@ -122,15 +125,18 @@ export class MainChatComponent implements OnInit {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       var formData = new FormData();
       formData.set('file', file)
-      this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
+      this._messageService.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
-        this.stringeeService.sendImage(this.convId, filePath)
-        this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 2, "image").subscribe()
+        this._stringeeService.sendImage(this.convId, filePath)
+        this._messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 2, "image").subscribe()
       })
     });
     reader.readAsDataURL(file);
   }
-  // Xử lý sự kiện upload file
+  /**
+  * Hàm xử lý việc gửi tin nhắn dạng file
+  * @param imageInput File được chọn từ input
+  */
   processFile(fileInput: any) {
     const file: File = fileInput.files[0];
     let fileType: string;
@@ -140,35 +146,45 @@ export class MainChatComponent implements OnInit {
       this.selectedFile = new FileSpinnet(event.target.result, file);
       var formData = new FormData();
       formData.set('file', file)
-      this._chatservice.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
+      this._messageService.postFile(formData, JSON.parse(localStorage.getItem('currentUser')).token).subscribe((data) => {
         let filePath = Object(data).filename
-        this.stringeeService.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
-        this.messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 5, fileType).subscribe()
+        this._stringeeService.sendFile(this.selectedFile.file.name, this.convId, this.selectedFile.file.name, filePath, file.size)
+        this._messageService.postFileToDatabase(this.convId, this.selectedFile.file.name, filePath, 5, fileType).subscribe()
       })
-      this.getConvesationLast();
+      this.getMessages();
     });
     reader.readAsDataURL(file);
 
   }
-
-
-  // Xử lý sự kiện click tin nhắn dạng file
+  /**
+   * Hàm xử lý khi click vào tin nhắn dạng file
+   * @param url Đường dẫn file
+   */
   openFile(url: string) {
     window.open(url, "");
   }
-  // Thêm các thuộc tính cho modal image
+  /**
+   * Hàm thêm các thuộc tính cho ảnh ở modal
+   * @param src Dường dẫn ảnh
+   */
   ModalImage(src: string) {
     this.modalImg.src = src;
     this.modalImg.style.width = "auto";
     this.modalImg.style.height = "auto";
   }
-  // Tính sự chênh lệch giữa 2 khoảng thời gian theo ngày
+  /**
+   * Hàm tính khoảng thời gian giữa ngày nhập vào và hiện tại
+   * @param dateSent Ngày để so sánh
+   */
   calculateDiff(dateSent: string | number | Date) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
     return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
   }
-  // Đổi kiểu dữ liệu sang Date()
+  /**
+   * Convert dữ liệu sang dạng Date
+   * @param date Ngày cần convert
+   */
   convertDate(date: string | number | Date) {
     return new Date(date);
   }
@@ -183,43 +199,46 @@ export class MainChatComponent implements OnInit {
       this.PopupIcon = true;
     }
   }
-  // Tính khoảng thời gian giữa 2 tin nhắn
-  timeBetween(dateSent1: string | number | Date, dateSent2: string | number | Date) {
-    dateSent1 = new Date(dateSent1);
-    dateSent2 = new Date(dateSent2);
-    return (dateSent2.getTime() - dateSent1.getTime()) / (1000 * 60);
-  }
+  /**
+   * Hàm xử lý phân trang
+   */
   onScroll() {
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
     }, 2000);
-    this.stringeeService.stringeeChat.getMessagesBefore(this.convId, this.messages[0].sequence, 15, true, (status, code, message, msgs) => {
+    // Hàm lấy tin nhắn sau tin nhắn cuối cùng đang hiển thị
+    this._stringeeService.stringeeChat.getMessagesBefore(this.convId, this.messages[0].sequence, 15, true, (status, code, message, msgs) => {
       this.messages = msgs.concat(this.messages);
     });
   }
-  onKeyUp(){
+  /**
+   * Hàm nhận sự kiện keyup khi người dung typing
+   */
+  onKeyUp() {
     let info = {
       userId: this.currentUserId,
       convId: this.convId
     }
-    console.log(info)
     setTimeout(() => {
-      this.stringeeService.stringeeChat.userEndTyping(info, function (res) {
+      // Gửi tín hiệu người dùng kết thúc typing
+      this._stringeeService.stringeeChat.userEndTyping(info, function (res) {
         console.log(res)
-       })
+      })
     }, 1000);
   }
-  onKeyDown(){
+  /**
+   * Hàm nhận sự kiện keydown khi người dung typing
+   */
+  onKeyDown() {
     let info = {
       userId: this.currentUserId,
       convId: this.convId
     }
-    console.log(info)
-      this.stringeeService.stringeeChat.userBeginTyping(info, function (res) {
-        console.log(res)
-       })
-
+    // Gửi tín hiệu người dùng bắt đầu typing
+    this._stringeeService.stringeeChat.userBeginTyping(info, function (res) {
+      console.log(res)
+    })
   }
 }
 

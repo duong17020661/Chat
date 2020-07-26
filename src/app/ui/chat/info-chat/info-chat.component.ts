@@ -14,73 +14,81 @@ import { StringeeService } from 'src/app/services/stringee/stringee.service';
   styleUrls: ['./info-chat.component.scss']
 })
 export class InfoChatComponent implements OnInit {
+  public messages: any // List dữ liệu về file và ảnh
   public images = [] // List dữ liệu về ảnh
-  @Input() message: any; // List dữ liệu về tin nhắn
-  public messages: any
   public files = [] // List dữ liệu về dile
-  public user: IUser; // List dữ liệu về người dùng
-  public convId; // ID người dùng đang trỏ đến
+  public user: IUser; // Dữ liệu về người dùng đang trỏ đến
+  public convId; // Mã cuộc trò chuyện đang trỏ đến
   modalImg: any; // Image modal
-  
+
   constructor(
-    private route: ActivatedRoute, 
-    private _datatransfer: DatatransferService, 
-    private _chatservice: MessagesService, 
-    private _userservice: UsersService,
-    private stringeeservices: StringeeService,
-    ) {
+    private _route: ActivatedRoute,
+    private _dataTransferService: DatatransferService,
+    private _messageService: MessagesService,
+    private _userService: UsersService,
+  ) {
     // Tạo lại các đối tượng khi có thay đổi
-    route.params.subscribe(val => {
+    this._route.params.subscribe(val => {
       this.convId = val.id
       this.getUserId();
-      this._chatservice.getFileAndImage(val.id).subscribe((res) => {
+      this._messageService.getFileAndImage(val.id).subscribe((res) => {
         this.messages = res
         this.getFiles();
         this.getImages();
       })
     });
-    
+
   }
 
   ngOnInit(): void {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal
   }
-  // Lấy dữ liệu người dùng
-  getConvId(){
-    this._datatransfer.Id.subscribe((data) => {
-      
-    })
-  }
-  // Lọc dữ liệu tin nhắn ảnh
-  getImages(){
+  /**
+   * Hàm lọc dữ liệu các tin nhắn dạng ảnh
+   */
+  getImages() {
     this.images = this.messages.filter(mess => ((mess.type == 2)));
   }
-  // Lọc dữ liệu tin nhắn file
-  getFiles(){
+  /**
+   * Hàm lọc dữ liệu tin nhắn dạng file
+   */
+  getFiles() {
     this.files = this.messages.filter(mess => ((mess.type == 5)));
   }
-  // Theo dõi sự thay đổi và lấy ID
-  getUserId(){
-    this._datatransfer.getUser$.subscribe(data => {
-      this._userservice.getUser(data).subscribe(user => this.user = user)
-      this._chatservice.getFileAndImage(this.convId).subscribe((res) => { 
+  /**
+   * Hàm lắng nghe sự thay đỏi về người dùng đang chat
+   */
+  getUserId() {
+    this._dataTransferService.getUser$.subscribe(data => {
+      this._userService.getUser(data).subscribe(user => this.user = user)
+      this._messageService.getFileAndImage(this.convId).subscribe((res) => {
         this.messages = res
         this.getFiles();
         this.getImages();
       })
     })
   }
-  // Hiển thị ảnh và file theo dropdown
+  /**
+   * Hàm hiển thị file theo dropdown
+   * @param isShowFile Hiện/ẩn list file
+   */
   isShowFile = false;
-  isShowImg = false;
   toggleDisplayFile() {
     this.isShowFile = !this.isShowFile;
   }
+  /**
+   * Hàm hiển thị ảnh theo dropdown
+   * @param isShowImg Hiện/ẩn list ảnh
+   */
+  isShowImg = false;
   toggleDisplayImg() {
     this.isShowImg = !this.isShowImg;
   }
-  // Thêm các thuộc tính cho modal image
-  ModalImage(src: string){
+  /**
+   * Hàm gán các thuộc tính cho Modal Image
+   * @param src Đường dẫn ảnh
+   */
+  ModalImage(src: string) {
     this.modalImg.src = src;
     this.modalImg.style.width = "auto";
     this.modalImg.style.height = "auto";

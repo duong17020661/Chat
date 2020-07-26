@@ -5,7 +5,7 @@
 }
 // Box tìm kiếm
 .search {
-    display: flex;
+    display: inline-flex;
     margin-top: 24px;
     margin-bottom: 13px;
     align-items: center;
@@ -166,7 +166,7 @@ background-color: rgba(0, 0, 0, 0.3);
 
 .started {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     height: calc(100vh - 140px);

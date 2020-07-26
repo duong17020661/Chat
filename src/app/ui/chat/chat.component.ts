@@ -12,25 +12,29 @@ import { InfoChatComponent } from './info-chat/info-chat.component';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  @Input() messages: any; 
-  public users = [] // Danh sách dữ liệu người dùng
+  @Input() messages: any; // List dữ liệu về tin nhắn
+  public users = [] // List dữ liệu người dùng
   public usersID; // ID người dùng đang được trỏ đến
-  user: IUser;
-  constructor(private route: ActivatedRoute, private _userservice: UsersService, private datatransfer: DatatransferService) {
+  user: IUser; // Thông tin người dùng đang được trỏ đến
+  constructor(
+    private _route: ActivatedRoute,
+    private _userservice: UsersService,
+    private _dataTransferService: DatatransferService) {
     // Tạo lại các đối tượng khi có thay đổi
-    route.params.subscribe(val => {
-      this.getUserId();  
+    this._route.params.subscribe(val => {
+      this.getUserId();
     });
   }
 
   ngOnInit(): void {
-    // Lấy dữ liệu người dùng
-    
+
   }
 
   isShowDivIf = false; // Hiện/đóng thông tin cuộc trò chuyện
 
-  // Xử lý hiện và đóng thông tin cuộc trò chuyện
+  /**
+   * Xử lý hiện và đóng thông tin cuộc trò chuyện
+   */
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
     if (!this.isShowDivIf) {
@@ -42,18 +46,23 @@ export class ChatComponent implements OnInit {
       document.getElementById("c3").style.width = "0";
     }
   }
-  
-  // Tính chênh lệch giữa 2 khoảng thời gian theo phút
+
+  /** 
+   * Tính chênh lệch giữa 2 khoảng thời gian theo phút
+   */
   timeDiff(dateSent) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
     return Math.floor((currentDate.getTime() - dateSent.getTime()) / (1000 * 60));
   }
-  getUserId(){
-    this.datatransfer.getUser$.subscribe(data => {
+  /**
+   * Lấy thông tin dữ liệu về người dùng theo Id
+   */
+  getUserId() {
+    this._dataTransferService.getUser$.subscribe(data => {
       this._userservice.getUser(data).subscribe(user => this.user = user)
     })
   }
-  
+
 }
 

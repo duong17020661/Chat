@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.dataTransfer.setCurrentUser(data);
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421844878']);
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'newuser']);
         },
         error => {
           this.error = error;
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           alert("Đăng ký thành công!!!!!!")
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'conv-vn-1-NO20OWUHMD-1594421844878']);
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/chat/' + 'newuser']);
         },
         error => {
           this.error = error;

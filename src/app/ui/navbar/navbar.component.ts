@@ -20,48 +20,49 @@ class FileSpinnet {
 })
 export class NavbarComponent implements OnInit {
   title = 'WebChatv2';
-  convId: string;
+  convId: string; // Mã cuộc trò chuyện đang trỏ đến
   editForm: FormGroup; // Form thay đổi thông tin người dùng
   currentUser: any; // Lưu thông tin user hiện tại
   haveAvatar: boolean = true; // Kiểm tra có avatar hay không
   fullName: string; // Tên đầy đử của user
   loginSuccess: boolean = false; // Kiểm tra trạng thái đăng nhập
-  user: IUser;
-  filePath: string = ''
+  user: IUser; // Người dùng đang trỏ đến
+  filePath: string = '' // Đường dẫn avatar người dùng
   constructor(
-    private route: ActivatedRoute,
-    private stringeeService: StringeeService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private dataTransfer: DatatransferService,
+    private _route: ActivatedRoute,
+    private _stringeeService: StringeeService,
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _dataTransfer: DatatransferService,
     private _userService: UsersService,
     private _messagesService: MessagesService
 
   ) {
-    this.route.params.subscribe((val) => {
-      // Tạo form
-      this.editForm = this.formBuilder.group({
+    // Tạo lại các đối tượng khi đường dẫn thay đổi
+    this._route.params.subscribe((val) => {
+      // Tạo edit-form
+      this.editForm = this._formBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
       });
       // Get dữ liệu người dùng
-
-      this.dataTransfer.getcurrentUser$.subscribe((res) => {
-        this.currentUser = res      
+      this._dataTransfer.getcurrentUser$.subscribe((res) => {
+        this.currentUser = res
       })
-
     })
   }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    // Kiểm tra người dùng đăng nhập và có avatar hay không
     if (this.currentUser) {
       this.loginSuccess = true;
       if (this.currentUser.avatar) {
         this.haveAvatar = true;
       }
       else this.haveAvatar = false;
+      // Lấy tên đầy đủ của người dùng
       this.fullName = this.currentUser.firstName + " " + this.currentUser.lastName
       this._userService.getUser(this.currentUser.id).subscribe((res) => {
         this.user = res
@@ -70,13 +71,19 @@ export class NavbarComponent implements OnInit {
     }
     else this.loginSuccess = false;
   }
-  // Xử lý sự kiện Log out
+  /**
+   * Xử lý sự kiện khi người dùng đăng xuất
+   */
   onLogout() {
     this.loginSuccess = false;
-    this.stringeeService.stringeeDisconnect();
+    this._stringeeService.stringeeDisconnect();
     window.location.reload();
   }
-  processFile(imageInput){
+  /**
+   * Xử lý sự kiện upload avatar
+   * @param imageInput Ảnh người dùng chọn
+   */
+  processFile(imageInput) {
     const file: File = imageInput.files[0];
     var formData = new FormData();
     formData.set('file', file)
@@ -84,17 +91,23 @@ export class NavbarComponent implements OnInit {
       this.filePath = Object(data).filename
     })
   }
-  // Edit form
+  /**
+   * Lấy thông tin từ form
+   */
   get update() { return this.editForm.controls; }
+  /**
+   * Xử lý sự kiện Submit edit-form
+   */
   onEdit() {
     console.log(this.update)
     let updateUserData = {
       display_name: this.update.firstName.toString() + " " + this.update.lastName.toString(),
       avatar_url: "",
     }
-    this.stringeeService.updateUserInfo(updateUserData)
-    
+    this._stringeeService.updateUserInfo(updateUserData)
     this._userService.updateUser(this.currentUser.id, this.update.firstName.value, this.update.lastName.value, this.update.email.value, this.filePath).subscribe()
+    alert("Cập nhật thành công!!")
+    document.getElementById('edit-profile').style.display = 'none'
   }
 }
 

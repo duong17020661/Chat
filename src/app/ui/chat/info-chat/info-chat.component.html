@@ -2,39 +2,80 @@
     <!-- Thông tin người dùng phía đối diện -->
     <div>
         <div class="info" *ngIf="user">
-            <ngx-avatar *ngIf="!user.avatar" size="120" id="avatar" [name]="user.firstName + ' ' + user.lastName"></ngx-avatar>
-            <img *ngIf="user.avatar" [src]="user.avatar" alt="Avatar" id="avatar">
-            <p><strong>{{ user.firstName + " " + user.lastName }}</strong></p>
-            <p>{{ user.phone }}</p>
-            <p>{{ user.email }}</p>
+            <ngx-avatar 
+                *ngIf="!user.avatar" 
+                size="120" 
+                id="avatar" 
+                [name]="user.firstName + ' ' + user.lastName">
+            </ngx-avatar>
+            <img 
+                *ngIf="user.avatar" 
+                [src]="user.avatar" 
+                alt="Avatar" 
+                id="avatar">
+            <p>
+                <strong>
+                    {{ user.firstName + " " + user.lastName }}
+                </strong>
+            </p>
+            <p>
+                {{ user.phone }}
+            </p>
+            <p>
+                {{ user.email }}
+            </p>
         </div>
     </div>
     <!-- Danh sách các file -->
     <div class="file">
-        <button type="button" class="drop-file" data-toggle="dropdown" aria-expanded="false"
+        <!-- Dropdown -->
+        <button 
+            type="button" 
+            class="drop-file" 
+            data-toggle="dropdown" 
+            aria-expanded="false"
             (click)=toggleDisplayFile()>
-            <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
-            <p class="header">TỆP ĐÃ CHIA SẺ</p>
+            <img 
+                src="/assets/ICON/IconAppChat/13.svg" 
+                alt="Drop" 
+                id="drop">
+            <p class="header">
+                TỆP ĐÃ CHIA SẺ
+            </p>
         </button>
+        <!-- Dropdown -->
         <div *ngIf="!isShowFile" id="dropdown-file">
             <div class="scroll-file">
                 <ng-container *ngFor="let img of files" [ngSwitch]="img.typeOf">
+                    <!-- Danh sách file -->
                     <ul type="square">
                         <li class="list-file" *ngIf="img.type == 5">
-                            <img *ngSwitchCase="'pdf'"
-                                src="../../../../assets/ICON/pdf.png" alt="IconPDF"
+                            <img 
+                                *ngSwitchCase="'pdf'" 
+                                src="../../../../assets/ICON/pdf.png" 
+                                alt="IconPDF"
                                 style="width: 16px; height: 16px;" />
-                            <img *ngSwitchCase="'doc' || 'docx'"
-                                src="../../../../assets/ICON/docx.png" alt="IconDOC"
+                            <img 
+                                *ngSwitchCase="'doc' || 'docx'" 
+                                src="../../../../assets/ICON/docx.png" 
+                                alt="IconDOC"
                                 style="width: 16px; height: 16px;" />
-                            <img *ngSwitchCase="'pptx'" src="../../../../assets/ICON/pptx.png" alt="IconPPTX"
+                            <img 
+                                *ngSwitchCase="'pptx'" 
+                                src="../../../../assets/ICON/pptx.png" 
+                                alt="IconPPTX"
                                 style="width: 16px; height: 16px;" />
-                            <img *ngSwitchDefault
-                                src="../../../../assets/ICON/other.png" alt="IconOther"
+                            <img 
+                                *ngSwitchDefault 
+                                src="../../../../assets/ICON/other.png" 
+                                alt="IconOther"
                                 style="width: 16px; height: 16px;" />
-                            <a href="#" class="item">{{ img.content }}</a>
+                            <a href="#" class="item">
+                                {{ img.content }}
+                            </a>
                         </li>
                     </ul>
+                    <!-- Danh sách file -->
                 </ng-container>
             </div>
         </div>
@@ -42,18 +83,36 @@
     <!-- Danh sách các file -->
     <!-- Danh sách các ảnh -->
     <div class="image">
-        <button type="button" class="drop-img" data-toggle="dropdown" (click)=toggleDisplayImg()>
-            <img src="/assets/ICON/IconAppChat/13.svg" alt="Drop" id="drop">
-            <p class="header">ẢNH ĐÃ CHIA SẺ</p>
+        <!-- Dropdown -->
+        <button 
+            type="button" 
+            class="drop-img" 
+            data-toggle="dropdown" 
+            (click)=toggleDisplayImg()>
+            <img 
+                src="/assets/ICON/IconAppChat/13.svg" 
+                alt="Drop" 
+                id="drop">
+            <p class="header">
+                ẢNH ĐÃ CHIA SẺ
+            </p>
         </button>
+        <!-- Dropdown -->
+        <!-- Danh sách ảnh -->
         <div *ngIf="!isShowImg" id="dropdown-img">
             <ng-container *ngFor="let img of images">
                 <div class="list-img">
-                    <img class="img-preview" *ngIf="img.type == 2" [src]="img.filePath" data-toggle="modal"
-                        data-target="#exampleModalCenter" (click)="ModalImage(img.filePath)">
+                    <img 
+                        class="img-preview" 
+                        *ngIf="img.type == 2" 
+                        [src]="img.filePath" 
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter" 
+                        (click)="ModalImage(img.filePath)">
                 </div>
             </ng-container>
         </div>
+        <!-- Danh sách ảnh -->
     </div>
     <!-- Danh sách các ảnh -->
 </div>
