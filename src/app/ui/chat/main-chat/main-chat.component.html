@@ -148,14 +148,13 @@
         Buzz
     </p> <!-- Buzz -->
     <!-- Send Messages -->
-    <input type="text" 
+    <textarea 
         id="message" 
-        placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên &#128540;" #box
-        (keyup.shift.enter)="box.value = box.value + '\n\n'" 
+        placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" #box
         (keyup.enter)="onEnter(box.value); box.value = '' "
         (keyup)="onKeyUp()" 
         (keydown)="onKeyDown()" 
-        autocomplete="off" />
+        autocomplete="off" ></textarea>
     <!-- Send Messages -->
     <!-- Emoji -->
     <div class="popup" (click)="showPopupIcon()">

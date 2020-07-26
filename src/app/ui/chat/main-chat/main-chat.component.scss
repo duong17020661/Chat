@@ -3,6 +3,17 @@
   position: relative;
   width: 100%;
   margin-right: 16px;
+  padding: 7px 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 7.5px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  height: 39px;
+  overflow: hidden;
+  &:focus {
+      outline: 0;
+  }
 }
 .timeDiff {
   text-align: center;
@@ -80,6 +91,7 @@
   .messages ul li.sent p {
     background: #eeeeee;
     word-wrap: break-word;
+    white-space: pre-line;
     color: #212121;;
   }
   .messages ul li.sent .typing {
@@ -98,6 +110,7 @@
     background: #2688e6;
     color: #ffffff;
     word-wrap: break-word;
+    white-space: pre-line;
     float: right;
   }
   .messages ul li p {
