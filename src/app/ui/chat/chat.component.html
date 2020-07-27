@@ -4,46 +4,32 @@
     <div>
         <div id="info">
             <!-- Avatar -->
-            <ng-container >
-                <ngx-avatar id="avatar" 
-                    *ngIf="!user?.avatar && user?.firstName" 
-                    size="32" 
+            <ng-container>
+                <ngx-avatar id="avatar" *ngIf="!user?.avatar && user?.firstName" size="32"
                     [name]="user?.firstName + ' ' + user?.lastName">
                 </ngx-avatar>
-                <ngx-avatar id="avatar" 
-                    *ngIf="!user?.firstName" 
-                    size="32" 
-                    name="Người dùng mới">
+                <ngx-avatar id="avatar" *ngIf="!user?.firstName" size="32" name="Người dùng mới">
                 </ngx-avatar>
-                <img id="avatar" 
-                    *ngIf="user?.avatar" 
-                    [src]="user.avatar" 
-                    alt="Avatar"> 
+                <img id="avatar" *ngIf="user?.avatar" [src]="user.avatar" alt="Avatar">
             </ng-container>
             <!-- Avatar -->
             <!-- Thông tin người dùng -->
             <div>
                 <p style="font-size: 14px;
                     color: #212121; 
-                    font-weight: 500;"
-                    *ngIf="user?.firstName" >
+                    font-weight: 500;" *ngIf="user?.firstName">
                     {{ user?.firstName + ' ' + user?.lastName }}
                 </p>
                 <p style="font-size: 14px;
                     color: #212121; 
-                    font-weight: 500;"
-                    *ngIf="!user?.firstName" >
+                    font-weight: 500;" *ngIf="!user?.firstName">
                     Người dùng mới
                 </p>
-                <p *ngIf="user" 
-                    class="status" 
-                    style="font-size: 12px;
+                <p *ngIf="user" class="status" style="font-size: 12px;
                     color: #757575;">
                     Đang hoạt động
                 </p>
-                <p *ngIf="!user" 
-                    class="status" 
-                    style="font-size: 12px;
+                <p *ngIf="!user" class="status" style="font-size: 12px;
                     color: #757575;">
                     Hoạt động {{ 0 }} phút trước
                 </p>
@@ -53,18 +39,11 @@
     </div>
     <!-- Bên trái -->
     <!-- Bên phải -->
-    <div id="icon_info" 
-        ng-controller="myCtrl">
-        <img src="/assets/ICON/IconAppChat/4.svg" 
-            alt="Search" 
-            id="info1">
+    <div id="icon_info" ng-controller="myCtrl">
+        <img src="/assets/ICON/IconAppChat/4.svg" alt="Search" id="info1">
         <img [src]="!isShowDivIf ? '/assets/ICON/IconAppChat/5.svg' : '/assets/ICON/IconAppChat/6.svg'"
-            (click)=toggleDisplayDivIf() 
-            alt="Info" 
-            id="info2">
-        <img src="/assets/ICON/IconAppChat/2.svg" 
-            alt="Open" 
-            id="info3">
+            (click)=toggleDisplayDivIf() alt="Info" id="info2">
+        <img src="/assets/ICON/IconAppChat/2.svg" alt="Open" id="info3">
     </div>
     <!-- Bên phải -->
 </div>
@@ -74,6 +53,6 @@
     <app-info-chat></app-info-chat>
 </div>
 <div id="c4">
-    <app-main-chat [messages] = "messages"></app-main-chat>
+    <app-main-chat [messages]="messages"></app-main-chat>
 </div>
 <!-- Content -->

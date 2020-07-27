@@ -1,12 +1,6 @@
 <!-- Content -->
-<div class="messages" 
-    #scrollframe 
-    infinite-scroll 
-    [infiniteScrollDistance]="2" 
-    [infiniteScrollUpDistance]="2"
-    [infiniteScrollThrottle]="300" 
-    [scrollWindow]="false" 
-    (scrolledUp)="onScroll()">
+<div class="messages" #scrollframe infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2"
+    [infiniteScrollThrottle]="300" [scrollWindow]="false" (scrolledUp)="onScroll()">
     <!-- Loading -->
     <div *ngIf="messages">
         <div *ngIf="loading" class="d-flex justify-content-center">
@@ -21,20 +15,13 @@
             <ng-container *ngFor="let message of messages">
                 <!-- Người gửi -->
                 <li class="replies" *ngIf="message.sender == currentUserId">
-                    <img class="img-preview" 
-                        *ngIf="message.type == 2" 
-                        [src]="message.content.photo.filePath"
-                        data-toggle="modal" 
-                        data-target="#exampleModalCenter"
+                    <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath"
+                        data-toggle="modal" data-target="#exampleModalCenter"
                         (click)="ModalImage(message.content.photo.filePath)" />
-                    <a (click)="openFile(message.content.file.filePath)" 
-                        *ngIf="message.type == 5"
+                    <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5"
                         class="file">{{ message.content.content  }}
                     </a>
-                    <div *ngIf="message.type == 1" 
-                        style="float: right;" 
-                        data-toggle="tooltip" 
-                        data-placement="right"
+                    <div *ngIf="message.type == 1" style="float: right;" data-toggle="tooltip" data-placement="right"
                         [title]="convertDate(message.createdAt)">
                         <p>
                             {{ message.content.content }}
@@ -44,29 +31,16 @@
                 <!-- Người gửi -->
                 <!-- Người nhận -->
                 <li class="sent" *ngIf="message.sender != currentUserId">
-                    <ngx-avatar
-                        *ngIf="!user.avatar" 
-                        size="32" 
-                        [name]="user.firstName + ' ' + user.lastName">
+                    <ngx-avatar *ngIf="!user.avatar" size="32" [name]="user.firstName + ' ' + user.lastName">
                     </ngx-avatar>
-                    <img *ngIf="user.avatar" 
-                        [src]="user.avatar" 
-                        class="avatar">
-                    <img class="img-preview" 
-                        *ngIf="message.type == 2" 
-                        [src]="message.content.photo.filePath"
-                        data-toggle="modal" 
-                        data-target="#exampleModalCenter"
+                    <img *ngIf="user.avatar" [src]="user.avatar" class="avatar">
+                    <img class="img-preview" *ngIf="message.type == 2" [src]="message.content.photo.filePath"
+                        data-toggle="modal" data-target="#exampleModalCenter"
                         (click)="ModalImage(message.content.photo.filePath)" />
-                    <a 
-                        (click)="openFile(message.content.file.filePath)" 
-                        *ngIf="message.type == 5"
-                        class="file">
+                    <a (click)="openFile(message.content.file.filePath)" *ngIf="message.type == 5" class="file">
                         {{ message.content.content }}
                     </a>
-                    <div *ngIf="message.type == 1" 
-                        data-toggle="tooltip" 
-                        data-placement="left"
+                    <div *ngIf="message.type == 1" data-toggle="tooltip" data-placement="left"
                         [title]="convertDate(message.createdAt)">
                         <p>
                             {{ message.content.content }}
@@ -77,40 +51,29 @@
             </ng-container>
             <!-- Thời gian gửi tin nhắn -->
             <p class="timeDiff">
-            {{ messages[0].createdAt | date: 'MMM d, H:mm' }}</p>
+                {{ messages[0].createdAt | date: 'MMM d, H:mm' }}</p>
         </ul>
         <!-- Nội dung hiển thị khi có tin nhắn -->
         <!-- Nội dung hiển thị khi chưa có tin nhắn nào -->
         <ul>
             <li *ngIf="typing" class="sent">
-                <ngx-avatar *ngIf="!user.avatar" 
-                    size="32" 
-                    [name]="user.firstName + ' ' + user.lastName">
+                <ngx-avatar *ngIf="!user.avatar" size="32" [name]="user.firstName + ' ' + user.lastName">
                 </ngx-avatar>
-                <img *ngIf="user.avatar" 
-                        [src]="user.avatar" 
-                        class="avatar">
+                <img *ngIf="user.avatar" [src]="user.avatar" class="avatar">
                 <div class="typing">
-                    <div class="spin spinner-grow spinner-grow-sm" 
-                        role="status">
+                    <div class="spin spinner-grow spinner-grow-sm" role="status">
                     </div>
-                    <div class="spin spinner-grow spinner-grow-sm" 
-                        role="status">
+                    <div class="spin spinner-grow spinner-grow-sm" role="status">
                     </div>
-                    <div class="spin spinner-grow spinner-grow-sm" 
-                        role="status">
+                    <div class="spin spinner-grow spinner-grow-sm" role="status">
                     </div>
                 </div>
             </li>
         </ul>
         <!-- Nội dung hiển thị khi chưa có tin nhắn nào -->
     </div>
-    <div 
-        *ngIf="!messages" 
-        class="started">
-        <img 
-            src="../../../../assets/IMG/Watermark/watermark.svg" 
-            alt="started image" />
+    <div *ngIf="!messages" class="started">
+        <img src="../../../../assets/IMG/Watermark/watermark.svg" alt="started image" />
         <h4>
             Chưa có tin nhắn
         </h4>
@@ -125,49 +88,26 @@
 <div class="sendMessage">
     <!-- Upload -->
     <label class="label-file">
-        <img src="/assets/ICON/IconAppChat/10.svg" 
-            alt="File" 
-            id="info1" 
-            class="d-none d-lg-block">
-        <input class="inputFile" 
-            #fileInput 
-            type="file" 
-            (change)="processFile(fileInput)">
+        <img src="/assets/ICON/IconAppChat/10.svg" alt="File" id="info1" class="d-none d-lg-block">
+        <input class="inputFile" #fileInput type="file" (change)="processFile(fileInput)">
     </label>
     <label class="label-image">
-        <img src="/assets/ICON/IconAppChat/9.svg" 
-            alt="Image" 
-            id="info2" 
-            class="d-none d-lg-block">
-        <input class="inputImage" 
-            #imageInput 
-            type="file" 
-            accept="image/*" 
-            (change)="processImage(imageInput)">
+        <img src="/assets/ICON/IconAppChat/9.svg" alt="Image" id="info2" class="d-none d-lg-block">
+        <input class="inputImage" #imageInput type="file" accept="image/*" (change)="processImage(imageInput)">
     </label>
     <!-- Upload -->
-    <p id="info3" 
-        class="d-none d-lg-block">
+    <p id="info3" class="d-none d-lg-block">
         Buzz
     </p> <!-- Buzz -->
     <!-- Send Messages -->
-    <textarea 
-        id="message" 
-        placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" #box
-        (keyup.enter)="onEnter(box.value); box.value = '' "
-        (keyup)="onKeyUp()" 
-        (keydown)="onKeyDown()" 
-        autocomplete="off" ></textarea>
+    <textarea id="message" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" #box
+        (keyup.enter)="onEnter(box.value); box.value = '' " (keyup)="onKeyUp()" (keydown)="onKeyDown()"
+        autocomplete="off"></textarea>
     <!-- Send Messages -->
     <!-- Emoji -->
     <div class="popup" (click)="showPopupIcon()">
-        <img src="/assets/ICON/IconAppChat/7.svg" 
-            alt="Smile" 
-            id="smile" 
-            class="d-none d-lg-block">
-        <div *ngIf="PopupIcon" 
-            class="popupicon" 
-            id="myPopup">
+        <img src="/assets/ICON/IconAppChat/7.svg" alt="Smile" id="smile" class="d-none d-lg-block">
+        <div *ngIf="PopupIcon" class="popupicon" id="myPopup">
             <div class="grid-item">
                 <img src="https://img.icons8.com/emoji/48/000000/weary-face.png" />
             </div>
@@ -202,18 +142,12 @@
 <!-- Create messages -->
 
 <!-- Modal -->
-<div class="modal fade" 
-    id="exampleModalCenter" 
-    tabindex="-1" 
-    role="dialog" 
-    aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl " 
-        role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
         <div class="modal-content center">
             <div class="modal-body">
-                <img id="img" 
-                    class="modal-image" />
+                <img id="img" class="modal-image" />
             </div>
         </div>
     </div>

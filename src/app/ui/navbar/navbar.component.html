@@ -1,42 +1,23 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <img src="/assets/ICON/IconAppChat/20.svg" 
-    alt="Open" 
-    id="open">
-  <img src="/assets/ICON/IconAppChat/18.svg" 
-    alt="Icon" 
-    id="icon">
+  <img src="/assets/ICON/IconAppChat/20.svg" alt="Open" id="open">
+  <img src="/assets/ICON/IconAppChat/18.svg" alt="Icon" id="icon">
   <span id="name">
     Web Chat Online
   </span>
   <!-- Avatar & Dropdown -->
-  <div id="navbarDropdownMenuLink" 
-    id="avatar" 
-    class="dropdown dropleft" 
-    role="button" 
-    data-toggle="dropdown"
-    aria-haspopup="true" 
-    aria-expanded="false">
-    <img *ngIf="haveAvatar && loginSuccess" 
-      id="avatar" 
-      [src]="currentUser.avatar" 
-      alt="message-icon">
-    <ngx-avatar *ngIf="!haveAvatar && loginSuccess" 
-      size="34" 
-      [name]="fullName" 
-      id="avatar"></ngx-avatar>
+  <div id="navbarDropdownMenuLink" id="avatar" class="dropdown dropleft" role="button" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    <img *ngIf="haveAvatar && loginSuccess" id="avatar" [src]="currentUser.avatar" alt="message-icon">
+    <ngx-avatar *ngIf="!haveAvatar && loginSuccess" size="34" [name]="fullName" id="avatar"></ngx-avatar>
   </div>
   <!-- Avatar & Dropdown -->
   <!-- Dropdown list -->
-  <ul class="dropdown-menu" 
-    aria-labelledby="navbarDropdownMenuLink">
-    <a class="dropdown-item" 
-      onclick="document.getElementById('edit-profile').style.display='block'">
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <a class="dropdown-item" onclick="document.getElementById('edit-profile').style.display='block'">
       Thông tin cá nhân
     </a>
-    <a class="dropdown-item" 
-      [routerLink]="['/login']" 
-      (click)="onLogout()">
+    <a class="dropdown-item" [routerLink]="['/login']" (click)="onLogout()">
       Đăng xuất
     </a>
   </ul>
@@ -48,37 +29,23 @@
 </footer>
 <!-- Edit profile -->
 <div id="edit-profile" class="modal">
-  <form class="modal-content animate" 
-    [formGroup]="editForm" 
-    (ngSubmit)="onEdit()">
+  <form class="modal-content animate" [formGroup]="editForm" (ngSubmit)="onEdit()">
     <div class="container">
-      <div class="row" 
-        style="align-items: center; 
+      <div class="row" style="align-items: center; 
           justify-content: center;">
-        <h4 class="info-text" 
-          style="width: 100%; 
+        <h4 class="info-text" style="width: 100%; 
             border-bottom: 2px solid black; 
             padding-bottom: 15px;">
-            Thông tin cá nhân
-          </h4>
+          Thông tin cá nhân
+        </h4>
         <div class="col-sm-4 col-sm-offset-1">
           <!-- Avatar -->
           <div class="picture-container">
             <div class="picture">
-              <img class="picture-src" 
-                *ngIf="filePath" 
-                [src]="filePath" 
-                id="wizardPicturePreview" 
+              <img class="picture-src" *ngIf="filePath" [src]="filePath" id="wizardPicturePreview" title="" />
+              <img class="picture-src" *ngIf="!filePath" [src]="currentUser.avatar" id="wizardPicturePreview"
                 title="" />
-              <img class="picture-src" 
-                *ngIf="!filePath" 
-                [src]="currentUser.avatar" 
-                id="wizardPicturePreview"
-                title="" />
-              <input type="file" 
-                id="wizard-picture" 
-                #fileInput 
-                (change)="processFile(fileInput)">
+              <input type="file" id="wizard-picture" #fileInput (change)="processFile(fileInput)">
             </div>
             <h6>
               Chọn ảnh đại diện
@@ -90,18 +57,12 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Họ</label>
-            <input name="firstname" 
-              type="text" 
-              class="form-control" 
-              formControlName="firstName"
+            <input name="firstname" type="text" class="form-control" formControlName="firstName"
               [ngModel]="user?.firstName">
           </div>
           <div class="form-group">
             <label>Tên</label>
-            <input name="lastname" 
-              type="text" 
-              class="form-control" 
-              formControlName="lastName"
+            <input name="lastname" type="text" class="form-control" formControlName="lastName"
               [ngModel]="user?.lastName">
           </div>
         </div>
@@ -110,11 +71,7 @@
         <div class="col-sm-10 col-sm-offset-1">
           <div class="form-group">
             <label>Email</label>
-            <input name="email" 
-              type="email" 
-              class="form-control" 
-              formControlName="email" 
-              [ngModel]="user?.email">
+            <input name="email" type="email" class="form-control" formControlName="email" [ngModel]="user?.email">
           </div>
         </div>
         <!-- Thông tin email -->
@@ -125,19 +82,15 @@
           padding-bottom: 10px;">
       <button style="width: 100px; 
           float: right; 
-          margin-right: 24px" 
-          type="submit" 
-          class="btn btn-primary">
-          Cập nhật
-        </button>
+          margin-right: 24px" type="submit" class="btn btn-primary">
+        Cập nhật
+      </button>
       <!-- Cancel Button -->
       <button style="width: 100px; 
           float: right; 
-          margin-right: 24px" 
-          type="button"
-          onclick="document.getElementById('edit-profile').style.display='none'" 
-          class="btn btn-danger">
-          Hủy bỏ
+          margin-right: 24px" type="button" onclick="document.getElementById('edit-profile').style.display='none'"
+        class="btn btn-danger">
+        Hủy bỏ
       </button>
     </div>
   </form>
