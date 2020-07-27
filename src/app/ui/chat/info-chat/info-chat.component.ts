@@ -31,11 +31,11 @@ export class InfoChatComponent implements OnInit {
     this._route.params.subscribe(val => {
       this.convId = val.id
       this.getUserId();
-      this._messageService.getFileAndImage(val.id).subscribe((res) => {
-        this.messages = res
-        this.getFiles();
-        this.getImages();
-      })
+      this.getFiles();
+      this.getImages();
+      // this._messageService.getFileAndImage(val.id).subscribe((res) => {
+      //   this.messages = res
+      // })
     });
 
   }
@@ -44,16 +44,22 @@ export class InfoChatComponent implements OnInit {
     this.modalImg = document.getElementById("img"); // Lấy phần tử Image modal
   }
   /**
-   * Hàm lọc dữ liệu các tin nhắn dạng ảnh
+   * Hàm lấy 3 ảnh từ cơ sở dữ liệu
    */
   getImages() {
-    this.images = this.messages.filter(mess => ((mess.type == 2)));
+    //this.images = this.messages.filter(mess => ((mess.type == 2)));
+    this._messageService.getImage(this.convId).subscribe((res) => {
+      this.images = res
+    })
   }
   /**
-   * Hàm lọc dữ liệu tin nhắn dạng file
+   * Hàm lấy 2 file từ cơ sở dữ liệu
    */
   getFiles() {
-    this.files = this.messages.filter(mess => ((mess.type == 5)));
+    //this.files = this.messages.filter(mess => ((mess.type == 5)));
+    this._messageService.getFile(this.convId).subscribe((res) => {
+      this.files = res
+    })
   }
   /**
    * Hàm lắng nghe sự thay đỏi về người dùng đang chat
@@ -61,11 +67,11 @@ export class InfoChatComponent implements OnInit {
   getUserId() {
     this._dataTransferService.getUser$.subscribe(data => {
       this._userService.getUser(data).subscribe(user => this.user = user)
-      this._messageService.getFileAndImage(this.convId).subscribe((res) => {
-        this.messages = res
-        this.getFiles();
-        this.getImages();
-      })
+      this.getFiles();
+      this.getImages();
+      // this._messageService.getFileAndImage(this.convId).subscribe((res) => {
+      //   this.messages = res
+      // })
     })
   }
   /**
@@ -92,5 +98,34 @@ export class InfoChatComponent implements OnInit {
     this.modalImg.src = src;
     this.modalImg.style.width = "auto";
     this.modalImg.style.height = "auto";
+  }
+  /**
+   * Hiển thị tất cả các file
+   * @param showFiles Hiện/ẩn list file
+   */
+  showFiles = false;
+  showAllFiles(){
+    this._messageService.getAllFiles(this.convId).subscribe((res) =>{
+      this.files = res;
+    })
+    this.showFiles = true;
+  }
+  /**
+   * Hiển thị tất cả các ảnh
+   * @param showImages Hiện/ẩn list ảnh
+   */
+  showImages = false;
+  showAllImages(){
+    this._messageService.getAllImages(this.convId).subscribe((res) =>{
+      this.images = res;
+    })
+    this.showImages = true;
+  }
+  /**
+   * Mở files
+   * @param url Đường dẫn file
+   */
+  openFile(url: string) {
+    window.open(url, "");
   }
 }

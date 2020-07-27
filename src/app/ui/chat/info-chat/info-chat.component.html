@@ -35,9 +35,13 @@
             data-toggle="dropdown" 
             aria-expanded="false"
             (click)=toggleDisplayFile()>
-            <img 
+            <img *ngIf="isShowFile"
                 src="/assets/ICON/IconAppChat/13.svg" 
                 alt="Drop" 
+                id="drop">
+            <img *ngIf="!isShowFile"
+                src="/assets/ICON/IconAppChat/19.svg" 
+                style=" transform: rotate(180deg);"
                 id="drop">
             <p class="header">
                 TỆP ĐÃ CHIA SẺ
@@ -54,29 +58,40 @@
                                 *ngSwitchCase="'pdf'" 
                                 src="../../../../assets/ICON/pdf.png" 
                                 alt="IconPDF"
-                                style="width: 16px; height: 16px;" />
+                                style="width: 16px; height: 16px;"
+                                 />
                             <img 
                                 *ngSwitchCase="'doc' || 'docx'" 
                                 src="../../../../assets/ICON/docx.png" 
                                 alt="IconDOC"
-                                style="width: 16px; height: 16px;" />
+                                style="width: 16px; height: 16px;" 
+                                 />
                             <img 
                                 *ngSwitchCase="'pptx'" 
                                 src="../../../../assets/ICON/pptx.png" 
                                 alt="IconPPTX"
-                                style="width: 16px; height: 16px;" />
+                                style="width: 16px; height: 16px;" 
+                                 />
                             <img 
                                 *ngSwitchDefault 
                                 src="../../../../assets/ICON/other.png" 
                                 alt="IconOther"
-                                style="width: 16px; height: 16px;" />
-                            <a href="#" class="item">
+                                style="width: 16px; height: 16px;" 
+                                 />
+                            <a (click)="openFile(img.filePath)" class="item">
                                 {{ img.content }}
                             </a>
                         </li>
                     </ul>
-                    <!-- Danh sách file -->
+                        <!-- Danh sách file -->
                 </ng-container>
+                    <ul *ngIf="!showFiles">
+                        <li class="showFiles">
+                            <a (click)="showAllFiles()">
+                              Hiển thị tất cả
+                            </a>
+                        </li>
+                    </ul>
             </div>
         </div>
     </div>
@@ -89,9 +104,13 @@
             class="drop-img" 
             data-toggle="dropdown" 
             (click)=toggleDisplayImg()>
-            <img 
+            <img *ngIf="!isShowImg"
                 src="/assets/ICON/IconAppChat/13.svg" 
                 alt="Drop" 
+                id="drop">
+            <img *ngIf="isShowImg" 
+                src="/assets/ICON/IconAppChat/19.svg" 
+                style=" transform: rotate(180deg);"
                 id="drop">
             <p class="header">
                 ẢNH ĐÃ CHIA SẺ
@@ -111,6 +130,11 @@
                         (click)="ModalImage(img.filePath)">
                 </div>
             </ng-container>
+        </div>
+        <div *ngIf="!showImages" class="showFiles"> 
+            <a (click)="showAllImages()">
+                  Hiển thị tất cả
+            </a>
         </div>
         <!-- Danh sách ảnh -->
     </div>

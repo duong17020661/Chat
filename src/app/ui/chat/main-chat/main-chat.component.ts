@@ -5,6 +5,8 @@ import { DatatransferService } from 'src/app/services/datatransfer.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { StringeeService } from '../../../services/stringee/stringee.service';
 import { IUser } from 'src/models/user';
+import { debounceTime } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 /**
  * Hàm khởi tạo đối tượng file
  */
@@ -46,7 +48,6 @@ export class MainChatComponent implements OnInit {
       this.getUserId()
       this._dataTransferService.changeConv(val.id);
     });
-
   }
 
   ngOnInit(): void {
@@ -83,7 +84,7 @@ export class MainChatComponent implements OnInit {
    * @param value Dữ liệu nhập vào
    */
   onEnter(value: string) {
-    if (value) {
+    if (value.trim() != '') {
       this._stringeeService.sendMessage(value, this.convId)
       value = '';
     }
@@ -93,20 +94,27 @@ export class MainChatComponent implements OnInit {
   @ViewChild('scrollframe', { static: false }) scrollFrame: ElementRef;
   @ViewChildren('item') itemElements: QueryList<any>;
 
-  private scrollContainer: any;
+  private _scrollContainer: any;
+  private _isNearBottom = true;
 
   ngAfterViewInit() {
-    this.scrollContainer = this.scrollFrame.nativeElement;
+    this._scrollContainer = this.scrollFrame.nativeElement;
     this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());
   }
-
+  /**
+   * Hàm chạy khi có thay đổi ở Box chat
+   */
   private onItemElementsChanged(): void {
-    this.scrollToBottom();
+    if (this._isNearBottom) {
+      this.scrollToBottom();
+    }
   }
-
+  /**
+   * Tự động scroll xuống dưới cùng
+   */
   private scrollToBottom(): void {
-    this.scrollContainer.scroll({
-      top: this.scrollContainer.scrollHeight,
+    this._scrollContainer.scroll({
+      top: this._scrollContainer.scrollHeight,
       left: 0,
       behavior: 'smooth'
     });
@@ -213,6 +221,15 @@ export class MainChatComponent implements OnInit {
     });
   }
   /**
+   * Chỉ cuộn tự động, nếu người dùng đã cuộn đến cuối
+   */ 
+  private isUserNearBottom(): boolean {
+    const threshold = 150;
+    const position = this._scrollContainer.scrollTop + this._scrollContainer.offsetHeight;
+    const height = this._scrollContainer.scrollHeight;
+    return position > height - threshold;
+  }
+  /**
    * Hàm nhận sự kiện keyup khi người dung typing
    */
   onKeyUp() {
@@ -220,12 +237,18 @@ export class MainChatComponent implements OnInit {
       userId: this.currentUserId,
       convId: this.convId
     }
-    setTimeout(() => {
-      // Gửi tín hiệu người dùng kết thúc typing
-      this._stringeeService.stringeeChat.userEndTyping(info, function (res) {
-        console.log(res)
-      })
-    }, 1000);
+    //  Tham chiếu html
+    const searchBox = document.getElementById('message');
+    // streams
+    const keyup$ = fromEvent(searchBox, 'keyup');
+    // Chờ đợi 5s mới emit
+    keyup$
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe(
+        () => this._stringeeService.stringeeChat.userEndTyping(info, () =>{})
+      );
   }
   /**
    * Hàm nhận sự kiện keydown khi người dung typing

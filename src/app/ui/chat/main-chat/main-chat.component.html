@@ -74,10 +74,10 @@
                     </div>
                 </li>
                 <!-- Người nhận -->
-                <!-- Thời gian gửi tin nhắn -->
-                <p class="timeDiff">
-                    {{ message.createdAt | date: 'MMM d, H:mm' }}</p>
             </ng-container>
+            <!-- Thời gian gửi tin nhắn -->
+            <p class="timeDiff">
+            {{ messages[0].createdAt | date: 'MMM d, H:mm' }}</p>
         </ul>
         <!-- Nội dung hiển thị khi có tin nhắn -->
         <!-- Nội dung hiển thị khi chưa có tin nhắn nào -->
@@ -87,6 +87,9 @@
                     size="32" 
                     [name]="user.firstName + ' ' + user.lastName">
                 </ngx-avatar>
+                <img *ngIf="user.avatar" 
+                        [src]="user.avatar" 
+                        class="avatar">
                 <div class="typing">
                     <div class="spin spinner-grow spinner-grow-sm" 
                         role="status">
@@ -103,7 +106,7 @@
         <!-- Nội dung hiển thị khi chưa có tin nhắn nào -->
     </div>
     <div 
-        *ngIf="!messages || messages[0].content.content == ''" 
+        *ngIf="!messages" 
         class="started">
         <img 
             src="../../../../assets/IMG/Watermark/watermark.svg" 

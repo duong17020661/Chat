@@ -64,10 +64,13 @@ export class NavbarComponent implements OnInit {
       else this.haveAvatar = false;
       // Lấy tên đầy đủ của người dùng
       this.fullName = this.currentUser.firstName + " " + this.currentUser.lastName
-      this._userService.getUser(this.currentUser.id).subscribe((res) => {
-        this.user = res
-        console.log(this.user)
+      this._dataTransfer.getcurrentUser$.subscribe((res) => {
+        this._userService.getUser(res.id).subscribe((res) => {
+          this.user = res
+          console.log(this.user)
+        })
       })
+      
     }
     else this.loginSuccess = false;
   }

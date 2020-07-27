@@ -47,10 +47,38 @@ export class MessagesService {
     return this.http.post<any>('https://localhost:44337/api/Files', options)
   }
   /**
-   * Hàm lấy thông tin tất các file từ server của bản thân
-   * @param convId 
+   * Hàm lấy thông tin tất các file và ảnh từ server của bản thân
+   * @param convId Mã cuộc trò chuyện
    */
   getFileAndImage(convId: string) {
     return this.http.get<any>('https://localhost:44337/api/Files/' + convId)
+  }
+  /**
+   * Hàm lấy thông tin tất các file từ server của bản thân
+   * @param convId Mã cuộc trò chuyện
+   */
+  getAllFiles(convId: string) {
+    return this.http.get<any>('https://localhost:44337/api/Files/getAllFile?convId=' + convId)
+  }
+  /**
+   * Hàm lấy thông tin tất các ảnh từ server của bản thân
+   * @param convId Mã cuộc trò chuyện
+   */
+  getAllImages(convId: string) {
+    return this.http.get<any>('https://localhost:44337/api/Files/getAllImage?convId=' + convId)
+  }
+  /**
+   * Hàm lấy thông tin 2 file từ server của bản thân
+   * @param convId Mã cuộc trò chuyện
+   */
+  getFile(convId: string) {
+    return this.http.get<any>('https://localhost:44337/api/Files/getFiles?convId=' + convId)
+  }
+  /**
+   * Hàm lấy thông tin 3 ảnh từ server của bản thân
+   * @param convId Mã cuộc trò chuyện
+   */
+  getImage(convId: string) {
+    return this.http.get<any>('https://localhost:44337/api/Files/getImages?convId=' + convId)
   }
 }

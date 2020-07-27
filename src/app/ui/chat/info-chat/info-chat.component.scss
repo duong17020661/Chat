@@ -57,7 +57,7 @@
     overflow-x: hidden;
 }
 .scroll-file::-webkit-scrollbar {
-    width: 8px;
+    width: 0px;
     background: transparent;
 }
 .scroll-file::-webkit-scrollbar-thumb {
@@ -96,8 +96,16 @@
     height: 28px;
 }
 .list-file a {
-    text-decoration: underline;
     color: #2688e6;;
+}
+.showFiles{
+    text-align: center;
+    width: 100%;
+    color: #2688e6;
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
 }
 // Danh sách ảnh
 #drop {
@@ -110,6 +118,7 @@
     margin-left: 10px;
     font-size: 13px;
     color: #666666;
+    cursor: pointer;
 }
 .img-preview {
     margin-bottom: 10px;
